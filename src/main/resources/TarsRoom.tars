@@ -1,0 +1,12 @@
+
+
+
+
+module JFGame
+{
+    interface TarsRoom
+    {
+        string hello();
+
+    };
+}
