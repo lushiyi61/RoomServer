@@ -10,7 +10,10 @@
     <packaging>war</packaging>
 
     <properties>
-        <kotlin.version>1.2.51</kotlin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mavenVersion>2.2.1</mavenVersion>
+        <mavenPluginPluginVersion>3.2</mavenPluginPluginVersion>
+        <kotlin.version>{{ site.data.releases.latest.version }}</kotlin.version>
     </properties>
 
 
@@ -23,8 +26,8 @@
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>1.2.41</version>
         </dependency>
     </dependencies>
     <build>
@@ -51,30 +54,6 @@
                         <charset>UTF-8</charset>
                         <packagePrefixName>com.bzw.tars.server.</packagePrefixName>
                     </tars2JavaConfig>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jvmTarget>1.8</jvmTarget>
                 </configuration>
             </plugin>
             <plugin>
