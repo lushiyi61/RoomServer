@@ -1,0 +1,81 @@
+
+
+/*  
+ * @description 定义与终端通讯的消息结构
+ * =====================================
+ * @author zoujian
+ * @date 2018/7/10 14:03
+ */
+module JFGameClientProto
+{
+
+	/*
+	 * @description 返回码
+	 * =====================================
+	 * @author zoujian
+	 * @date 2018/7/10 14:06
+	 */
+	enum E_RETCODE
+	{
+	    E_COMMON_SUCCESS 		 		=0,				// 返回成功
+	}
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+	/*
+	 * @description 消息类型
+	 * =====================================
+	 * @author zoujian
+	 * @date 2018/7/10 14:07
+	 */
+	enum E_MSGTYPE
+	{
+		E_REQUEST		= 0,			// 请求消息
+		E_RESPONSE	    = 1,			// 响应消息
+		E_NOTIFY		= 2,			// 通知消息
+	};
+
+	/*
+	 * @description 消息头
+	 * =====================================
+	 * @author zoujian
+	 * @date 2018/7/10 14:10
+	 */
+	struct TMsgHead
+	{
+		0 require short nMsgID;				    // 消息ID
+		1 require E_MSGTYPE nMsgType;			// 消息类型
+	};
+
+	/*
+	 * @description 用户标识
+	 * =====================================
+	 * @author zoujian
+	 * @date 2018/7/10 14:10
+	 */
+	struct TUid
+	{
+		0 require	long   	 lUid;
+		1 optional   string  sToken;
+	};
+
+	/*
+	 * @description 通讯包头
+	 * =====================================
+	 * @author zoujian
+	 * @date 2018/7/10 14:11
+	 */
+	struct TPackage
+	{
+		0 require 	int 					iVersion;	  		 	// 客户端版本
+		1 require 	TUid 					stUid;		   		 	// 用户标识
+		2 require	int						iGameID;	   			// 游戏ID
+		3 require 	string 					sRoomID;				// RoomID
+		4 require	int 					iRoomServerID;	   	 	// RoomServerID
+		5 require 	int 					iSequence;	   		 	// 序列号
+		6 require 	int 					iFlag;		   		 	// 标志位, 参数PKFLAG定义
+		7 require 	vector<TMsgHead> 		vecMsgHead;			 	// 消息头数据
+		8 require 	vector<vector<byte>> 	vecMsgData;			 	// 消息体数据
+	};
+
+
+}

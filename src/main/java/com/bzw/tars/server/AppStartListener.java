@@ -24,10 +24,11 @@ public class AppStartListener implements AppContextListener {
 
     @Override
     public void appContextStarted(AppContextEvent event) {
-
+        System.out.println("==========appContextStarted==========");
     }
 
     @Override
     public void appServantStarted(AppServantEvent event) {
+        System.out.println("==========appServantStarted==========");
     }
 }

@@ -1,0 +1,17 @@
+
+
+
+module JFGame
+{
+    struct TClientParam
+    {
+        0 require string sAddr;
+        1 require short nPort;
+    };
+
+    struct TUserBaseInfoExt
+    {
+        0 require int num;
+    };
+
+};

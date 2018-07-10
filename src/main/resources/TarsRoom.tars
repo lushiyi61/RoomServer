@@ -1,12 +1,42 @@
 
 
 
+#include "JFGame.tars"
+
 
 module JFGame
 {
     interface TarsRoom
     {
+        /*
+         * @description just for test
+         * =====================================
+         * @author zoujian
+         * @date 2018/7/10 10:52
+         * @param
+         * @return
+         */
         string hello();
 
+        /*
+         * @description 处理终端请求
+         * =====================================
+         * @author zoujian
+         * @date 2018/7/10 10:55
+         * @param
+         * @return
+         */
+        int onRequest(long lUin, vector<byte> sMsgPack, string sCurServantAddr, TClientParam stClientParam, TUserBaseInfoExt stUerBaseInfo);
+
+
+        /*
+         * @description 处理玩家掉线
+         * =====================================
+         * @author zoujian
+         * @date 2018/7/10 11:01
+         * @param
+         * @return
+         */
+        int onOffLine(long lUin);
     };
 }

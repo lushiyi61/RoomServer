@@ -11,4 +11,8 @@ public abstract class TarsRoomPrxCallback extends TarsAbstractCallback {
 
 	public abstract void callback_hello(String ret);
 
+	public abstract void callback_onRequest(int ret);
+
+	public abstract void callback_onOffLine(int ret);
+
 }

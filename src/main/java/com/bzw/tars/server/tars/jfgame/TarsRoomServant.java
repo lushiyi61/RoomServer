@@ -3,7 +3,7 @@
 // TARS version 1.0.1.
 // **********************************************************************
 
-package com.bzw.tars.server.jfgame;
+package com.bzw.tars.server.tars.jfgame;
 
 import com.qq.tars.protocol.annotation.*;
 import com.qq.tars.protocol.tars.annotation.*;
@@ -13,4 +13,8 @@ import com.qq.tars.common.support.Holder;
 public interface TarsRoomServant {
 
 	public String hello();
+
+	public int onRequest(long lUin, byte[] sMsgPack, String sCurServantAddr, TClientParam stClientParam, TUserBaseInfoExt stUerBaseInfo);
+
+	public int onOffLine(long lUin);
 }
