@@ -26,18 +26,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TarsRoomServantImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/impl/TarsRoomServantImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Player.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/Player.kt">
           <provider selected="true" editor-type-id="text-editor">
@@ -92,11 +80,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Table.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Table.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/Table.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+            <state relative-caret-position="430">
+              <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="76" column="35" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
+              <folding>
+                <element signature="n#plugin#2;n#plugins#0;n#build#0;n#project#0;n#!!top" />
+                <element signature="n#plugin#3;n#plugins#0;n#build#0;n#project#0;n#!!top" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -169,7 +170,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/Player.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/1111.kt" />
         <option value="$PROJECT_DIR$/src/test/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerTest.kt" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/common/Component.kt" />
         <option value="$PROJECT_DIR$/src/test/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/InfoGame.kt" />
@@ -180,6 +180,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/InfoVip.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/room/Room.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/Table.kt" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -196,8 +197,8 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="662" />
-    <option name="y" value="72" />
+    <option name="x" value="559" />
+    <option name="y" value="38" />
     <option name="width" value="1175" />
     <option name="height" value="929" />
   </component>
@@ -260,27 +261,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="player" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -476,7 +456,7 @@
       <option name="presentableId" value="Default" />
       <updated>1530860568921</updated>
       <workItem from="1530860570534" duration="10421000" />
-      <workItem from="1531099022443" duration="36972000" />
+      <workItem from="1531099022443" duration="37187000" />
     </task>
     <servers />
   </component>
@@ -513,7 +493,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47393000" />
+    <option name="totallyTimeSpent" value="47608000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -525,7 +505,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="662" y="72" width="1175" height="929" extended-state="0" />
+    <frame x="559" y="38" width="1175" height="929" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -535,7 +516,7 @@
       <window_info id="Designer" order="2" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.06278027" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info id="Structure" order="1" sideWeight="0.3460145" side_tool="true" visible="true" weight="0.3147982" />
+      <window_info id="Structure" order="1" sideWeight="0.23450586" side_tool="true" visible="true" weight="0.3147982" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39954337" />
@@ -546,9 +527,9 @@
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2858991" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.22768435" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.4121212" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6539855" visible="true" weight="0.3147982" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7654941" visible="true" weight="0.3147982" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32848486" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -700,13 +681,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerTest.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -835,8 +809,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/Table.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        <state relative-caret-position="430">
+          <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="76" column="35" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
+          <folding>
+            <element signature="n#plugin#2;n#plugins#0;n#build#0;n#project#0;n#!!top" />
+            <element signature="n#plugin#3;n#plugins#0;n#build#0;n#project#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
