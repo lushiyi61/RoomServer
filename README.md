@@ -18,3 +18,4 @@
     - <tarsFile>${basedir}/src/main/resources/RoomServant.tars</tarsFile> ：新增tars文件
     - <servant>true</servant> ：true为服务端，false为客户端
 - 编译指令：mvn tars:tars2java
+- 打包指令：mvn package生成war包，后续可以管理系统进行发布。

@@ -58,33 +58,36 @@
                 <configuration>
                     <tars2JavaConfig>
                         <tarsFiles>
+                            <tarsFile>${basedir}/src/main/resources/JFGame.tars</tarsFile>
                             <tarsFile>${basedir}/src/main/resources/TarsRoom.tars</tarsFile>
+                            <tarsFile>${basedir}/src/main/resources/JFGameClientProto.tars</tarsFile>
                         </tarsFiles>
                         <tarsFileCharset>UTF-8</tarsFileCharset>
                         <servant>true</servant>
                         <srcPath>${basedir}/src/main/java</srcPath>
                         <charset>UTF-8</charset>
-                        <packagePrefixName>com.bzw.tars.server.</packagePrefixName>
+                        <packagePrefixName>com.bzw.tars.server.tars</packagePrefixName>
                     </tars2JavaConfig>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.tencent.tars</groupId>
-                <artifactId>tars-maven-plugin</artifactId>
-                <version>${project.version}</version>
-                <configuration>
-                    <tars2JavaConfig>
-                        <tarsFiles>
-                            <tarsFile>${basedir}/src/main/resources/TarsRoom.tars</tarsFile>
-                        </tarsFiles>
-                        <tarsFileCharset>UTF-8</tarsFileCharset>
-                        <servant>false</servant>
-                        <srcPath>${basedir}/src/main/java</srcPath>
-                        <charset>UTF-8</charset>
-                        <packagePrefixName>com.bzw.tars.client.</packagePrefixName>
-                    </tars2JavaConfig>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>com.tencent.tars</groupId>-->
+                <!--<artifactId>tars-maven-plugin</artifactId>-->
+                <!--<version>${project.version}</version>-->
+                <!--<configuration>-->
+                    <!--<tars2JavaConfig>-->
+                        <!--<tarsFiles>-->
+                            <!--<tarsFile>${basedir}/src/main/resources/JFGame.tars</tarsFile>-->
+                            <!--<tarsFile>${basedir}/src/main/resources/TarsRoom.tars</tarsFile>-->
+                        <!--</tarsFiles>-->
+                        <!--<tarsFileCharset>UTF-8</tarsFileCharset>-->
+                        <!--<servant>false</servant>-->
+                        <!--<srcPath>${basedir}/src/main/java</srcPath>-->
+                        <!--<charset>UTF-8</charset>-->
+                        <!--<packagePrefixName>com.bzw.tars.client.</packagePrefixName>-->
+                    <!--</tars2JavaConfig>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
