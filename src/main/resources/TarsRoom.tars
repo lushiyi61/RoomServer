@@ -26,7 +26,7 @@ module JFGame
          * @param
          * @return
          */
-        int onRequest(long lUin, vector<byte> sMsgPack, string sCurServantAddr, TClientParam stClientParam, TUserBaseInfoExt stUerBaseInfo);
+        int onRequest(long lUin, vector<byte> sMsgPack, TClientParam stClientParam, TUserBaseInfoExt stUerBaseInfo);
 
 
         /*

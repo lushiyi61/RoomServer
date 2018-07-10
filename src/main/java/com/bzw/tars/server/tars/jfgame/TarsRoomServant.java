@@ -14,7 +14,7 @@ public interface TarsRoomServant {
 
 	public String hello();
 
-	public int onRequest(long lUin, byte[] sMsgPack, String sCurServantAddr, TClientParam stClientParam, TUserBaseInfoExt stUerBaseInfo);
+	public int onRequest(long lUin, byte[] sMsgPack, TClientParam stClientParam, TUserBaseInfoExt stUerBaseInfo);
 
 	public int onOffLine(long lUin);
 }

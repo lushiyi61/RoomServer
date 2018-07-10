@@ -77,5 +77,22 @@ module JFGameClientProto
 		8 require 	vector<vector<byte>> 	vecMsgData;			 	// 消息体数据
 	};
 
-
+    /*
+     * @description 消息处理（来自客户端）
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/10 15:20
+     */
+    enum E_MSGID
+    {
+        E_ENTER_ROOM  = 101,        // 进入房间
+        E_LEAVE_ROOM  ,             // 离开房间
+        E_SIT_DOWN  ,               // 坐下（需要制定桌子）
+        E_DISMISS_TABLE  ,          // 申请解散桌子
+        E_VOTE_DISMISS_TABLE  ,     // 投票解散桌子
+        E_CHAT_TEXT_ROOM  ,         // 发送文本&表情（房间内）
+        E_CHAT_AUDIO_ROOM  ,        // 发送语音（房间内）
+        E_CHAT_TEXT_TABLE  ,        // 发送文本&表情（牌桌内）
+        E_CHAT_AUDIO_TABLE  ,       // 发送语音（牌桌内）
+    }
 }
