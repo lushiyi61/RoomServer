@@ -3,7 +3,7 @@
 // TARS version 1.0.1.
 // **********************************************************************
 
-package com.bzw.tars.client.jfgame;
+package com.bzw.tars.client.jfgameclientproto;
 
 import com.qq.tars.protocol.util.*;
 import com.qq.tars.protocol.annotation.*;
@@ -11,43 +11,43 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TClientParam {
+public class TMsgHead {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public String sAddr = "";
+	public short nMsgID = (short)0;
 	@TarsStructProperty(order = 1, isRequire = true)
-	public short nPort = (short)0;
+	public int nMsgType = 0;
 
-	public String getSAddr() {
-		return sAddr;
+	public short getNMsgID() {
+		return nMsgID;
 	}
 
-	public void setSAddr(String sAddr) {
-		this.sAddr = sAddr;
+	public void setNMsgID(short nMsgID) {
+		this.nMsgID = nMsgID;
 	}
 
-	public short getNPort() {
-		return nPort;
+	public int getNMsgType() {
+		return nMsgType;
 	}
 
-	public void setNPort(short nPort) {
-		this.nPort = nPort;
+	public void setNMsgType(int nMsgType) {
+		this.nMsgType = nMsgType;
 	}
 
-	public TClientParam() {
+	public TMsgHead() {
 	}
 
-	public TClientParam(String sAddr, short nPort) {
-		this.sAddr = sAddr;
-		this.nPort = nPort;
+	public TMsgHead(short nMsgID, int nMsgType) {
+		this.nMsgID = nMsgID;
+		this.nMsgType = nMsgType;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(sAddr);
-		result = prime * result + TarsUtil.hashCode(nPort);
+		result = prime * result + TarsUtil.hashCode(nMsgID);
+		result = prime * result + TarsUtil.hashCode(nMsgType);
 		return result;
 	}
 
@@ -59,25 +59,25 @@ public class TClientParam {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TClientParam)) {
+		if (!(obj instanceof TMsgHead)) {
 			return false;
 		}
-		TClientParam other = (TClientParam) obj;
+		TMsgHead other = (TMsgHead) obj;
 		return (
-			TarsUtil.equals(sAddr, other.sAddr) &&
-			TarsUtil.equals(nPort, other.nPort) 
+			TarsUtil.equals(nMsgID, other.nMsgID) &&
+			TarsUtil.equals(nMsgType, other.nMsgType) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(sAddr, 0);
-		_os.write(nPort, 1);
+		_os.write(nMsgID, 0);
+		_os.write(nMsgType, 1);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
-		this.sAddr = _is.readString(0, true);
-		this.nPort = _is.read(nPort, 1, true);
+		this.nMsgID = _is.read(nMsgID, 0, true);
+		this.nMsgType = _is.read(nMsgType, 1, true);
 	}
 
 }

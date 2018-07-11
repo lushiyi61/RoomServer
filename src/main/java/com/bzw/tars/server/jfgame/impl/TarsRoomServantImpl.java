@@ -29,7 +29,6 @@ public class TarsRoomServantImpl implements TarsRoomServant {
         for (int i = 0; i < tPackage.vecMsgHead.size(); i++) {
 
             AppData appData = AppData.Companion.getInstance();
-            // 由Room去处理
 
             // 玩家 IP 消息头 消息包
 

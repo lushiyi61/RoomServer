@@ -110,8 +110,8 @@ module JFGameClientProto
 		1 require byte      nState;                     // 玩家状态
 		2 require byte      nChairNo; 			 		// 所在桌子位置
 		3 require string    sNickName;					// 玩家昵称
-		4 require string    sPortraitID;				// 头像编号
-		5 require string    sPortraitStr;               // 头像路径
+		4 require string    sPortraitNo;				// 头像编号
+		5 require string    sPortraitPath;               // 头像路径
 		6 require byte      iSex;					    // 玩家性别 0-未知 1-男 2-女
 		7 require string    sIP;						// 玩家IP
     };

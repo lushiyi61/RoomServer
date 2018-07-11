@@ -3,7 +3,7 @@
 // TARS version 1.0.1.
 // **********************************************************************
 
-package com.bzw.tars.server.tars.jfgameclientproto;
+package com.bzw.tars.client.jfgameclientproto;
 
 import com.qq.tars.protocol.util.*;
 import com.qq.tars.protocol.annotation.*;

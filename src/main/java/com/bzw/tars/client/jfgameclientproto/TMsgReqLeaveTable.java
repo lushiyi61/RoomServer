@@ -3,7 +3,7 @@
 // TARS version 1.0.1.
 // **********************************************************************
 
-package com.bzw.tars.client.jfgame;
+package com.bzw.tars.client.jfgameclientproto;
 
 import com.qq.tars.protocol.util.*;
 import com.qq.tars.protocol.annotation.*;
@@ -11,31 +11,31 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class UserBaseInfoExt {
+public class TMsgReqLeaveTable {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public int num = 0;
+	public String sTableNo = "";
 
-	public int getNum() {
-		return num;
+	public String getSTableNo() {
+		return sTableNo;
 	}
 
-	public void setNum(int num) {
-		this.num = num;
+	public void setSTableNo(String sTableNo) {
+		this.sTableNo = sTableNo;
 	}
 
-	public UserBaseInfoExt() {
+	public TMsgReqLeaveTable() {
 	}
 
-	public UserBaseInfoExt(int num) {
-		this.num = num;
+	public TMsgReqLeaveTable(String sTableNo) {
+		this.sTableNo = sTableNo;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(num);
+		result = prime * result + TarsUtil.hashCode(sTableNo);
 		return result;
 	}
 
@@ -47,22 +47,22 @@ public class UserBaseInfoExt {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof UserBaseInfoExt)) {
+		if (!(obj instanceof TMsgReqLeaveTable)) {
 			return false;
 		}
-		UserBaseInfoExt other = (UserBaseInfoExt) obj;
+		TMsgReqLeaveTable other = (TMsgReqLeaveTable) obj;
 		return (
-			TarsUtil.equals(num, other.num) 
+			TarsUtil.equals(sTableNo, other.sTableNo) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(num, 0);
+		_os.write(sTableNo, 0);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
-		this.num = _is.read(num, 0, true);
+		this.sTableNo = _is.readString(0, true);
 	}
 
 }

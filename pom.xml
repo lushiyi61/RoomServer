@@ -77,8 +77,8 @@
                 <!--<configuration>-->
                     <!--<tars2JavaConfig>-->
                         <!--<tarsFiles>-->
-                            <!--<tarsFile>${basedir}/src/main/resources/JFGame.tars</tarsFile>-->
-                            <!--<tarsFile>${basedir}/src/main/resources/TarsRoom.tars</tarsFile>-->
+                            <!--<tarsFile>${basedir}/src/main/resources/JFGameClientProto.tars</tarsFile>-->
+                            <!--<tarsFile>${basedir}/src/main/resources/TarsRouter.tars</tarsFile>-->
                         <!--</tarsFiles>-->
                         <!--<tarsFileCharset>UTF-8</tarsFileCharset>-->
                         <!--<servant>false</servant>-->

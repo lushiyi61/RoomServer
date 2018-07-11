@@ -1,0 +1,17 @@
+#include "JFGameClientProto.tars"
+
+module JFGame
+{
+    interface TarsRouter
+    {
+        /*
+         * @description 推送给router，通过router转发给客户端
+         * =====================================
+         * @author zoujian
+         * @date 2018/7/11 16:36
+         * @param
+         * @return 0:ok
+         */
+        int doPush(long lUid, JFGameClientProto::TPackage TPackage);
+    }
+}

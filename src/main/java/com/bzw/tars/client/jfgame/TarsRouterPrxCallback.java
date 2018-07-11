@@ -7,12 +7,8 @@ package com.bzw.tars.client.jfgame;
 
 import com.qq.tars.rpc.protocol.tars.support.TarsAbstractCallback;
 
-public abstract class TarsRoomPrxCallback extends TarsAbstractCallback {
+public abstract class TarsRouterPrxCallback extends TarsAbstractCallback {
 
-	public abstract void callback_hello(String ret);
-
-	public abstract void callback_onRequest(int ret);
-
-	public abstract void callback_onOffLine(int ret);
+	public abstract void callback_doPush(int ret);
 
 }

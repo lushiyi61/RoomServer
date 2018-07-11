@@ -16,7 +16,9 @@ import com.bzw.tars.server.jfgame.kotlin.common.Component
 data class Personal(var playID: Long,
                     var sex: Int,
                     var nickName: String,
-                    var portrait: String);
+                    var portraitNo: String,
+                    var portraitPath: String
+);
 
 
 

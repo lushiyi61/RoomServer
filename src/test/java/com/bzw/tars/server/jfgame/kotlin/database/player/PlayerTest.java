@@ -15,7 +15,7 @@ public class PlayerTest {
     public void test(){
         Player player = new Player();
         InfoPhysical infoPhysical = new InfoPhysical(new Physical( "192.168.1.1","深圳"));
-        InfoPersonal infoPersonal = new InfoPersonal(new Personal(1111,1,"nizou","http"));
+        InfoPersonal infoPersonal = new InfoPersonal(new Personal(1111,1,"nizou","http","1234"));
 
         player.Add(infoPersonal);
         player.Add(infoPhysical);
