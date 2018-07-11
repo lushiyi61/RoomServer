@@ -5,12 +5,10 @@ package com.bzw.tars.server.jfgame.kotlin.database.table
  * @创建时间 2018/7/10
  * @描述
  */
-class TableMng private constructor(val dataMax: Int = 10000) {
-    companion object {
-        fun getInstance() = Holder.INSTANCE
-    }
+abstract class TableMng {
 
-    private object Holder {
-        val INSTANCE = TableMng();
-    }
+    abstract fun onMessage();
+    abstract fun sendData();
+    abstract fun sendNotifyData();
+
 }

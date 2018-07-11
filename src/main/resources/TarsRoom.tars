@@ -39,4 +39,17 @@ module JFGame
          */
         int onOffLine(long lUin);
     };
+
+
+    /*
+     * @description 玩家断线消息 广播
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/11 14:32
+     */
+    struct TMsgRespOffline
+    {
+        0 require long      lUid;				    // 玩家ID
+        1 require byte      nChairNo;				// 桌子位置
+    };
 }

@@ -17,8 +17,8 @@ module JFGameClientProto
 	 */
 	enum E_RETCODE
 	{
-	    E_COMMON_SUCCESS 		 		=0,				// 返回成功
-	}
+	    E_COMMON_SUCCESS 		 	= 0,				// 返回成功
+	};
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 	/*
@@ -83,16 +83,117 @@ module JFGameClientProto
      * @author zoujian
      * @date 2018/7/10 15:20
      */
-    enum E_MSGID
+    enum E_CLIENT_MSGID
     {
-        E_ENTER_ROOM  = 101,        // 进入房间
-        E_LEAVE_ROOM  ,             // 离开房间
-        E_SIT_DOWN  ,               // 坐下（需要制定桌子）
-        E_DISMISS_TABLE  ,          // 申请解散桌子
-        E_VOTE_DISMISS_TABLE  ,     // 投票解散桌子
-        E_CHAT_TEXT_ROOM  ,         // 发送文本&表情（房间内）
-        E_CHAT_AUDIO_ROOM  ,        // 发送语音（房间内）
-        E_CHAT_TEXT_TABLE  ,        // 发送文本&表情（牌桌内）
-        E_CHAT_AUDIO_TABLE  ,       // 发送语音（牌桌内）
-    }
+        E_TABLE_ENTER           = 1001,         // 进入/坐下指定桌子
+        E_TABLE_LEAVE           = 1002,         // 离开/站起指定桌子
+        E_TABLE_RECONNECT       = 1003,         // 重新连接（进入/坐下指定桌子）
+        E_TABLE_PREPARE         = 1004,         // 准备
+        E_TABLE_DISMISS         = 1005,         // 申请解散桌子
+        E_TABLE_VOTE_DISMISS    = 1006,         // 投票解散桌子
+        E_TABLE_CHAT_TEXT       = 1007,         // 发送文本&表情（牌桌内）
+        E_TABLE_CHAT_AUDIO      = 1008,         // 发送语音（牌桌内）
+        E_TABLE_KICK_OUT        = 1009,         // 将某玩家踢出
+
+        E_GAME_ACTION           = 9999,         // 游戏消息
+    };
+
+    /*
+     * @description 玩家数据
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/11 14:13
+     */
+    struct TPlayerInfo
+    {
+		0 require long      lUid;					 	// 玩家ID
+		1 require byte      nState;                     // 玩家状态
+		2 require byte      nChairNo; 			 		// 所在桌子位置
+		3 require string    sNickName;					// 玩家昵称
+		4 require string    sPortraitID;				// 头像编号
+		5 require string    sPortraitStr;               // 头像路径
+		6 require byte      iSex;					    // 玩家性别 0-未知 1-男 2-女
+		7 require string    sIP;						// 玩家IP
+    };
+
+
+    /*
+     * @description 进入/坐下指定桌子 请求
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/11 11:17
+     */
+    struct TMsgReqEnterTable
+    {
+        0 require   string				sTableNo;			// 桌子编号（全局唯一）
+        1 require   string              sSign;              // 签名
+        2 require   byte                nRoomType;          // 房间类型
+        3 require   byte                nChairNo = 0;       // 指定座位号 0：自动分配
+    };
+
+    /*
+     * @description 进入/坐下指定桌子 应答&广播
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/11 11:18
+     * @iResultID 0-成功 1-sTableNo错误 2-房卡不足 3-人数已满 4-是防作弊房间 5-房间已锁
+     */
+    struct TMsgRespEnterRoom
+    {
+        0 require int                       iResultID;	        // 返回结果
+        1 require long                      lMasterID;		    // 桌长ID
+        2 optional TPlayerInfo              tPlayerInfo;        // 新进来的玩家数据
+        3 optional vector<TPlayerInfo>      vecPlayerInfo;     // 本桌已经存在的玩家数据
+    };
+
+    /*
+     * @description 离开/站起指定桌子 请求
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/11 13:49
+     */
+    struct TMsgReqLeaveTable
+    {
+        0 require   string				sTableNo;			// 桌子编号（全局唯一）
+    };
+    
+    /*  
+     * @description 离开/站起指定桌子 应答&广播
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/11 13:51
+     * @iResultID 0-成功 1-错误
+     */
+    struct TMsgRespLeaveTable
+    {
+        0 require   int         iResultID;			 // 返回结果
+        1 require   byte         nChairNo; 			 // 所在桌子座位号
+    };
+
+    /*
+     * @description 重新连接（进入/坐下指定桌子）
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/11 14:07
+     */
+    struct TMsgReqReconnectTable
+    {
+        0 require   string				sTableNo;			// 桌子编号（全局唯一）
+        1 require   string              sSign;              // 签名
+    };
+
+    /*
+     * @description 重新连接（进入/坐下指定桌子） 应答&广播
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/11 13:51
+     * @iResultID 0-成功 1-游戏已经结束
+     */
+    struct TMsgRespReconnectTable
+    {
+        0 require   int         iResultID;			 // 返回结果
+        1 require   byte         nChairNo; 			 // 所在桌子座位号
+    };
+
+
 }

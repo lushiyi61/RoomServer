@@ -16,6 +16,8 @@ data class TableInfo(
         var state: Int,          // 本桌状态
         val canTalk: Boolean = false,    // 聊天开关
         val playerDismiss: Boolean = false, // 玩家投票解散开关
+        val totalRound:Int = 10000,         // 总局数
+        var currentRound:Int = 0,           // 当前局数
         val createTime: Long = System.currentTimeMillis() / 1000); // 创建时间
 
 
