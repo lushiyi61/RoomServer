@@ -22,6 +22,7 @@ class ClientImpl private constructor() {
 
     /////////////////////////////////////////////////
     fun loadConfig() {
+        println(String.format("==========loadConfig=========="));
         val cfg = CommunicatorConfig()
         this._Communicator = CommunicatorFactory.getInstance().getCommunicator(cfg)
     };
