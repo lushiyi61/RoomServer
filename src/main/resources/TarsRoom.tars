@@ -52,4 +52,4 @@ module JFGame
         0 require long      lUid;				    // 玩家ID
         1 require byte      nChairNo;				// 桌子位置
     };
-}
+};

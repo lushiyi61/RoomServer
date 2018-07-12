@@ -85,6 +85,11 @@ module JFGameClientProto
      */
     enum E_CLIENT_MSGID
     {
+        // 遗留问题
+        E_MSGID_ADDICT__NOTIFY		= 95,				// 防沉迷消息通知 [S->C]
+		E_MSGID_LOGIN_REQ			= 99,				// 登录消息请求 [C->S]
+
+
         E_TABLE_ENTER           = 1001,         // 进入/坐下指定桌子
         E_TABLE_LEAVE           = 1002,         // 离开/站起指定桌子
         E_TABLE_RECONNECT       = 1003,         // 重新连接（进入/坐下指定桌子）
@@ -196,4 +201,10 @@ module JFGameClientProto
     };
 
 
-}
+    //////////////////////////////////历史遗留问题/////////////////////////////////////////////////
+	// 防沉迷通知客户端
+	struct TMsgRespAddict
+	{
+		0 require int iRetCode;	         // 防沉迷状态码，成年人无需监控：-1，不满一小时：0，满一小时：1，满2小时：2，以此类推 
+	};
+};
