@@ -1,5 +1,9 @@
 # RoomServer
 
+### 本地调试
+- com.qq.tars.server.startup.Main
+- -Dconfig=E:\git_l\RoomServer\target\classes\JFGame.RoomServer.config.conf
+
 ### 新增tars
 - 修改配置文件：
 

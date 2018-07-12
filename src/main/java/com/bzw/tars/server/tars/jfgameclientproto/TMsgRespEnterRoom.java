@@ -15,11 +15,9 @@ public class TMsgRespEnterRoom {
 
 	@TarsStructProperty(order = 0, isRequire = true)
 	public int iResultID = 0;
-	@TarsStructProperty(order = 1, isRequire = true)
+	@TarsStructProperty(order = 1, isRequire = false)
 	public long lMasterID = 0L;
 	@TarsStructProperty(order = 2, isRequire = false)
-	public TPlayerInfo tPlayerInfo = null;
-	@TarsStructProperty(order = 3, isRequire = false)
 	public java.util.List<TPlayerInfo> vecPlayerInfo = null;
 
 	public int getIResultID() {
@@ -38,14 +36,6 @@ public class TMsgRespEnterRoom {
 		this.lMasterID = lMasterID;
 	}
 
-	public TPlayerInfo getTPlayerInfo() {
-		return tPlayerInfo;
-	}
-
-	public void setTPlayerInfo(TPlayerInfo tPlayerInfo) {
-		this.tPlayerInfo = tPlayerInfo;
-	}
-
 	public java.util.List<TPlayerInfo> getVecPlayerInfo() {
 		return vecPlayerInfo;
 	}
@@ -57,10 +47,9 @@ public class TMsgRespEnterRoom {
 	public TMsgRespEnterRoom() {
 	}
 
-	public TMsgRespEnterRoom(int iResultID, long lMasterID, TPlayerInfo tPlayerInfo, java.util.List<TPlayerInfo> vecPlayerInfo) {
+	public TMsgRespEnterRoom(int iResultID, long lMasterID, java.util.List<TPlayerInfo> vecPlayerInfo) {
 		this.iResultID = iResultID;
 		this.lMasterID = lMasterID;
-		this.tPlayerInfo = tPlayerInfo;
 		this.vecPlayerInfo = vecPlayerInfo;
 	}
 
@@ -70,7 +59,6 @@ public class TMsgRespEnterRoom {
 		int result = 1;
 		result = prime * result + TarsUtil.hashCode(iResultID);
 		result = prime * result + TarsUtil.hashCode(lMasterID);
-		result = prime * result + TarsUtil.hashCode(tPlayerInfo);
 		result = prime * result + TarsUtil.hashCode(vecPlayerInfo);
 		return result;
 	}
@@ -90,7 +78,6 @@ public class TMsgRespEnterRoom {
 		return (
 			TarsUtil.equals(iResultID, other.iResultID) &&
 			TarsUtil.equals(lMasterID, other.lMasterID) &&
-			TarsUtil.equals(tPlayerInfo, other.tPlayerInfo) &&
 			TarsUtil.equals(vecPlayerInfo, other.vecPlayerInfo) 
 		);
 	}
@@ -98,18 +85,11 @@ public class TMsgRespEnterRoom {
 	public void writeTo(TarsOutputStream _os) {
 		_os.write(iResultID, 0);
 		_os.write(lMasterID, 1);
-		if (null != tPlayerInfo) {
-			_os.write(tPlayerInfo, 2);
-		}
 		if (null != vecPlayerInfo) {
-			_os.write(vecPlayerInfo, 3);
+			_os.write(vecPlayerInfo, 2);
 		}
 	}
 
-	static TPlayerInfo cache_tPlayerInfo;
-	static { 
-		cache_tPlayerInfo = new TPlayerInfo();
-	}
 	static java.util.List<TPlayerInfo> cache_vecPlayerInfo;
 	static { 
 		cache_vecPlayerInfo = new java.util.ArrayList<TPlayerInfo>();
@@ -119,9 +99,8 @@ public class TMsgRespEnterRoom {
 
 	public void readFrom(TarsInputStream _is) {
 		this.iResultID = _is.read(iResultID, 0, true);
-		this.lMasterID = _is.read(lMasterID, 1, true);
-		this.tPlayerInfo = (TPlayerInfo) _is.read(cache_tPlayerInfo, 2, false);
-		this.vecPlayerInfo = (java.util.List<TPlayerInfo>) _is.read(cache_vecPlayerInfo, 3, false);
+		this.lMasterID = _is.read(lMasterID, 1, false);
+		this.vecPlayerInfo = (java.util.List<TPlayerInfo>) _is.read(cache_vecPlayerInfo, 2, false);
 	}
 
 }

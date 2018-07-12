@@ -11,31 +11,31 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgRespLeaveTable {
+public class TMsgRespAddict {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public int iResultID = 0;
+	public int iRetCode = 0;
 
-	public int getIResultID() {
-		return iResultID;
+	public int getIRetCode() {
+		return iRetCode;
 	}
 
-	public void setIResultID(int iResultID) {
-		this.iResultID = iResultID;
+	public void setIRetCode(int iRetCode) {
+		this.iRetCode = iRetCode;
 	}
 
-	public TMsgRespLeaveTable() {
+	public TMsgRespAddict() {
 	}
 
-	public TMsgRespLeaveTable(int iResultID) {
-		this.iResultID = iResultID;
+	public TMsgRespAddict(int iRetCode) {
+		this.iRetCode = iRetCode;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(iResultID);
+		result = prime * result + TarsUtil.hashCode(iRetCode);
 		return result;
 	}
 
@@ -47,22 +47,22 @@ public class TMsgRespLeaveTable {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgRespLeaveTable)) {
+		if (!(obj instanceof TMsgRespAddict)) {
 			return false;
 		}
-		TMsgRespLeaveTable other = (TMsgRespLeaveTable) obj;
+		TMsgRespAddict other = (TMsgRespAddict) obj;
 		return (
-			TarsUtil.equals(iResultID, other.iResultID) 
+			TarsUtil.equals(iRetCode, other.iRetCode) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(iResultID, 0);
+		_os.write(iRetCode, 0);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
-		this.iResultID = _is.read(iResultID, 0, true);
+		this.iRetCode = _is.read(iRetCode, 0, true);
 	}
 
 }

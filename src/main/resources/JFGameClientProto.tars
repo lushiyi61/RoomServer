@@ -89,18 +89,18 @@ module JFGameClientProto
         E_MSGID_ADDICT__NOTIFY		= 95,				// 防沉迷消息通知 [S->C]
 		E_MSGID_LOGIN_REQ			= 99,				// 登录消息请求 [C->S]
 
+        // 新协议 请求&返回 为同一个枚举值，通知为枚举值取负值
+        E_TABLE_ENTER           = 101,         // 进入/坐下指定桌子
+        E_TABLE_LEAVE           = 102,         // 离开/站起指定桌子
+        E_TABLE_RECONNECT       = 103,         // 重新连接（进入/坐下指定桌子）
+        E_TABLE_PREPARE         = 104,         // 准备
+        E_TABLE_DISMISS         = 105,         // 申请解散桌子
+        E_TABLE_VOTE_DISMISS    = 106,         // 投票解散桌子
+        E_TABLE_CHAT_TEXT       = 107,         // 发送文本&表情（牌桌内）
+        E_TABLE_CHAT_AUDIO      = 108,         // 发送语音（牌桌内）
+        E_TABLE_KICK_OUT        = 109,         // 将某玩家踢出
 
-        E_TABLE_ENTER           = 1001,         // 进入/坐下指定桌子
-        E_TABLE_LEAVE           = 1002,         // 离开/站起指定桌子
-        E_TABLE_RECONNECT       = 1003,         // 重新连接（进入/坐下指定桌子）
-        E_TABLE_PREPARE         = 1004,         // 准备
-        E_TABLE_DISMISS         = 1005,         // 申请解散桌子
-        E_TABLE_VOTE_DISMISS    = 1006,         // 投票解散桌子
-        E_TABLE_CHAT_TEXT       = 1007,         // 发送文本&表情（牌桌内）
-        E_TABLE_CHAT_AUDIO      = 1008,         // 发送语音（牌桌内）
-        E_TABLE_KICK_OUT        = 1009,         // 将某玩家踢出
-
-        E_GAME_ACTION           = 9999,         // 游戏消息
+        E_GAME_ACTION           = 222,         // 游戏消息
     };
 
     /*
@@ -116,7 +116,7 @@ module JFGameClientProto
 		2 require byte      nChairNo; 			 		// 所在桌子位置
 		3 require string    sNickName;					// 玩家昵称
 		4 require string    sPortraitNo;				// 头像编号
-		5 require string    sPortraitPath;               // 头像路径
+		5 require string    sPortraitPath;              // 头像路径
 		6 require byte      iSex;					    // 玩家性别 0-未知 1-男 2-女
 		7 require string    sIP;						// 玩家IP
     };
@@ -146,9 +146,13 @@ module JFGameClientProto
     struct TMsgRespEnterRoom
     {
         0 require int                       iResultID;	        // 返回结果
-        1 require long                      lMasterID;		    // 桌长ID
-        2 optional TPlayerInfo              tPlayerInfo;        // 新进来的玩家数据
-        3 optional vector<TPlayerInfo>      vecPlayerInfo;     // 本桌已经存在的玩家数据
+        1 optional long                      lMasterID;		    // 桌长ID
+        2 optional vector<TPlayerInfo>      vecPlayerInfo;     // 本桌已经存在的玩家数据
+    };
+
+    struct TMsgNotifyEnterRoom
+    {
+        0 optional TPlayerInfo              tPlayerInfo;        // 新进来的玩家数据
     };
 
     /*
@@ -172,7 +176,11 @@ module JFGameClientProto
     struct TMsgRespLeaveTable
     {
         0 require   int         iResultID;			 // 返回结果
-        1 require   byte         nChairNo; 			 // 所在桌子座位号
+    };
+
+    struct TMsgNotifyLeaveTable
+    {
+        0 require   byte         nChairNo; 			 // 所在桌子座位号
     };
 
     /*
@@ -196,8 +204,15 @@ module JFGameClientProto
      */
     struct TMsgRespReconnectTable
     {
-        0 require   int         iResultID;			 // 返回结果
-        1 require   byte         nChairNo; 			 // 所在桌子座位号
+        0 require   int             iResultID;			// 返回结果
+        1 require   byte            nChairNo; 			// 所在桌子座位号
+        2 require   byte            nState;             // 游戏状态
+        3 optional  vector<byte>    vecGameInfo;        // 游戏数据
+    };
+
+    struct TMsgNotifyReconnectTable
+    {
+        0 require   byte         nChairNo; 			 // 所在桌子座位号
     };
 
 
