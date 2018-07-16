@@ -12,7 +12,8 @@ import com.bzw.tars.server.jfgame.kotlin.common.Component
  * @return
  */
 data class Physical(var clientIP: String,
-                    var address: String);
+                    var address: String,
+                    val loginTime: Long);
 
 
 class InfoPhysical(var physical: Physical) : Component("InfoPhysical") {

@@ -16,6 +16,22 @@ class PlayerMng private constructor(val dataMax: Int = 10000) {
         val INSTANCE = PlayerMng();
     }
 
-    private val m_OnlinePlayerDict = mutableMapOf<Long, Player>();
-    private val m_OfflinePlayerDict = mutableMapOf<Long, Player>();
+    fun addPlayer(uid: Long, player: Player): Int {
+        if (this.m_OnlinePlayerDict.size > dataMax) {
+            return -1;
+        }
+        if (this.m_OnlinePlayerDict.containsKey(uid)) {
+            return -2;
+        }
+        this.m_OnlinePlayerDict.put(uid, player);
+
+        return 0;
+    };
+
+    fun getPlayer(uid: Long): Player? {
+        return this.m_OnlinePlayerDict.get(uid);
+    }
+
+    private val m_OnlinePlayerDict = mutableMapOf<Long, Player>();      // 在线玩家数据字典
+//    private val m_OfflinePlayerDict = mutableMapOf<Long, Player>();     // 离线玩家数据字典
 }

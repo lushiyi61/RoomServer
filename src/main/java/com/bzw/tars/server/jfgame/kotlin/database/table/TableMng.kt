@@ -26,19 +26,19 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @param
      * @return 0:添加成功
      */
-    fun AddTable(tableNo: String, tableBase: TableBase): Int {
+    fun addTable(tableNo: String, tableBase: TableBase): Int {
         if (this.m_tableDict.size > dataMax) {
-            return 1;
+            return -1;
         }
         if (this.m_tableDict.containsKey(tableNo)) {
-            return 2;
+            return -2;
         }
         this.m_tableDict.put(tableNo, tableBase);
 
         return 0;
     };
 
-    fun GetTable(tableNo: String): TableBase? {
+    fun getTable(tableNo: String): TableBase? {
         return this.m_tableDict.get(tableNo);
     }
 
@@ -50,7 +50,7 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @param
      * @return
      */
-    fun RemoveTable(tableNo: String){
+    fun removeTable(tableNo: String) {
         this.m_tableDict.remove(tableNo);
     }
 
@@ -60,7 +60,7 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @author zoujian
      * @date 2018/7/11 15:30
      */
-    fun RemoveTable(){
+    fun removeTable() {
 //        this.m_tableDict.filterValues {  }
     }
 

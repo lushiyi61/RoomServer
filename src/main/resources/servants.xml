@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <servants>
-    <servant name="RoomObj" protocol="tars" port="18600">
-        <home-api>com.bzw.tars.server.jfgame.TarsRoomServant</home-api>
+    <servant name="RoomObj">
+        <home-api>com.bzw.tars.server.tars.jfgame.TarsRoomServant</home-api>
         <home-class>com.bzw.tars.server.jfgame.impl.TarsRoomServantImpl</home-class>
     </servant>
 
