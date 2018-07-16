@@ -37,7 +37,7 @@ public class TarsRoomServantImpl implements TarsRoomServant {
             // 玩家数据不存在
             if (PlayerMng.Companion.getInstance().getPlayer(lUin) == null) {
                 Player player = new Player();
-                InfoPhysical infoPhysical = new InfoPhysical(new Physical("192.168.1.1", "", System.currentTimeMillis() / 1000));
+                InfoPhysical infoPhysical = new InfoPhysical(new Physical(stClientParam.sAddr, "", System.currentTimeMillis() / 1000));
                 player.Add(infoPhysical);
                 PlayerMng.Companion.getInstance().addPlayer(lUin, player);
             }
