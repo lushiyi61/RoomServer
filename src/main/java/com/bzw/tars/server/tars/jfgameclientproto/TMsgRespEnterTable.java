@@ -3,7 +3,7 @@
 // TARS version 1.0.1.
 // **********************************************************************
 
-package com.bzw.tars.client.jfgameclientproto;
+package com.bzw.tars.server.tars.jfgameclientproto;
 
 import com.qq.tars.protocol.util.*;
 import com.qq.tars.protocol.annotation.*;
@@ -11,7 +11,7 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgRespEnterRoom {
+public class TMsgRespEnterTable {
 
 	@TarsStructProperty(order = 0, isRequire = true)
 	public int iResultID = 0;
@@ -44,10 +44,10 @@ public class TMsgRespEnterRoom {
 		this.vecPlayerInfo = vecPlayerInfo;
 	}
 
-	public TMsgRespEnterRoom() {
+	public TMsgRespEnterTable() {
 	}
 
-	public TMsgRespEnterRoom(int iResultID, long lMasterID, java.util.List<TPlayerInfo> vecPlayerInfo) {
+	public TMsgRespEnterTable(int iResultID, long lMasterID, java.util.List<TPlayerInfo> vecPlayerInfo) {
 		this.iResultID = iResultID;
 		this.lMasterID = lMasterID;
 		this.vecPlayerInfo = vecPlayerInfo;
@@ -71,10 +71,10 @@ public class TMsgRespEnterRoom {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgRespEnterRoom)) {
+		if (!(obj instanceof TMsgRespEnterTable)) {
 			return false;
 		}
-		TMsgRespEnterRoom other = (TMsgRespEnterRoom) obj;
+		TMsgRespEnterTable other = (TMsgRespEnterTable) obj;
 		return (
 			TarsUtil.equals(iResultID, other.iResultID) &&
 			TarsUtil.equals(lMasterID, other.lMasterID) &&

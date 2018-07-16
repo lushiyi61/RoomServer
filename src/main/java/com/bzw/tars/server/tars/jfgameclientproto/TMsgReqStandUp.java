@@ -11,7 +11,7 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgReqLeaveTable {
+public class TMsgReqStandUp {
 
 	@TarsStructProperty(order = 0, isRequire = false)
 	public byte placeholder = 0;
@@ -24,10 +24,10 @@ public class TMsgReqLeaveTable {
 		this.placeholder = placeholder;
 	}
 
-	public TMsgReqLeaveTable() {
+	public TMsgReqStandUp() {
 	}
 
-	public TMsgReqLeaveTable(byte placeholder) {
+	public TMsgReqStandUp(byte placeholder) {
 		this.placeholder = placeholder;
 	}
 
@@ -47,10 +47,10 @@ public class TMsgReqLeaveTable {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgReqLeaveTable)) {
+		if (!(obj instanceof TMsgReqStandUp)) {
 			return false;
 		}
-		TMsgReqLeaveTable other = (TMsgReqLeaveTable) obj;
+		TMsgReqStandUp other = (TMsgReqStandUp) obj;
 		return (
 			TarsUtil.equals(placeholder, other.placeholder) 
 		);

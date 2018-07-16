@@ -14,7 +14,7 @@ import com.qq.tars.protocol.tars.annotation.*;
 public class TPackage {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public int iVersion = 0;
+	public int iVersion = 1;
 	@TarsStructProperty(order = 1, isRequire = true)
 	public TUid stUid = null;
 	@TarsStructProperty(order = 2, isRequire = true)

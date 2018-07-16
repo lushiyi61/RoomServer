@@ -3,7 +3,7 @@
 // TARS version 1.0.1.
 // **********************************************************************
 
-package com.bzw.tars.server.tars.jfgameclientproto;
+package com.bzw.tars.client.jfgameclientproto;
 
 import com.qq.tars.protocol.util.*;
 import com.qq.tars.protocol.annotation.*;
@@ -11,31 +11,31 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgReqLeaveTable {
+public class TGamePackage {
 
-	@TarsStructProperty(order = 0, isRequire = false)
-	public byte placeholder = 0;
+	@TarsStructProperty(order = 0, isRequire = true)
+	public short nMsgID = (short)0;
 
-	public byte getPlaceholder() {
-		return placeholder;
+	public short getNMsgID() {
+		return nMsgID;
 	}
 
-	public void setPlaceholder(byte placeholder) {
-		this.placeholder = placeholder;
+	public void setNMsgID(short nMsgID) {
+		this.nMsgID = nMsgID;
 	}
 
-	public TMsgReqLeaveTable() {
+	public TGamePackage() {
 	}
 
-	public TMsgReqLeaveTable(byte placeholder) {
-		this.placeholder = placeholder;
+	public TGamePackage(short nMsgID) {
+		this.nMsgID = nMsgID;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(placeholder);
+		result = prime * result + TarsUtil.hashCode(nMsgID);
 		return result;
 	}
 
@@ -47,22 +47,22 @@ public class TMsgReqLeaveTable {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgReqLeaveTable)) {
+		if (!(obj instanceof TGamePackage)) {
 			return false;
 		}
-		TMsgReqLeaveTable other = (TMsgReqLeaveTable) obj;
+		TGamePackage other = (TGamePackage) obj;
 		return (
-			TarsUtil.equals(placeholder, other.placeholder) 
+			TarsUtil.equals(nMsgID, other.nMsgID) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(placeholder, 0);
+		_os.write(nMsgID, 0);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
-		this.placeholder = _is.read(placeholder, 0, false);
+		this.nMsgID = _is.read(nMsgID, 0, true);
 	}
 
 }

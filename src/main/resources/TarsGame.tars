@@ -1,0 +1,98 @@
+module TarsGame
+{
+    enum E_GAME_MSGID {
+        GAMECREATE      = 10,           // 创建游戏
+        GAMEPREPARE     = 11,           // 玩家准备
+        GAMERECONNECT   = 12,           // 玩家重连
+        GAMESTART       = 13,           // 游戏开始
+        GAMEFINNISH     = 14,           // 游戏结束
+        GAMEDISMISS     = 15,           // 游戏解散
+        GAMERESULT      = 16,           // 游戏结果
+
+        /**
+        * 游戏动作分类抽象设计
+        * 原因：不同的游戏动作，其请求的结构和返回的结构不一样
+        * - Room请求游戏开始
+        * - 游戏开始1：玩家游戏动作指令默认GAMEACTION1（如执行抢庄操作）
+        * - 游戏开始2：玩家游戏动作指令默认GAMEACTION2（如执行吃碰杠）
+        * - ......
+        */
+        GAMEACTION1     = 51,           // 游戏动作1类
+        GAMEACTION2     = 52,           // 游戏动作2类
+        GAMEACTION3     = 53,           // 游戏动作...
+        GAMEACTION4     = 54,           // 游戏动作...
+        GAMEACTION5     = 55,           // 游戏动作...
+        GAMEACTION6     = 56,           // 游戏动作...
+        GAMEACTION7     = 57,           // 游戏动作...
+        GAMEACTION8     = 58,           // 游戏动作...
+        GAMEACTION9     = 59,           // 游戏动作...
+    };
+
+    enum EGameMsgType
+    {
+        ENOTIFYDATA     = 0 ,   // stNotifyData
+        ERESPONEDATA    = 1 ,   // stRespOneData
+        ERESPALLDATA    = 2 ,   // vecRespAllData
+        EMIXTUREDATA    = 3 ,   // stNotifyData & stRespOneData
+    };
+
+    struct TReqMessage
+    {
+        0 require short nVer = 1;           // 协议号（每次正式发布数值+1）
+        1 require short nMsgID;             // 指令（RoomServer提供）
+        2 require string sTableNo;          // 桌子号  (RoomServer提供）
+        3 require short nChairIdx = -1;     // 座位序号 默认为RoomServer的消息（RoomServer提供）
+        4 optional vector<byte> vecData;    // 消息数据（玩家消息直接转发）
+    };
+
+    struct TRespMessage
+    {
+        1 require EGameMsgType eMsgType;    // 消息类型
+        2 optional TGameData stGameData;    // 消息数据
+    };
+
+    /**
+    * 游戏返回数据
+    * =======================
+    * 根据EGameMsgType取下列数据，详细见枚举说明
+    */
+    struct TGameData
+    {
+        0 optional TData stRespOneData;                 // 一份，需推送给请求座位序号
+        1 optional TData stNotifyData;                  // 一份，需广播给座位上的玩家
+        2 optional vector<TData> vecRespAllData;        // N份，需分别发给座位上的玩家
+    };
+
+    struct TData
+    {
+        0 require vector<byte> vecData;                 // 一份数据，将vecData发给玩家
+    };
+
+    interface IGameMessage
+    {
+        /**
+        * 通往游戏的协议（单向）
+        * @return 0：正常，>0：请求其他指令（该值，消息数据为空）, <0：错误码
+        */
+        short doGameMessage(TReqMessage tReqMessage, out TRespMessage tRespMessage);
+    };
+};
+
+
+
+/**
+* 说明
+* =========================
+* 设计架构
+* - GameServer为单向驱动。
+* - GameServer采用Map管理N个游戏桌。
+* 
+* 单向驱动
+* - RoomServer组装数据，请求 doGameMessage
+*   - TReqMessage 必须指定桌子号，如果是玩家消息，需指定座位序号（默认为-1，是RoomServer的消息）
+*   - doGameMessage 返回值
+*       - =0： 正常解析TRespMessage
+*       - >0： 正常解析TRespMessage，同时将该值作为指令，再次请求 doGameMessage（此时座位号为-1）
+*       - <0： 请求错误（忽略&日志......，日志可由GameServer记录）
+*
+*/

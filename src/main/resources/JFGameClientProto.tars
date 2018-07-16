@@ -8,7 +8,6 @@
  */
 module JFGameClientProto
 {
-
 	/*
 	 * @description 返回码
 	 * =====================================
@@ -66,7 +65,7 @@ module JFGameClientProto
 	 */
 	struct TPackage
 	{
-		0 require 	int 					iVersion;	  		 	// 客户端版本
+		0 require 	int 					iVersion = 1;	        // 客户端版本
 		1 require 	TUid 					stUid;		   		 	// 用户标识
 		2 require	int						iGameID;	   			// 游戏ID
 		3 require 	string 					sRoomID;				// RoomID
@@ -90,15 +89,17 @@ module JFGameClientProto
 		E_MSGID_LOGIN_REQ			= 99,				// 登录消息请求 [C->S]
 
         // 新协议 请求&返回 为同一个枚举值，通知为枚举值取负值
-        E_TABLE_ENTER           = 101,         // 进入/坐下指定桌子
-        E_TABLE_LEAVE           = 102,         // 离开/站起指定桌子
-        E_TABLE_RECONNECT       = 103,         // 重新连接（进入/坐下指定桌子）
-        E_TABLE_PREPARE         = 104,         // 准备
-        E_TABLE_DISMISS         = 105,         // 申请解散桌子
-        E_TABLE_VOTE_DISMISS    = 106,         // 投票解散桌子
-        E_TABLE_CHAT_TEXT       = 107,         // 发送文本&表情（牌桌内）
-        E_TABLE_CHAT_AUDIO      = 108,         // 发送语音（牌桌内）
-        E_TABLE_KICK_OUT        = 109,         // 将某玩家踢出
+        E_TABLE_ENTER           = 101,         // 进入/坐下指定桌子                     // TMsgReqEnterTable
+        E_TABLE_LEAVE           = 102,         // 离开/站起指定桌子                     // TMsgReqLeaveTable
+        E_TABLE_SIT_DOWN        = 103,         // 坐下指定位置
+        E_TABLE_STAND_UP        = 104,         // 站起
+        E_TABLE_RECONNECT       = 113,         // 重新连接（进入/坐下指定桌子）         // TMsgReqReconnectTable
+        E_TABLE_PREPARE         = 114,         // 准备
+        E_TABLE_DISMISS         = 115,         // 申请解散桌子
+        E_TABLE_VOTE_DISMISS    = 116,         // 投票解散桌子
+        E_TABLE_CHAT_TEXT       = 117,         // 发送文本&表情（牌桌内）
+        E_TABLE_CHAT_AUDIO      = 118,         // 发送语音（牌桌内）
+        E_TABLE_KICK_OUT        = 119,         // 将某玩家踢出
 
         E_GAME_ACTION           = 222,         // 游戏消息
     };
@@ -143,14 +144,14 @@ module JFGameClientProto
      * @date 2018/7/11 11:18
      * @iResultID 0-成功 1-sTableNo错误 2-房卡不足 3-人数已满 4-是防作弊房间 5-房间已锁
      */
-    struct TMsgRespEnterRoom
+    struct TMsgRespEnterTable
     {
         0 require int                       iResultID;	        // 返回结果
         1 optional long                      lMasterID;		    // 桌长ID
         2 optional vector<TPlayerInfo>      vecPlayerInfo;     // 本桌已经存在的玩家数据
     };
 
-    struct TMsgNotifyEnterRoom
+    struct TMsgNotifyEnterTable
     {
         0 optional TPlayerInfo              tPlayerInfo;        // 新进来的玩家数据
     };
@@ -163,10 +164,10 @@ module JFGameClientProto
      */
     struct TMsgReqLeaveTable
     {
-        0 require   string				sTableNo;			// 桌子编号（全局唯一）
+        0 optional   byte		placeholder = 0;			// 占位，无意义
     };
-    
-    /*  
+
+    /*
      * @description 离开/站起指定桌子 应答&广播
      * =====================================
      * @author zoujian
@@ -179,6 +180,70 @@ module JFGameClientProto
     };
 
     struct TMsgNotifyLeaveTable
+    {
+        0 require   byte         nChairNo; 			 // 所在桌子座位号
+    };
+
+    /*
+     * @description 玩家请求坐下
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/16 17:27
+     * @param
+     * @return
+     */
+    struct TMsgReqSitDown
+    {
+        0 require   byte         nChairNo; 			 // 指定座位号 0：自动分配
+    };
+
+    /*
+     * @description 坐下桌子 应答&广播
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/16 17:23
+     * @param
+     * @return
+     */
+    struct TMsgRespSitDown
+    {
+        0 require   int         iResultID;			 // 返回结果
+    };
+
+    struct TMsgNotifySitDown
+    {
+        0 require   long            lUid;			 // 玩家ID
+        1 require   byte         nChairNo; 			 // 所在桌子座位号
+    };
+
+
+    /*
+     * @description 玩家请求站起
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/16 17:27
+     * @param
+     * @return
+     */
+    struct TMsgReqStandUp
+    {
+        0 optional   byte		placeholder = 0;			// 占位，无意义
+    };
+
+    /*
+     * @description 坐下桌子 应答&广播
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/16 17:23
+     * @param
+     * @return
+     */
+    struct TMsgRespStandUp
+    {
+        0 require   int         iResultID;			 // 返回结果
+    };
+
+    struct TMsgNotifyStandUp
     {
         0 require   byte         nChairNo; 			 // 所在桌子座位号
     };

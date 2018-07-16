@@ -11,31 +11,31 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgReqLeaveTable {
+public class TMsgRespStandUp {
 
-	@TarsStructProperty(order = 0, isRequire = false)
-	public byte placeholder = 0;
+	@TarsStructProperty(order = 0, isRequire = true)
+	public int iResultID = 0;
 
-	public byte getPlaceholder() {
-		return placeholder;
+	public int getIResultID() {
+		return iResultID;
 	}
 
-	public void setPlaceholder(byte placeholder) {
-		this.placeholder = placeholder;
+	public void setIResultID(int iResultID) {
+		this.iResultID = iResultID;
 	}
 
-	public TMsgReqLeaveTable() {
+	public TMsgRespStandUp() {
 	}
 
-	public TMsgReqLeaveTable(byte placeholder) {
-		this.placeholder = placeholder;
+	public TMsgRespStandUp(int iResultID) {
+		this.iResultID = iResultID;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(placeholder);
+		result = prime * result + TarsUtil.hashCode(iResultID);
 		return result;
 	}
 
@@ -47,22 +47,22 @@ public class TMsgReqLeaveTable {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgReqLeaveTable)) {
+		if (!(obj instanceof TMsgRespStandUp)) {
 			return false;
 		}
-		TMsgReqLeaveTable other = (TMsgReqLeaveTable) obj;
+		TMsgRespStandUp other = (TMsgRespStandUp) obj;
 		return (
-			TarsUtil.equals(placeholder, other.placeholder) 
+			TarsUtil.equals(iResultID, other.iResultID) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(placeholder, 0);
+		_os.write(iResultID, 0);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
-		this.placeholder = _is.read(placeholder, 0, false);
+		this.iResultID = _is.read(iResultID, 0, true);
 	}
 
 }

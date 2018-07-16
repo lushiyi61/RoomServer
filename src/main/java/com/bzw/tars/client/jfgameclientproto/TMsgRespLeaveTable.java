@@ -15,8 +15,6 @@ public class TMsgRespLeaveTable {
 
 	@TarsStructProperty(order = 0, isRequire = true)
 	public int iResultID = 0;
-	@TarsStructProperty(order = 1, isRequire = true)
-	public byte nChairNo = (byte)0;
 
 	public int getIResultID() {
 		return iResultID;
@@ -26,20 +24,11 @@ public class TMsgRespLeaveTable {
 		this.iResultID = iResultID;
 	}
 
-	public byte getNChairNo() {
-		return nChairNo;
-	}
-
-	public void setNChairNo(byte nChairNo) {
-		this.nChairNo = nChairNo;
-	}
-
 	public TMsgRespLeaveTable() {
 	}
 
-	public TMsgRespLeaveTable(int iResultID, byte nChairNo) {
+	public TMsgRespLeaveTable(int iResultID) {
 		this.iResultID = iResultID;
-		this.nChairNo = nChairNo;
 	}
 
 	@Override
@@ -47,7 +36,6 @@ public class TMsgRespLeaveTable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + TarsUtil.hashCode(iResultID);
-		result = prime * result + TarsUtil.hashCode(nChairNo);
 		return result;
 	}
 
@@ -64,20 +52,17 @@ public class TMsgRespLeaveTable {
 		}
 		TMsgRespLeaveTable other = (TMsgRespLeaveTable) obj;
 		return (
-			TarsUtil.equals(iResultID, other.iResultID) &&
-			TarsUtil.equals(nChairNo, other.nChairNo) 
+			TarsUtil.equals(iResultID, other.iResultID) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
 		_os.write(iResultID, 0);
-		_os.write(nChairNo, 1);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
 		this.iResultID = _is.read(iResultID, 0, true);
-		this.nChairNo = _is.read(nChairNo, 1, true);
 	}
 
 }

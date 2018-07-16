@@ -11,31 +11,31 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgReqLeaveTable {
+public class TMsgNotifyEnterTable {
 
 	@TarsStructProperty(order = 0, isRequire = false)
-	public byte placeholder = 0;
+	public TPlayerInfo tPlayerInfo = null;
 
-	public byte getPlaceholder() {
-		return placeholder;
+	public TPlayerInfo getTPlayerInfo() {
+		return tPlayerInfo;
 	}
 
-	public void setPlaceholder(byte placeholder) {
-		this.placeholder = placeholder;
+	public void setTPlayerInfo(TPlayerInfo tPlayerInfo) {
+		this.tPlayerInfo = tPlayerInfo;
 	}
 
-	public TMsgReqLeaveTable() {
+	public TMsgNotifyEnterTable() {
 	}
 
-	public TMsgReqLeaveTable(byte placeholder) {
-		this.placeholder = placeholder;
+	public TMsgNotifyEnterTable(TPlayerInfo tPlayerInfo) {
+		this.tPlayerInfo = tPlayerInfo;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(placeholder);
+		result = prime * result + TarsUtil.hashCode(tPlayerInfo);
 		return result;
 	}
 
@@ -47,22 +47,28 @@ public class TMsgReqLeaveTable {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgReqLeaveTable)) {
+		if (!(obj instanceof TMsgNotifyEnterTable)) {
 			return false;
 		}
-		TMsgReqLeaveTable other = (TMsgReqLeaveTable) obj;
+		TMsgNotifyEnterTable other = (TMsgNotifyEnterTable) obj;
 		return (
-			TarsUtil.equals(placeholder, other.placeholder) 
+			TarsUtil.equals(tPlayerInfo, other.tPlayerInfo) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(placeholder, 0);
+		if (null != tPlayerInfo) {
+			_os.write(tPlayerInfo, 0);
+		}
 	}
 
+	static TPlayerInfo cache_tPlayerInfo;
+	static { 
+		cache_tPlayerInfo = new TPlayerInfo();
+	}
 
 	public void readFrom(TarsInputStream _is) {
-		this.placeholder = _is.read(placeholder, 0, false);
+		this.tPlayerInfo = (TPlayerInfo) _is.read(cache_tPlayerInfo, 0, false);
 	}
 
 }

@@ -12,11 +12,11 @@ import com.qq.tars.common.support.Holder;
 @Servant
 public interface TarsRouterPrx {
 
-	public int doPush(long lUid, com.bzw.tars.client.jfgameclientproto.TPackage TPackage);
+	public int doPush(long lUid, com.bzw.tars.client.jfgameclientproto.TPackage tPackage);
 
-	public int doPush(long lUid, com.bzw.tars.client.jfgameclientproto.TPackage TPackage, @TarsContext java.util.Map<String, String> ctx);
+	public int doPush(long lUid, com.bzw.tars.client.jfgameclientproto.TPackage tPackage, @TarsContext java.util.Map<String, String> ctx);
 
-	public void async_doPush(@TarsCallback TarsRouterPrxCallback callback, long lUid, com.bzw.tars.client.jfgameclientproto.TPackage TPackage);
+	public void async_doPush(@TarsCallback TarsRouterPrxCallback callback, long lUid, com.bzw.tars.client.jfgameclientproto.TPackage tPackage);
 
-	public void async_doPush(@TarsCallback TarsRouterPrxCallback callback, long lUid, com.bzw.tars.client.jfgameclientproto.TPackage TPackage, @TarsContext java.util.Map<String, String> ctx);
+	public void async_doPush(@TarsCallback TarsRouterPrxCallback callback, long lUid, com.bzw.tars.client.jfgameclientproto.TPackage tPackage, @TarsContext java.util.Map<String, String> ctx);
 }

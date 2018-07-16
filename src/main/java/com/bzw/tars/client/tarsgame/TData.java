@@ -3,7 +3,7 @@
 // TARS version 1.0.1.
 // **********************************************************************
 
-package com.bzw.tars.server.tars.jfgameclientproto;
+package com.bzw.tars.client.tarsgame;
 
 import com.qq.tars.protocol.util.*;
 import com.qq.tars.protocol.annotation.*;
@@ -11,31 +11,31 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgReqLeaveTable {
+public class TData {
 
-	@TarsStructProperty(order = 0, isRequire = false)
-	public byte placeholder = 0;
+	@TarsStructProperty(order = 0, isRequire = true)
+	public byte[] vecData = null;
 
-	public byte getPlaceholder() {
-		return placeholder;
+	public byte[] getVecData() {
+		return vecData;
 	}
 
-	public void setPlaceholder(byte placeholder) {
-		this.placeholder = placeholder;
+	public void setVecData(byte[] vecData) {
+		this.vecData = vecData;
 	}
 
-	public TMsgReqLeaveTable() {
+	public TData() {
 	}
 
-	public TMsgReqLeaveTable(byte placeholder) {
-		this.placeholder = placeholder;
+	public TData(byte[] vecData) {
+		this.vecData = vecData;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(placeholder);
+		result = prime * result + TarsUtil.hashCode(vecData);
 		return result;
 	}
 
@@ -47,22 +47,28 @@ public class TMsgReqLeaveTable {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgReqLeaveTable)) {
+		if (!(obj instanceof TData)) {
 			return false;
 		}
-		TMsgReqLeaveTable other = (TMsgReqLeaveTable) obj;
+		TData other = (TData) obj;
 		return (
-			TarsUtil.equals(placeholder, other.placeholder) 
+			TarsUtil.equals(vecData, other.vecData) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(placeholder, 0);
+		_os.write(vecData, 0);
 	}
 
+	static byte[] cache_vecData;
+	static { 
+		cache_vecData = new byte[1];
+		byte var_8 = (byte)0;
+		cache_vecData[0] = var_8;
+	}
 
 	public void readFrom(TarsInputStream _is) {
-		this.placeholder = _is.read(placeholder, 0, false);
+		this.vecData = (byte[]) _is.read(cache_vecData, 0, true);
 	}
 
 }

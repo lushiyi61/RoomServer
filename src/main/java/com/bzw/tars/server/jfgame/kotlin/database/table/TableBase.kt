@@ -13,9 +13,11 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
 
     var state: TableState = TableState.E_TABLE_INIT;           // 本桌状态
     var currentRound: Int = 0;                                  // 当前局数
+    var canLook: Boolean = false;                               // 允许旁观
     var canTalk: Boolean = false;                               // 聊天开关
     var playerDismiss: Boolean = false;                        // 玩家投票解散开关
     var totalRound: Int = -1;                                   // 总局数
+    var gameMsgID: Short = 0;                                   // 当前游戏动作指令（游戏开始后赋值）
     val createTime: Long = System.currentTimeMillis() / 1000;   // 创建时间
 
 
@@ -51,6 +53,7 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
             playerMin: Int,
             playerMax: Int,
             state: TableState,
+            canLook: Boolean,
             canTalk: Boolean,
             playerDismiss: Boolean,
             totalRound: Int
@@ -58,6 +61,7 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
         this.playerMin = playerMin;
         this.playerMax = playerMax
         this.state = state;
+        this.canLook = canLook;
         this.canTalk = canTalk;
         this.playerDismiss = playerDismiss;
         this.totalRound = totalRound;

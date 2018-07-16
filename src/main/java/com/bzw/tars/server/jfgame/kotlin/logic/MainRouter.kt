@@ -21,7 +21,7 @@ class MainRouter {
      */
     fun onMessage(uid: Long, msgId: Short, msgData: ByteArray): Unit {
         println(String.format("MainRouter:onMessage,uid:%s,msgId:%s", uid, msgId));
-        when(msgId){
+        when (msgId) {
 //            E_CLIENT_MSGID.E_TABLE_ENTER -> null;
         }
 
@@ -36,6 +36,18 @@ class MainRouter {
      * @return
      */
     fun onOffLine(): Unit {
+
+    }
+
+    /*
+     * @description 处理游戏消息
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/16 15:14
+     * @param
+     * @return Unit
+     */
+    private fun onGameMessage(): Unit {
 
     }
 }
