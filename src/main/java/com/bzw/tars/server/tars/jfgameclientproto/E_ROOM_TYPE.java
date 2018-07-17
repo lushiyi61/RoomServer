@@ -5,19 +5,14 @@
 
 package com.bzw.tars.server.tars.jfgameclientproto;
 
-public enum E_RETCODE {
+public enum E_ROOM_TYPE {
 
-	E_COMMON_SUCCESS(0),
-	E_TABLE_ENTER_CUT_IN(100),
-	E_TABLE_NOT_EXIST(101),
-	E_PLAYER_NOT_EXIST(102),
-	E_GAME_NOT_EXIST(103),
-	E_TABLE_NO_ERROR(104),
-	E_TABLE_ENTER_ERROR(149);
+	E_GOLD_COIN(0),
+	E_ROOM_CARD(1);
 
 	private final int value;
 
-	private E_RETCODE(int value) {
+	private E_ROOM_TYPE(int value) {
 		this.value = value;
 	}
 
@@ -30,8 +25,8 @@ public enum E_RETCODE {
 		return this.name() + ":" + this.value;
 	}
 
-	public static E_RETCODE convert(int value) {
-		for(E_RETCODE v : values()) {
+	public static E_ROOM_TYPE convert(int value) {
+		for(E_ROOM_TYPE v : values()) {
 			if(v.value() == value) {
 				return v;
 			}

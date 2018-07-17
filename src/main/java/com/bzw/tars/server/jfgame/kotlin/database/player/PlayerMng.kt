@@ -16,7 +16,7 @@ class PlayerMng private constructor(val dataMax: Int = 10000) {
         val INSTANCE = PlayerMng();
     }
 
-    fun addPlayer(uid: Long, player: Player): Int {
+    fun addPlayer(uid: Long, player: PlayerBase): Int {
         if (this.m_OnlinePlayerDict.size > dataMax) {
             return -1;
         }
@@ -28,10 +28,10 @@ class PlayerMng private constructor(val dataMax: Int = 10000) {
         return 0;
     };
 
-    fun getPlayer(uid: Long): Player? {
+    fun getPlayer(uid: Long): PlayerBase? {
         return this.m_OnlinePlayerDict.get(uid);
     }
 
-    private val m_OnlinePlayerDict = mutableMapOf<Long, Player>();      // 在线玩家数据字典
+    private val m_OnlinePlayerDict = mutableMapOf<Long, PlayerBase>();      // 在线玩家数据字典
 //    private val m_OfflinePlayerDict = mutableMapOf<Long, Player>();     // 离线玩家数据字典
 }

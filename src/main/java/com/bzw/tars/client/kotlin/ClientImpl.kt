@@ -25,12 +25,11 @@ class ClientImpl private constructor() {
         println(String.format("==========loadConfig=========="));
         val cfg = CommunicatorConfig()
         this._Communicator = CommunicatorFactory.getInstance().getCommunicator(cfg)
+        this._TarsRouterObj = "";
+        this._Communicator.stringToProxy(TarsRouterPrx::class.java, this._TarsRouterObj);
     };
 
     fun getDoPushPrx(): TarsRouterPrx {
-        if (this._TarsRouterPrx == null) {
-            this._Communicator.stringToProxy(TarsRouterPrx::class.java, this._TarsRouterObj);
-        }
         return this._TarsRouterPrx;
     };
 

@@ -15,7 +15,7 @@ public class TMsgHead {
 
 	@TarsStructProperty(order = 0, isRequire = true)
 	public short nMsgID = (short)0;
-	@TarsStructProperty(order = 1, isRequire = true)
+	@TarsStructProperty(order = 1, isRequire = false)
 	public int nMsgType = 0;
 
 	public short getNMsgID() {
@@ -77,7 +77,7 @@ public class TMsgHead {
 
 	public void readFrom(TarsInputStream _is) {
 		this.nMsgID = _is.read(nMsgID, 0, true);
-		this.nMsgType = _is.read(nMsgType, 1, true);
+		this.nMsgType = _is.read(nMsgType, 1, false);
 	}
 
 }

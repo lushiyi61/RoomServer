@@ -8,9 +8,9 @@ import com.bzw.tars.server.jfgame.kotlin.common.Component
  * @描述
  */
 data class Game(var roomID: Int,            // 房间ID
-                var tableID: Int,            // 游戏桌ID
-                var chair: Int,               // 座位号（前端用）
-                var chairIdx: Int,           // 座次号（后端用）
+                var tableNo: String,          // 游戏桌编号
+                var chairID: Int,             // 座位号（前端用）(从0开始，-1：表示未就坐)
+//                var chairIdx: Int,           // 座次号（后端用）
                 var state: Int)              // 游戏状态
 
 

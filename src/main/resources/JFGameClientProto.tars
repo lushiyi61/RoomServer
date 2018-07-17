@@ -8,6 +8,11 @@
  */
 module JFGameClientProto
 {
+    enum E_ROOM_TYPE{
+		E_GOLD_COIN		    = 0,			// 金币场
+		E_ROOM_CARD	        = 1,			// 房卡场
+    };
+
 	/*
 	 * @description 返回码
 	 * =====================================
@@ -17,6 +22,19 @@ module JFGameClientProto
 	enum E_RETCODE
 	{
 	    E_COMMON_SUCCESS 		 	= 0,				// 返回成功
+
+        ////////////////////////加入房间错误码/////////////////////////
+	    E_TABLE_ENTER_CUT_IN        = 100,              // 玩家中途加入
+	    E_TABLE_NOT_EXIST           = 101,              // 房间/游戏桌不存在
+	    E_PLAYER_NOT_EXIST          = 102,              // 玩家数据不存在
+	    E_GAME_NOT_EXIST            = 103,              // 游戏服务器不存在
+	    E_TABLE_NO_ERROR            = 104,              // 房间/游戏桌编号不存在
+
+
+	    E_TABLE_ENTER_ERROR         = 149,              // 加入游戏失败（原因未知）
+	    ///////////////////////////////////////////////////////////////
+
+
 	};
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,8 +59,8 @@ module JFGameClientProto
 	 */
 	struct TMsgHead
 	{
-		0 require short nMsgID;				    // 消息ID
-		1 require E_MSGTYPE nMsgType;			// 消息类型
+		0 require   short               nMsgID;				    // 消息ID
+		1 optional  E_MSGTYPE           nMsgType;			        // 消息类型 (这个可以删除)
 	};
 
 	/*

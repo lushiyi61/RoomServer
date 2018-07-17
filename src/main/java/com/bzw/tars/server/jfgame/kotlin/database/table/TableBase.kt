@@ -1,6 +1,7 @@
 package com.bzw.tars.server.jfgame.kotlin.database.table
 
 import com.bzw.tars.server.tars.jfgameclientproto.E_MSGTYPE
+import com.bzw.tars.server.tars.jfgameclientproto.E_RETCODE
 
 /**
  * @创建者 zoujian
@@ -9,16 +10,27 @@ import com.bzw.tars.server.tars.jfgameclientproto.E_MSGTYPE
  */
 abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) {
     var playerMin: Int = 2;         // 最小人数
-    var playerMax: Int = 10;        // 最大人数
+    var playerMax: Int = 5;         // 最大人数
 
     var state: TableState = TableState.E_TABLE_INIT;           // 本桌状态
     var currentRound: Int = 0;                                  // 当前局数
+    var autoSit: Boolean = true;                                // 自动坐下开关
     var canLook: Boolean = false;                               // 允许旁观
     var canTalk: Boolean = false;                               // 聊天开关
     var playerDismiss: Boolean = false;                        // 玩家投票解散开关
     var totalRound: Int = -1;                                   // 总局数
     var gameMsgID: Short = 0;                                   // 当前游戏动作指令（游戏开始后赋值）
+    var ipLimitation: Byte = 0;                                 // 0：不限制，1：限制第一位，2：限制前两位，3：限制前三位，4，限制全四位
     val createTime: Long = System.currentTimeMillis() / 1000;   // 创建时间
+
+    fun enterTable(uid: Long, ipAddr: String = "1.1.1.1"): E_RETCODE {
+        if (TableState.E_TABLE_INIT != state) {
+            return E_RETCODE.E_TABLE_ENTER_CUT_IN;
+        }
+
+
+        return E_RETCODE.E_COMMON_SUCCESS;
+    }
 
 
     /*
@@ -56,6 +68,7 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
             canLook: Boolean,
             canTalk: Boolean,
             playerDismiss: Boolean,
+            ipLimitation: Byte,
             totalRound: Int
     ) {
         this.playerMin = playerMin;
@@ -64,6 +77,7 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
         this.canLook = canLook;
         this.canTalk = canTalk;
         this.playerDismiss = playerDismiss;
+        this.ipLimitation = ipLimitation;
         this.totalRound = totalRound;
     };
 

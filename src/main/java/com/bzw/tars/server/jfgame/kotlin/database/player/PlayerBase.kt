@@ -10,7 +10,7 @@ import com.bzw.tars.server.jfgame.kotlin.common.Component
  * @param
  * @return
  */
-open class Player : Component("Player") {
+open class PlayerBase : Component("PlayerBase") {
     private val playerInfo = mutableMapOf<String, Component>();
 
     fun Add(c: Component) {
