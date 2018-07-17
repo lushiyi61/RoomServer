@@ -81,18 +81,24 @@ module JFGameClientProto
 	 * @author zoujian
 	 * @date 2018/7/10 14:11
 	 */
-	struct TPackage
-	{
-		0 require 	int 					iVersion = 1;	        // 客户端版本
-		1 require 	TUid 					stUid;		   		 	// 用户标识
-		2 require	int						iGameID;	   			// 游戏ID
-		3 require 	string 					sRoomID;				// RoomID
-		4 require	int 					iRoomServerID;	   	 	// RoomServerID
-		5 require 	int 					iSequence;	   		 	// 序列号
-		6 require 	int 					iFlag;		   		 	// 标志位, 参数PKFLAG定义
-		7 require 	vector<TMsgHead> 		vecMsgHead;			 	// 消息头数据
-		8 require 	vector<vector<byte>> 	vecMsgData;			 	// 消息体数据
-	};
+    struct TReqPackage
+    {
+        0 require 	int 					iVersion = 2;	        // 客户端版本
+        1 require 	TUid 					stUid;		   		 	// 用户标识
+        2 require	int						iGameID;	   			// 游戏ID
+        3 require 	string 					sRoomID;				// RoomID
+        4 require	int 					iRoomServerID;	   	 	// RoomServerID
+        5 require 	int 					iSequence;	   		 	// 序列号
+        6 require 	int 					iFlag;		   		 	// 标志位, 参数PKFLAG定义
+        7 require 	vector<short> 		    vecMsgID;			 	// 消息指令
+        8 require 	vector<vector<byte>> 	vecMsgData;			 	// 消息体数据
+    };
+
+    struct TRespPackage
+    {
+        0 require 	vector<short> 		    vecMsgID;			 	// 消息指令
+        1 require 	vector<vector<byte>> 	vecMsgData;			 	// 消息体数据
+    };
 
     /*
      * @description 消息处理（来自客户端）

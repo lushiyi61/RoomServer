@@ -13,20 +13,20 @@ import java.lang.reflect.Field;
 public class PlayerTest {
     @Test
     public void test() {
-        Player player = new Player();
+        PlayerBase playerBase = new PlayerBase();
         InfoPhysical infoPhysical = new InfoPhysical(new Physical("192.168.1.1", "深圳", System.currentTimeMillis() / 1000));
         InfoPersonal infoPersonal = new InfoPersonal(new Personal(1111, 1, "nizou", "http", "1234"));
 
-        player.Add(infoPersonal);
-        player.Add(infoPhysical);
-        player.Add(infoPhysical);
+        playerBase.Add(infoPersonal);
+        playerBase.Add(infoPhysical);
+        playerBase.Add(infoPhysical);
         infoPhysical = new InfoPhysical(new Physical("192.168.1.1", "湖南", System.currentTimeMillis() / 1000));
-        player.Add(infoPhysical);
-        String str = player.ToString();
+        playerBase.Add(infoPhysical);
+        String str = playerBase.ToString();
         System.out.println(str);
 
 
-        InfoPhysical tmp = (InfoPhysical) player.Get("InfoPhysical");
+        InfoPhysical tmp = (InfoPhysical) playerBase.Get("InfoPhysical");
         System.out.println(tmp.getPhysical().getAddress());
     }
 }

@@ -1,6 +1,7 @@
 package com.bzw.tars.client.kotlin
 
-import com.bzw.tars.client.jfgame.TarsRouterPrx
+
+import com.bzw.tars.client.tars.jfgame.TarsRouterPrx
 import com.qq.tars.client.Communicator
 import com.qq.tars.client.CommunicatorConfig
 import com.qq.tars.client.CommunicatorFactory

@@ -85,7 +85,7 @@
                         <!--<servant>false</servant>-->
                         <!--<srcPath>${basedir}/src/main/java</srcPath>-->
                         <!--<charset>UTF-8</charset>-->
-                        <!--<packagePrefixName>com.bzw.tars.client.</packagePrefixName>-->
+                        <!--<packagePrefixName>com.bzw.tars.client.tars</packagePrefixName>-->
                     <!--</tars2JavaConfig>-->
                 <!--</configuration>-->
             <!--</plugin>-->

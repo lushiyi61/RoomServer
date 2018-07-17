@@ -7,7 +7,7 @@ import com.bzw.tars.server.jfgame.kotlin.logic.MainRouter;
 import com.bzw.tars.server.tars.jfgame.TClientParam;
 import com.bzw.tars.server.tars.jfgame.TUserBaseInfoExt;
 import com.bzw.tars.server.tars.jfgame.TarsRoomServant;
-import com.bzw.tars.server.tars.jfgameclientproto.TPackage;
+import com.bzw.tars.server.tars.jfgameclientproto.TReqPackage;
 import com.qq.tars.protocol.tars.TarsInputStream;
 
 public class TarsRoomServantImpl implements TarsRoomServant {
@@ -25,12 +25,12 @@ public class TarsRoomServantImpl implements TarsRoomServant {
 
         int ret = 0;
         // 解码
-        TPackage tPackage = new TPackage();
+        TReqPackage tReqPackage = new TReqPackage();
         TarsInputStream tarsInputStream = new TarsInputStream(sMsgPack);
-        tPackage.readFrom(tarsInputStream);
+        tReqPackage.readFrom(tarsInputStream);
 
         // 循环处理指令
-        for (int i = 0; i < tPackage.vecMsgHead.size(); i++) {
+        for (int i = 0; i < tReqPackage.vecMsgID.size(); i++) {
             // 玩家数据不存在
             if (PlayerMng.Companion.getInstance().getPlayer(lUin) == null) {
                 PlayerBase playerBase = new PlayerBase();
@@ -44,7 +44,7 @@ public class TarsRoomServantImpl implements TarsRoomServant {
                 PlayerMng.Companion.getInstance().addPlayer(lUin, playerBase);
             }
             // 处理玩家消息
-            this.mainRouter.onMessage(lUin, tPackage.vecMsgHead.get(i).nMsgID, tPackage.vecMsgData.get(i));
+            this.mainRouter.onMessage(lUin, tReqPackage.vecMsgID.get(i), tReqPackage.vecMsgData.get(i));
 
         }
 

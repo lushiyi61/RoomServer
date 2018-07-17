@@ -12,6 +12,6 @@ module JFGame
          * @param
          * @return 0:ok
          */
-        int doPush(long lUid, JFGameClientProto::TPackage tPackage);
+        int doPush(long lUid, JFGameClientProto::TRespPackage tRespPackage);
     };
 };

@@ -1,7 +1,7 @@
 package com.bzw.tars.server.jfgame.kotlin.logic
 
-import com.bzw.tars.client.jfgameclientproto.TPackage
 import com.bzw.tars.client.kotlin.ClientImpl
+import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.server.jfgame.kotlin.database.game.GameMng
 import com.bzw.tars.server.jfgame.kotlin.database.player.Game
 import com.bzw.tars.server.jfgame.kotlin.database.player.InfoGame
@@ -54,8 +54,8 @@ class MainRouter {
         if (E_RETCODE.E_COMMON_SUCCESS != res) {
             // 打包返回错误信息
             val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
-            val tPackage = TPackage();
-            tarsRouterPrx.doPush(uid, tPackage);
+            val tRespPackage = TRespPackage();
+            tarsRouterPrx.doPush(uid, tRespPackage);
         }
     }
 
