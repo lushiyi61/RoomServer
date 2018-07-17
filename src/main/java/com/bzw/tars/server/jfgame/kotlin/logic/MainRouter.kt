@@ -92,6 +92,7 @@ class MainRouter {
             // 创建游戏桌
 //            val tablePrivate = TablePrivate();
 
+
         }
 
         // 游戏桌数据
@@ -101,6 +102,7 @@ class MainRouter {
         // 玩家数据
         val playerBase = PlayerMng.getInstance().getPlayer(uid);
         playerBase ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
+
         // 游戏数据
         val gameBase = GameMng.getInstance().getGame(tableBase.gameID);
         gameBase ?: return E_RETCODE.E_GAME_NOT_EXIST;
