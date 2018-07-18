@@ -14,21 +14,11 @@ import com.qq.tars.protocol.tars.annotation.*;
 public class TMsgRespReconnectTable {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public int iResultID = 0;
-	@TarsStructProperty(order = 1, isRequire = true)
 	public byte nChairNo = (byte)0;
-	@TarsStructProperty(order = 2, isRequire = true)
+	@TarsStructProperty(order = 1, isRequire = true)
 	public byte nState = (byte)0;
-	@TarsStructProperty(order = 3, isRequire = false)
+	@TarsStructProperty(order = 2, isRequire = false)
 	public byte[] vecGameInfo = null;
-
-	public int getIResultID() {
-		return iResultID;
-	}
-
-	public void setIResultID(int iResultID) {
-		this.iResultID = iResultID;
-	}
 
 	public byte getNChairNo() {
 		return nChairNo;
@@ -57,8 +47,7 @@ public class TMsgRespReconnectTable {
 	public TMsgRespReconnectTable() {
 	}
 
-	public TMsgRespReconnectTable(int iResultID, byte nChairNo, byte nState, byte[] vecGameInfo) {
-		this.iResultID = iResultID;
+	public TMsgRespReconnectTable(byte nChairNo, byte nState, byte[] vecGameInfo) {
 		this.nChairNo = nChairNo;
 		this.nState = nState;
 		this.vecGameInfo = vecGameInfo;
@@ -68,7 +57,6 @@ public class TMsgRespReconnectTable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(iResultID);
 		result = prime * result + TarsUtil.hashCode(nChairNo);
 		result = prime * result + TarsUtil.hashCode(nState);
 		result = prime * result + TarsUtil.hashCode(vecGameInfo);
@@ -88,7 +76,6 @@ public class TMsgRespReconnectTable {
 		}
 		TMsgRespReconnectTable other = (TMsgRespReconnectTable) obj;
 		return (
-			TarsUtil.equals(iResultID, other.iResultID) &&
 			TarsUtil.equals(nChairNo, other.nChairNo) &&
 			TarsUtil.equals(nState, other.nState) &&
 			TarsUtil.equals(vecGameInfo, other.vecGameInfo) 
@@ -96,11 +83,10 @@ public class TMsgRespReconnectTable {
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(iResultID, 0);
-		_os.write(nChairNo, 1);
-		_os.write(nState, 2);
+		_os.write(nChairNo, 0);
+		_os.write(nState, 1);
 		if (null != vecGameInfo) {
-			_os.write(vecGameInfo, 3);
+			_os.write(vecGameInfo, 2);
 		}
 	}
 
@@ -112,10 +98,9 @@ public class TMsgRespReconnectTable {
 	}
 
 	public void readFrom(TarsInputStream _is) {
-		this.iResultID = _is.read(iResultID, 0, true);
-		this.nChairNo = _is.read(nChairNo, 1, true);
-		this.nState = _is.read(nState, 2, true);
-		this.vecGameInfo = (byte[]) _is.read(cache_vecGameInfo, 3, false);
+		this.nChairNo = _is.read(nChairNo, 0, true);
+		this.nState = _is.read(nState, 1, true);
+		this.vecGameInfo = (byte[]) _is.read(cache_vecGameInfo, 2, false);
 	}
 
 }

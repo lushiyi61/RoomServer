@@ -2,6 +2,7 @@ package com.bzw.tars.server.jfgame.kotlin.logic
 
 import com.bzw.tars.client.kotlin.ClientImpl
 import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
+import com.bzw.tars.comm.TarsUtilsKt
 import com.bzw.tars.server.jfgame.kotlin.database.game.GameMng
 import com.bzw.tars.server.jfgame.kotlin.database.player.Game
 import com.bzw.tars.server.jfgame.kotlin.database.player.InfoGame
@@ -9,10 +10,9 @@ import com.bzw.tars.server.jfgame.kotlin.database.player.PlayerMng
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableBase
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng
 import com.bzw.tars.server.jfgame.kotlin.database.table.TablePrivate
-import com.bzw.tars.server.tars.jfgameclientproto.E_CLIENT_MSGID
-import com.bzw.tars.server.tars.jfgameclientproto.E_RETCODE
-import com.bzw.tars.server.tars.jfgameclientproto.TMsgReqEnterTable
+import com.bzw.tars.server.tars.jfgameclientproto.*
 import com.qq.tars.protocol.tars.TarsInputStream
+import com.qq.tars.protocol.tars.TarsOutputStream
 
 /**
  * @创建者 zoujian
@@ -55,6 +55,9 @@ class MainRouter {
             // 打包返回错误信息
             val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
             val tRespPackage = TRespPackage();
+            val tMsgRespErrorCode = TMsgRespErrorCode(res as Short);
+            tRespPackage.vecMsgID.add(E_CLIENT_MSGID.E_MSGID_ERROR as Short);
+            tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tMsgRespErrorCode));
             tarsRouterPrx.doPush(uid, tRespPackage);
         }
     }
@@ -70,6 +73,12 @@ class MainRouter {
     fun onOffLine(): Unit {
 
     }
+
+
+    /*
+     * @description 指令处理！
+     * =====================================
+     */
 
     /*
      * @description 玩家进入指定桌

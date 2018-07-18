@@ -39,31 +39,6 @@ module JFGameClientProto
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 	/*
-	 * @description 消息类型
-	 * =====================================
-	 * @author zoujian
-	 * @date 2018/7/10 14:07
-	 */
-	enum E_MSGTYPE
-	{
-		E_REQUEST		= 0,			// 请求消息
-		E_RESPONSE	    = 1,			// 响应消息
-		E_NOTIFY		= 2,			// 通知消息
-	};
-
-	/*
-	 * @description 消息头
-	 * =====================================
-	 * @author zoujian
-	 * @date 2018/7/10 14:10
-	 */
-	struct TMsgHead
-	{
-		0 require   short               nMsgID;				    // 消息ID
-		1 optional  E_MSGTYPE           nMsgType;			        // 消息类型 (这个可以删除)
-	};
-
-	/*
 	 * @description 用户标识
 	 * =====================================
 	 * @author zoujian
@@ -111,6 +86,8 @@ module JFGameClientProto
         // 遗留问题
         E_MSGID_ADDICT__NOTIFY		= 95,				// 防沉迷消息通知 [S->C]
 		E_MSGID_LOGIN_REQ			= 99,				// 登录消息请求 [C->S]
+
+		E_MSGID_ERROR           = 100,                  // S->C 返回错误码
 
         // 新协议 请求&返回 为同一个枚举值，通知为枚举值取负值
         E_TABLE_ENTER           = 101,         // 进入/坐下指定桌子                     // TMsgReqEnterTable
@@ -170,9 +147,8 @@ module JFGameClientProto
      */
     struct TMsgRespEnterTable
     {
-        0 require int                       iResultID;	        // 返回结果
-        1 optional long                      lMasterID;		    // 桌长ID
-        2 optional vector<TPlayerInfo>      vecPlayerInfo;     // 本桌已经存在的玩家数据
+        0 require long                      lMasterID;		    // 桌长ID
+        1 require vector<TPlayerInfo>      vecPlayerInfo;       // 本桌已经存在的玩家数据
     };
 
     struct TMsgNotifyEnterTable
@@ -293,10 +269,9 @@ module JFGameClientProto
      */
     struct TMsgRespReconnectTable
     {
-        0 require   int             iResultID;			// 返回结果
-        1 require   byte            nChairNo; 			// 所在桌子座位号
-        2 require   byte            nState;             // 游戏状态
-        3 optional  vector<byte>    vecGameInfo;        // 游戏数据
+        0 require   byte            nChairNo; 			// 所在桌子座位号
+        1 require   byte            nState;             // 游戏状态
+        2 optional  vector<byte>    vecGameInfo;        // 游戏数据
     };
 
     struct TMsgNotifyReconnectTable
@@ -304,6 +279,13 @@ module JFGameClientProto
         0 require   byte         nChairNo; 			 // 所在桌子座位号
     };
 
+
+
+
+    struct TMsgRespErrorCode
+    {
+        0 require   short         nErrorCode; 			 // 错误码
+    };
 
     //////////////////////////////////历史遗留问题/////////////////////////////////////////////////
 	// 防沉迷通知客户端

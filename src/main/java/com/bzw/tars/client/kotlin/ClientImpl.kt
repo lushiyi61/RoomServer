@@ -2,6 +2,8 @@ package com.bzw.tars.client.kotlin
 
 
 import com.bzw.tars.client.tars.jfgame.TarsRouterPrx
+import com.bzw.tars.server.jfgame.kotlin.database.game.GameBase
+import com.bzw.tars.server.jfgame.kotlin.database.game.GameMng
 import com.qq.tars.client.Communicator
 import com.qq.tars.client.CommunicatorConfig
 import com.qq.tars.client.CommunicatorFactory
@@ -28,6 +30,10 @@ class ClientImpl private constructor() {
         this._Communicator = CommunicatorFactory.getInstance().getCommunicator(cfg)
         this._TarsRouterObj = "";
         this._Communicator.stringToProxy(TarsRouterPrx::class.java, this._TarsRouterObj);
+
+
+        // 游戏初始化
+        GameMng.getInstance().addGame(111111, GameBase(111111,""))
     };
 
     fun getDoPushPrx(): TarsRouterPrx {

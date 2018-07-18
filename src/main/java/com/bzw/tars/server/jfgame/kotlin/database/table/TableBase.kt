@@ -1,6 +1,5 @@
 package com.bzw.tars.server.jfgame.kotlin.database.table
 
-import com.bzw.tars.server.tars.jfgameclientproto.E_MSGTYPE
 import com.bzw.tars.server.tars.jfgameclientproto.E_RETCODE
 
 /**
@@ -87,10 +86,8 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
      * @author zoujian
      * @date 2018/7/11 15:05
      */
-    fun sendData(uid: Long, msgId: Short, msgData: ByteArray, msgtype: E_MSGTYPE = E_MSGTYPE.E_RESPONSE): Unit {
-        if (msgtype == E_MSGTYPE.E_RESPONSE) {
-            println(String.format("lUid:%s, send msg to Client, msgId:%s", uid, msgId));
-        }
+    fun sendData(uid: Long, msgId: Short, msgData: ByteArray): Unit {
+        println(String.format("lUid:%s, send msg to Client, msgId:%s", uid, msgId));
 
 
     };
