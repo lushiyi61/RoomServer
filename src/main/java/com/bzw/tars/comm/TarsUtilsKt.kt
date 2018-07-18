@@ -1,7 +1,6 @@
 package com.bzw.tars.comm
 
 import com.qq.tars.protocol.tars.TarsOutputStream
-import java.lang.reflect.Method
 
 /**
  * @创建者 zoujian
@@ -15,8 +14,7 @@ object TarsUtilsKt {
             val tarsOutputStream = TarsOutputStream();
             tarsOutputStream.setServerEncoding("UTF-8");
 
-            var method: Method = t.javaClass.getMethod("writeTo");
-            method(tarsOutputStream);
+            t.javaClass.getMethod("writeTo",*arrayOf<Class<*>>(TarsOutputStream::class.java)).invoke(t,tarsOutputStream);
             return tarsOutputStream.toByteArray();
         } catch (e: Exception) {
             System.err.println("ToByteArray error");

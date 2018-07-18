@@ -35,28 +35,28 @@ class MainRouter {
         println(String.format("MainRouter:onMessage,uid:%s,msgId:%s", uid, msgId));
 
         var res: E_RETCODE = E_RETCODE.E_TABLE_ENTER_ERROR;
-        when (msgId as E_CLIENT_MSGID) {
-            E_CLIENT_MSGID.E_TABLE_ENTER -> null;
-            E_CLIENT_MSGID.E_TABLE_LEAVE -> null;
-            E_CLIENT_MSGID.E_TABLE_SIT_DOWN -> null;
-            E_CLIENT_MSGID.E_TABLE_STAND_UP -> null;
+        when (msgId) {
+            E_CLIENT_MSGID.E_TABLE_ENTER.value().toShort() -> null;
+            E_CLIENT_MSGID.E_TABLE_LEAVE.value().toShort() -> null;
+            E_CLIENT_MSGID.E_TABLE_SIT_DOWN.value().toShort() -> null;
+            E_CLIENT_MSGID.E_TABLE_STAND_UP.value().toShort() -> null;
 
-            E_CLIENT_MSGID.E_TABLE_RECONNECT -> null;
-            E_CLIENT_MSGID.E_TABLE_PREPARE -> null;
+            E_CLIENT_MSGID.E_TABLE_RECONNECT.value().toShort() -> null;
+            E_CLIENT_MSGID.E_TABLE_PREPARE.value().toShort() -> null;
 
-            E_CLIENT_MSGID.E_TABLE_DISMISS -> null;
-            E_CLIENT_MSGID.E_TABLE_VOTE_DISMISS -> null;
+            E_CLIENT_MSGID.E_TABLE_DISMISS.value().toShort() -> null;
+            E_CLIENT_MSGID.E_TABLE_VOTE_DISMISS.value().toShort() -> null;
 
-            E_CLIENT_MSGID.E_GAME_ACTION -> null;
+            E_CLIENT_MSGID.E_GAME_ACTION.value().toShort() -> null;
             else -> System.err.println(String.format("MainRouter:onMessage,uid:%s,this error msgId:%s", uid, msgId));
         }
 
         if (E_RETCODE.E_COMMON_SUCCESS != res) {
             // 打包返回错误信息
             val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
-            val tRespPackage = TRespPackage();
-            val tMsgRespErrorCode = TMsgRespErrorCode(res as Short);
-            tRespPackage.vecMsgID.add(E_CLIENT_MSGID.E_MSGID_ERROR as Short);
+            val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
+            val tMsgRespErrorCode = TMsgRespErrorCode(res.value().toShort());
+            tRespPackage.vecMsgID.add(E_CLIENT_MSGID.E_MSGID_ERROR.value().toShort());
             tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tMsgRespErrorCode));
             tarsRouterPrx.doPush(uid, tRespPackage);
         }

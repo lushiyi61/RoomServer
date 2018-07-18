@@ -28,12 +28,12 @@ class ClientImpl private constructor() {
         println(String.format("==========loadConfig=========="));
         val cfg = CommunicatorConfig()
         this._Communicator = CommunicatorFactory.getInstance().getCommunicator(cfg)
-        this._TarsRouterObj = "";
-        this._Communicator.stringToProxy(TarsRouterPrx::class.java, this._TarsRouterObj);
+        this._TarsRouterObj = "JFGame.RouterServer2.PushObj@tcp -h 192.168.0.242 -p 28892 -t 60000 -e 0";
+        this._TarsRouterPrx = this._Communicator.stringToProxy(TarsRouterPrx::class.java, this._TarsRouterObj);
 
 
         // 游戏初始化
-        GameMng.getInstance().addGame(111111, GameBase(111111,""))
+//        GameMng.getInstance().addGame(111111, GameBase(111111,""))
     };
 
     fun getDoPushPrx(): TarsRouterPrx {

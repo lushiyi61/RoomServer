@@ -30,6 +30,6 @@ public class AppStartListener implements AppContextListener {
     @Override
     public void appServantStarted(AppServantEvent event) {
         System.out.println("==========appServantStarted==========");
-//        ClientImpl.Companion.getInstance().loadConfig();
+        ClientImpl.Companion.getInstance().loadConfig();
     }
 }
