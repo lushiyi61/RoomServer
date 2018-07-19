@@ -53,6 +53,7 @@ public class TarsRoomServantImpl implements TarsRoomServant {
 
     @Override
     public int onOffLine(long lUin) {
+        System.out.println("Recv onOffLine, playerID:" + lUin );
         return 0;
     }
 }

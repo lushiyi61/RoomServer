@@ -1,5 +1,6 @@
 package com.bzw.tars.comm
 
+import com.qq.tars.protocol.tars.TarsInputStream
 import com.qq.tars.protocol.tars.TarsOutputStream
 
 /**
@@ -14,10 +15,25 @@ object TarsUtilsKt {
             val tarsOutputStream = TarsOutputStream();
             tarsOutputStream.setServerEncoding("UTF-8");
 
-            t.javaClass.getMethod("writeTo",*arrayOf<Class<*>>(TarsOutputStream::class.java)).invoke(t,tarsOutputStream);
+            t.javaClass.getMethod("writeTo", *arrayOf<Class<*>>(TarsOutputStream::class.java)).invoke(t, tarsOutputStream);
             return tarsOutputStream.toByteArray();
         } catch (e: Exception) {
             System.err.println("ToByteArray error");
+            return null;
+        }
+    }
+
+    fun <T : Any> toObject(byteArray: ByteArray, beanClass: Class<T>): T? {
+
+        try {
+            val tarsInputStream = TarsInputStream(byteArray);
+            tarsInputStream.setServerEncoding("UTF-8");
+
+            val t = beanClass.newInstance();
+            beanClass.getMethod("readFrom", *arrayOf<Class<*>>(TarsInputStream::class.java)).invoke(t, tarsInputStream);
+            return t;
+        } catch (e: Exception) {
+            System.err.println("ToObject error");
             return null;
         }
     }

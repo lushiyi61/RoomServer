@@ -90,12 +90,11 @@ class MainRouter {
      */
     private fun onEnterTable(uid: Long, msgData: ByteArray): E_RETCODE {
         // 解码
-        val tMsgReqEnterTable: TMsgReqEnterTable = TMsgReqEnterTable()
-        val tarsInputStream: TarsInputStream = TarsInputStream(msgData)
-        tMsgReqEnterTable.readFrom(tarsInputStream)
+        val tMsgReqEnterTable: TMsgReqEnterTable = TarsUtilsKt.toObject(msgData, TMsgReqEnterTable::class.java)!!;
 
         // 游戏桌不存在？同步请求服务端桌子信息
         if (TableMng.getInstance().getTable(tMsgReqEnterTable.getSTableNo()) == null) {
+            println(tMsgReqEnterTable.toString());
             // 同步请求服务端桌子信息
 
             // 创建游戏桌
