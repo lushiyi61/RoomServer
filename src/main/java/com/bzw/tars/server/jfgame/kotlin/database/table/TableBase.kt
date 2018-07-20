@@ -134,7 +134,7 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
         game ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
         game.roomNO = this.roomNO;
 
-        if (!this.canLook && chairNo > 0) {
+        if (!this.canLook || chairNo > 0) {
             return this.doSitDownTable(uid, chairNo);
         }
 

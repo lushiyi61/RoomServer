@@ -107,16 +107,15 @@ class MainRouter {
             val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
 
 
-            val tMsgRespEnterTable = TMsgRespEnterTable(11111, PlayerMng.getInstance().getTarsPlayerInfo(uid), mutableListOf());
+            val tMsgRespEnterTable = TMsgRespEnterTable(11111, mutableListOf());
             val tMsgNotifyEnterTable = TMsgNotifyEnterTable();
             for (v in tableBase.playerDict.values) {
                 val tPlayerInfo = PlayerMng.getInstance().getTarsPlayerInfo(v.uid);
                 tPlayerInfo ?: continue;
                 if (v.uid == uid) { // 本人
                     tMsgNotifyEnterTable.tPlayerInfo = tPlayerInfo;
-                } else {
-                    tMsgRespEnterTable.vecPlayerInfo.add(tPlayerInfo);
                 }
+                tMsgRespEnterTable.vecPlayerInfo.add(tPlayerInfo);
             }
 
             for (v in tableBase.playerDict.values) {

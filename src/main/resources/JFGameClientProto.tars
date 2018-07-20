@@ -151,8 +151,7 @@ module JFGameClientProto
     struct TMsgRespEnterTable
     {
         0 require long                      lMasterID;		    // 桌长ID
-        1 optional TPlayerInfo              tPlayerInfo;        // 新进来的玩家数据(本人)
-        2 require vector<TPlayerInfo>      vecPlayerInfo;       // 本桌已经存在的玩家数据
+        1 require vector<TPlayerInfo>      vecPlayerInfo;       // 本桌已经存在的玩家数据
     };
 
     struct TMsgNotifyEnterTable
