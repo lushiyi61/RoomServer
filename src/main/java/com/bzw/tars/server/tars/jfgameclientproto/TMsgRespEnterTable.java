@@ -15,7 +15,9 @@ public class TMsgRespEnterTable {
 
 	@TarsStructProperty(order = 0, isRequire = true)
 	public long lMasterID = 0L;
-	@TarsStructProperty(order = 1, isRequire = true)
+	@TarsStructProperty(order = 1, isRequire = false)
+	public TPlayerInfo tPlayerInfo = null;
+	@TarsStructProperty(order = 2, isRequire = true)
 	public java.util.List<TPlayerInfo> vecPlayerInfo = null;
 
 	public long getLMasterID() {
@@ -24,6 +26,14 @@ public class TMsgRespEnterTable {
 
 	public void setLMasterID(long lMasterID) {
 		this.lMasterID = lMasterID;
+	}
+
+	public TPlayerInfo getTPlayerInfo() {
+		return tPlayerInfo;
+	}
+
+	public void setTPlayerInfo(TPlayerInfo tPlayerInfo) {
+		this.tPlayerInfo = tPlayerInfo;
 	}
 
 	public java.util.List<TPlayerInfo> getVecPlayerInfo() {
@@ -37,8 +47,9 @@ public class TMsgRespEnterTable {
 	public TMsgRespEnterTable() {
 	}
 
-	public TMsgRespEnterTable(long lMasterID, java.util.List<TPlayerInfo> vecPlayerInfo) {
+	public TMsgRespEnterTable(long lMasterID, TPlayerInfo tPlayerInfo, java.util.List<TPlayerInfo> vecPlayerInfo) {
 		this.lMasterID = lMasterID;
+		this.tPlayerInfo = tPlayerInfo;
 		this.vecPlayerInfo = vecPlayerInfo;
 	}
 
@@ -47,6 +58,7 @@ public class TMsgRespEnterTable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + TarsUtil.hashCode(lMasterID);
+		result = prime * result + TarsUtil.hashCode(tPlayerInfo);
 		result = prime * result + TarsUtil.hashCode(vecPlayerInfo);
 		return result;
 	}
@@ -65,15 +77,23 @@ public class TMsgRespEnterTable {
 		TMsgRespEnterTable other = (TMsgRespEnterTable) obj;
 		return (
 			TarsUtil.equals(lMasterID, other.lMasterID) &&
+			TarsUtil.equals(tPlayerInfo, other.tPlayerInfo) &&
 			TarsUtil.equals(vecPlayerInfo, other.vecPlayerInfo) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
 		_os.write(lMasterID, 0);
-		_os.write(vecPlayerInfo, 1);
+		if (null != tPlayerInfo) {
+			_os.write(tPlayerInfo, 1);
+		}
+		_os.write(vecPlayerInfo, 2);
 	}
 
+	static TPlayerInfo cache_tPlayerInfo;
+	static { 
+		cache_tPlayerInfo = new TPlayerInfo();
+	}
 	static java.util.List<TPlayerInfo> cache_vecPlayerInfo;
 	static { 
 		cache_vecPlayerInfo = new java.util.ArrayList<TPlayerInfo>();
@@ -83,7 +103,8 @@ public class TMsgRespEnterTable {
 
 	public void readFrom(TarsInputStream _is) {
 		this.lMasterID = _is.read(lMasterID, 0, true);
-		this.vecPlayerInfo = (java.util.List<TPlayerInfo>) _is.read(cache_vecPlayerInfo, 1, true);
+		this.tPlayerInfo = (TPlayerInfo) _is.read(cache_tPlayerInfo, 1, false);
+		this.vecPlayerInfo = (java.util.List<TPlayerInfo>) _is.read(cache_vecPlayerInfo, 2, true);
 	}
 
 }

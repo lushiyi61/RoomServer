@@ -14,7 +14,7 @@ import com.bzw.tars.server.jfgame.kotlin.common.Component
  * @return
  */
 data class Personal(var playID: Long,
-                    var sex: Int,
+                    var sex: Byte,
                     var nickName: String,
                     var portraitNo: String,
                     var portraitPath: String
@@ -22,7 +22,7 @@ data class Personal(var playID: Long,
 
 
 
-class InfoPersonal(var personal: Personal) : Component("InfoGame") {
+class InfoPersonal(var personal: Personal) : Component("InfoPersonal") {
 
     override fun ToString(): String {
         return this.personal.toString();

@@ -13,16 +13,16 @@ import com.bzw.tars.server.jfgame.kotlin.common.Component
 open class PlayerBase : Component("PlayerBase") {
     private val playerInfo = mutableMapOf<String, Component>();
 
-    fun Add(c: Component) {
+    fun addPlayerBase(c: Component) {
         this.playerInfo.put(c.name, c);
     }
 
-    fun Get(name: String): Component? {
+    fun getPlayerBase(name: String): Component? {
         return this.playerInfo.get(name);
     }
 
     override fun ToString(): String {
-        var tmpStr: String = "Player：\n";
+        var tmpStr: String = "TablePlayer：\n";
         for (v in this.playerInfo.values) {
             tmpStr += v.ToString();
             tmpStr += "\n";

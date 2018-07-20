@@ -29,6 +29,9 @@ module JFGameClientProto
 	    E_PLAYER_NOT_EXIST          = 102,              // 玩家数据不存在
 	    E_GAME_NOT_EXIST            = 103,              // 游戏服务器不存在
 	    E_TABLE_NO_ERROR            = 104,              // 房间/游戏桌编号不存在
+	    E_TABLE_IS_FULL             = 105,              // 人数已满
+	    E_CHAIR_IS_FULL             = 106,              // 座位已满
+	    E_SEAT_IS_TAKEN             = 107,              // 该座位有人了
 
 
 	    E_TABLE_ENTER_ERROR         = 149,              // 加入游戏失败（原因未知）
@@ -148,7 +151,8 @@ module JFGameClientProto
     struct TMsgRespEnterTable
     {
         0 require long                      lMasterID;		    // 桌长ID
-        1 require vector<TPlayerInfo>      vecPlayerInfo;       // 本桌已经存在的玩家数据
+        1 optional TPlayerInfo              tPlayerInfo;        // 新进来的玩家数据(本人)
+        2 require vector<TPlayerInfo>      vecPlayerInfo;       // 本桌已经存在的玩家数据
     };
 
     struct TMsgNotifyEnterTable

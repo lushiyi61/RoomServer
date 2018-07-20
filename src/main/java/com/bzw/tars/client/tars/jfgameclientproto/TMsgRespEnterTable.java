@@ -14,19 +14,9 @@ import com.qq.tars.protocol.tars.annotation.*;
 public class TMsgRespEnterTable {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public int iResultID = 0;
-	@TarsStructProperty(order = 1, isRequire = false)
 	public long lMasterID = 0L;
-	@TarsStructProperty(order = 2, isRequire = false)
+	@TarsStructProperty(order = 1, isRequire = true)
 	public java.util.List<TPlayerInfo> vecPlayerInfo = null;
-
-	public int getIResultID() {
-		return iResultID;
-	}
-
-	public void setIResultID(int iResultID) {
-		this.iResultID = iResultID;
-	}
 
 	public long getLMasterID() {
 		return lMasterID;
@@ -47,8 +37,7 @@ public class TMsgRespEnterTable {
 	public TMsgRespEnterTable() {
 	}
 
-	public TMsgRespEnterTable(int iResultID, long lMasterID, java.util.List<TPlayerInfo> vecPlayerInfo) {
-		this.iResultID = iResultID;
+	public TMsgRespEnterTable(long lMasterID, java.util.List<TPlayerInfo> vecPlayerInfo) {
 		this.lMasterID = lMasterID;
 		this.vecPlayerInfo = vecPlayerInfo;
 	}
@@ -57,7 +46,6 @@ public class TMsgRespEnterTable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(iResultID);
 		result = prime * result + TarsUtil.hashCode(lMasterID);
 		result = prime * result + TarsUtil.hashCode(vecPlayerInfo);
 		return result;
@@ -76,18 +64,14 @@ public class TMsgRespEnterTable {
 		}
 		TMsgRespEnterTable other = (TMsgRespEnterTable) obj;
 		return (
-			TarsUtil.equals(iResultID, other.iResultID) &&
 			TarsUtil.equals(lMasterID, other.lMasterID) &&
 			TarsUtil.equals(vecPlayerInfo, other.vecPlayerInfo) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(iResultID, 0);
-		_os.write(lMasterID, 1);
-		if (null != vecPlayerInfo) {
-			_os.write(vecPlayerInfo, 2);
-		}
+		_os.write(lMasterID, 0);
+		_os.write(vecPlayerInfo, 1);
 	}
 
 	static java.util.List<TPlayerInfo> cache_vecPlayerInfo;
@@ -98,9 +82,8 @@ public class TMsgRespEnterTable {
 	}
 
 	public void readFrom(TarsInputStream _is) {
-		this.iResultID = _is.read(iResultID, 0, true);
-		this.lMasterID = _is.read(lMasterID, 1, false);
-		this.vecPlayerInfo = (java.util.List<TPlayerInfo>) _is.read(cache_vecPlayerInfo, 2, false);
+		this.lMasterID = _is.read(lMasterID, 0, true);
+		this.vecPlayerInfo = (java.util.List<TPlayerInfo>) _is.read(cache_vecPlayerInfo, 1, true);
 	}
 
 }
