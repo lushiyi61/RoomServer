@@ -17,7 +17,7 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
     val playerDict = mutableMapOf<Long, TablePlayer>();  // key (Long:玩家ID)
     val chairDict = mutableMapOf<Byte, Long>();     // key (Byte:座位号)
     val chairList = mutableListOf<Long>();          // key (座次 -> 玩家)
-    ////////////////////////////////////////////////////////////////
+    ////////////////////////游戏桌属性/////////////////////////////////
 
     var playerMin: Byte = 2;         // 最小人数
     var playerMax: Byte = 5;         // 最大人数
@@ -139,6 +139,33 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
         }
 
         return E_RETCODE.E_COMMON_SUCCESS;
+    }
+
+    fun doPrepare(uid: Long): E_RETCODE {
+        val tablePlayer = this.playerDict.get(uid);
+        tablePlayer ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
+
+        if (tablePlayer.chairNo <= 0){
+            return E_RETCODE.E_PLAYER_NOT_SIT;
+        }
+
+        tablePlayer.state = true;
+
+        return E_RETCODE.E_COMMON_SUCCESS;
+    }
+
+    /*
+     * @description 玩家离开本桌
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/23 11:02
+     * @param
+     * @return
+     */
+    fun doLeaveTable(uid: Long) {
+        val tablePlayer = this.playerDict.remove(uid);
+        tablePlayer ?: return;
+        this.chairDict.remove(tablePlayer.chairNo);
     }
 
 

@@ -1,7 +1,10 @@
 package com.bzw.tars.server.jfgame.impl;
 
 import com.bzw.tars.comm.TarsUtilsKt;
+import com.bzw.tars.server.jfgame.kotlin.database.game.GameBase;
 import com.bzw.tars.server.jfgame.kotlin.database.player.*;
+import com.bzw.tars.server.jfgame.kotlin.database.table.TableBase;
+import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng;
 import com.bzw.tars.server.jfgame.kotlin.logic.MainRouter;
 import com.bzw.tars.server.tars.jfgame.TClientParam;
 import com.bzw.tars.server.tars.jfgame.TUserBaseInfoExt;
@@ -35,9 +38,9 @@ public class TarsRoomServantImpl implements TarsRoomServant {
                 // 增加玩家物理信息
                 InfoPhysical infoPhysical = new InfoPhysical(new Physical(stClientParam.sAddr, "", System.currentTimeMillis() / 1000));
                 // 增加玩家基本信息
-                InfoPersonal infoPersonal = new InfoPersonal(new Personal(lUin, (byte) 0, "SB", "0", ""));
+                InfoPersonal infoPersonal = new InfoPersonal(new Personal(lUin, (byte) 0, "SB" + lUin, "0", ""));
                 // 增加玩家游戏信息
-                InfoGame infoGame = new InfoGame(new Game("", "", (byte)-1, (byte)-1));
+                InfoGame infoGame = new InfoGame(new Game("", "", (byte) -1, (byte) -1));
 
                 playerBase.addPlayerBase(infoPhysical);
                 playerBase.addPlayerBase(infoPersonal);
@@ -55,6 +58,10 @@ public class TarsRoomServantImpl implements TarsRoomServant {
     @Override
     public int onOffLine(long lUin) {
         System.out.println("Recv onOffLine, playerID:" + lUin);
+        if(this.mainRouter.onOffLine(lUin))
+        {
+            PlayerMng.Companion.getInstance().removePlayer(lUin);
+        }
         return 0;
     }
 }

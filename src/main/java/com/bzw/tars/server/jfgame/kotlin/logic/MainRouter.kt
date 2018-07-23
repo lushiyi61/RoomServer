@@ -10,6 +10,7 @@ import com.bzw.tars.server.jfgame.kotlin.database.player.PlayerMng
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableBase
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng
 import com.bzw.tars.server.jfgame.kotlin.database.table.TablePrivate
+import com.bzw.tars.server.jfgame.kotlin.database.table.TableState
 import com.bzw.tars.server.tars.jfgameclientproto.*
 import com.qq.tars.protocol.tars.TarsInputStream
 import com.qq.tars.protocol.tars.TarsOutputStream
@@ -42,7 +43,8 @@ class MainRouter {
             E_CLIENT_MSGID.E_TABLE_STAND_UP.value().toShort() -> null;
 
             E_CLIENT_MSGID.E_TABLE_RECONNECT.value().toShort() -> null;
-            E_CLIENT_MSGID.E_TABLE_PREPARE.value().toShort() -> null;
+            E_CLIENT_MSGID.E_TABLE_PREPARE.value().toShort() -> res = this.onPlayerPrepare(uid);
+            E_CLIENT_MSGID.E_START_BY_MASTER.value().toShort() -> null;
 
             E_CLIENT_MSGID.E_TABLE_DISMISS.value().toShort() -> null;
             E_CLIENT_MSGID.E_TABLE_VOTE_DISMISS.value().toShort() -> null;
@@ -68,10 +70,47 @@ class MainRouter {
      * @author zoujian
      * @date 2018/7/16 13:46
      * @param
-     * @return
+     * @return 是否应该删除玩家信息
      */
-    fun onOffLine(): Unit {
+    fun onOffLine(uid: Long): Boolean {
+        // 查找玩家信息
+        val game = PlayerMng.getInstance().getInfoGame(uid);
+        game ?: return true;
 
+        // 查找玩家table信息
+        val tableBase = TableMng.getInstance().getTable(game.tableNo);
+        tableBase ?: return true;
+
+        //查找座位信息
+        val tablePlayer = tableBase.playerDict.get(uid);
+        tablePlayer ?: return true;
+
+        // 查找游戏开始信息
+        // 游戏未开始（广播玩家离开，清除玩家数据，清除游戏桌数据）
+        // 游戏已经开始（广播玩家离线）
+        var msgData: ByteArray;
+        var msgID: Short;
+        if (tableBase.state == TableState.E_TABLE_INIT) {
+            msgID = (0 - E_CLIENT_MSGID.E_TABLE_LEAVE.value()).toShort();
+            msgData = TarsUtilsKt.toByteArray(TMsgNotifyLeaveTable(tablePlayer.chairNo))!!;
+
+            tableBase.doLeaveTable(uid);
+        } else {
+            msgID = (0 - E_CLIENT_MSGID.E_PLAYER_DISCONNECT.value()).toShort();
+            msgData = TarsUtilsKt.toByteArray(TMsgNotifyDisconnect(tablePlayer.chairNo))!!;
+        }
+
+        val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
+        val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
+        tRespPackage.vecMsgID.add(msgID);
+        tRespPackage.vecMsgData.add(msgData);
+        for (v in tableBase.playerDict.values) {
+            if (v.uid != uid) { // 非本人
+                tarsRouterPrx.doPush(v.uid, tRespPackage);
+            }
+        }
+
+        return false;
     }
 
 
@@ -104,8 +143,8 @@ class MainRouter {
         // 游戏桌成功将该玩家加入
         val res = tableBase.doEnterTable(uid, tMsgReqEnterTable.nChairNo);
         if (E_RETCODE.E_COMMON_SUCCESS == res) { // 加入成功
+            PlayerMng.getInstance().getInfoGame(uid)!!.tableNo = tMsgReqEnterTable.getSTableNo();
             val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
-
 
             val tMsgRespEnterTable = TMsgRespEnterTable(11111, mutableListOf());
             val tMsgNotifyEnterTable = TMsgNotifyEnterTable();
@@ -135,6 +174,10 @@ class MainRouter {
 
         return res;
     }
+
+//    private fun onLeaveTable(uid: Long): E_RETCODE {
+//
+//    }
 
     /*
      * @description 处理游戏消息
@@ -167,15 +210,32 @@ class MainRouter {
         tableBase ?: return E_RETCODE.E_TABLE_NOT_EXIST;
 
         // 玩家准备
+        val res = tableBase.doPrepare(uid);
+        if (res == E_RETCODE.E_COMMON_SUCCESS) {
 
-        // 广播玩家准备消息
+            // 广播玩家准备消息
+            val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
+
+            for (v in tableBase.playerDict.values) {
+                val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
+                if (v.uid == uid) {  // 本人
+                    tRespPackage.vecMsgID.add(E_CLIENT_MSGID.E_TABLE_PREPARE.value().toShort());
+                    tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(TMsgCommPlaceholder()));
+                    tarsRouterPrx.doPush(v.uid, tRespPackage);
+                } else {
+                    tRespPackage.vecMsgID.add((0 - E_CLIENT_MSGID.E_TABLE_PREPARE.value()).toShort());
+                    tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(TMsgNotifyPrepare(tableBase.playerDict.get(uid)!!.chairNo)));
+                    tarsRouterPrx.doPush(v.uid, tRespPackage);
+                }
+            }
+        }
 
         // 检查是否可以开桌
         if (tableBase.canStartGame()) {
 
         }
 
-        return E_RETCODE.E_COMMON_SUCCESS;
+        return res;
     }
 
 

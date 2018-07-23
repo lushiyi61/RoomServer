@@ -30,6 +30,10 @@ class PlayerMng private constructor(val dataMax: Int = 10000) {
         return 0;
     };
 
+    fun removePlayer(uid: Long) {
+        this.m_OnlinePlayerDict.remove(uid);
+    }
+
     fun getPlayer(uid: Long): PlayerBase? {
         return this.m_OnlinePlayerDict.get(uid);
     }
@@ -73,10 +77,10 @@ class PlayerMng private constructor(val dataMax: Int = 10000) {
         val game = this.getInfoGame(uid);
         game ?: return null;
         val physical: Physical? = this.getInfoPhysical(uid);
-        physical?:return null;
+        physical ?: return null;
 
         val tPlayerInfo = TPlayerInfo(uid, game.state, game.chairNo,
-                personal.nickName, personal.portraitNo, personal.portraitPath, personal.sex,physical.clientIP);
+                personal.nickName, personal.portraitNo, personal.portraitPath, personal.sex, physical.clientIP);
 
         return tPlayerInfo;
     }

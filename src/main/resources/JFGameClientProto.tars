@@ -32,6 +32,7 @@ module JFGameClientProto
 	    E_TABLE_IS_FULL             = 105,              // 人数已满
 	    E_CHAIR_IS_FULL             = 106,              // 座位已满
 	    E_SEAT_IS_TAKEN             = 107,              // 该座位有人了
+	    E_PLAYER_NOT_SIT            = 108,              // 玩家没有坐下
 
 
 	    E_TABLE_ENTER_ERROR         = 149,              // 加入游戏失败（原因未知）
@@ -97,6 +98,8 @@ module JFGameClientProto
         E_TABLE_LEAVE           = 102,         // 离开/站起指定桌子                     // TMsgReqLeaveTable
         E_TABLE_SIT_DOWN        = 103,         // 坐下指定位置
         E_TABLE_STAND_UP        = 104,         // 站起
+        E_PLAYER_DISCONNECT     = 105,         // 玩家断线
+        E_START_BY_MASTER       = 110,         // 房主开桌
         E_TABLE_RECONNECT       = 113,         // 重新连接（进入/坐下指定桌子）         // TMsgReqReconnectTable
         E_TABLE_PREPARE         = 114,         // 准备
         E_TABLE_DISMISS         = 115,         // 申请解散桌子
@@ -162,27 +165,24 @@ module JFGameClientProto
     /*
      * @description 离开/站起指定桌子 请求
      * =====================================
-     * @author zoujian
-     * @date 2018/7/11 13:49
      */
-    struct TMsgReqLeaveTable
-    {
-        0 optional   byte		placeholder = 0;			// 占位，无意义
-    };
 
     /*
      * @description 离开/站起指定桌子 应答&广播
      * =====================================
-     * @author zoujian
-     * @date 2018/7/11 13:51
-     * @iResultID 0-成功 1-错误
      */
-    struct TMsgRespLeaveTable
-    {
-        0 require   int         iResultID;			 // 返回结果
-    };
 
     struct TMsgNotifyLeaveTable
+    {
+        0 require   byte         nChairNo; 			 // 所在桌子座位号
+    };
+
+
+    /*
+     * @description 断线通知
+     * =====================================
+     */
+    struct TMsgNotifyDisconnect
     {
         0 require   byte         nChairNo; 			 // 所在桌子座位号
     };
@@ -190,10 +190,6 @@ module JFGameClientProto
     /*
      * @description 玩家请求坐下
      * =====================================
-     * @author zoujian
-     * @date 2018/7/16 17:27
-     * @param
-     * @return
      */
     struct TMsgReqSitDown
     {
@@ -203,15 +199,7 @@ module JFGameClientProto
     /*
      * @description 坐下桌子 应答&广播
      * =====================================
-     * @author zoujian
-     * @date 2018/7/16 17:23
-     * @param
-     * @return
      */
-    struct TMsgRespSitDown
-    {
-        0 require   int         iResultID;			 // 返回结果
-    };
 
     struct TMsgNotifySitDown
     {
@@ -223,29 +211,13 @@ module JFGameClientProto
     /*
      * @description 玩家请求站起
      * =====================================
-     * @author zoujian
-     * @date 2018/7/16 17:27
-     * @param
-     * @return
      */
-    struct TMsgReqStandUp
-    {
-        0 optional   byte		placeholder = 0;			// 占位，无意义
-    };
+
 
     /*
-     * @description 坐下桌子 应答&广播
+     * @description 站起 应答&广播
      * =====================================
-     * @author zoujian
-     * @date 2018/7/16 17:23
-     * @param
-     * @return
      */
-    struct TMsgRespStandUp
-    {
-        0 require   int         iResultID;			 // 返回结果
-    };
-
     struct TMsgNotifyStandUp
     {
         0 require   byte         nChairNo; 			 // 所在桌子座位号
@@ -254,8 +226,6 @@ module JFGameClientProto
     /*
      * @description 重新连接（进入/坐下指定桌子）
      * =====================================
-     * @author zoujian
-     * @date 2018/7/11 14:07
      */
     struct TMsgReqReconnectTable
     {
@@ -266,9 +236,6 @@ module JFGameClientProto
     /*
      * @description 重新连接（进入/坐下指定桌子） 应答&广播
      * =====================================
-     * @author zoujian
-     * @date 2018/7/11 13:51
-     * @iResultID 0-成功 1-游戏已经结束
      */
     struct TMsgRespReconnectTable
     {
@@ -282,9 +249,29 @@ module JFGameClientProto
         0 require   byte         nChairNo; 			 // 所在桌子座位号
     };
 
+    /*
+     * @description 玩家准备
+     * =====================================
+     */
+    struct TMsgNotifyPrepare
+    {
+        0 require   byte         nChairNo; 			 // 所在桌子座位号
+    };
 
 
+    /*
+     * @description 通用的占位数据结构（适应无参请求&返回）
+     * =====================================
+     */
+    struct TMsgCommPlaceholder
+    {
+        0 optional   byte		placeholder = 0;			// 占位，无意义
+    };
 
+    /*
+     * @description 通用的错误返回数据结构
+     * =====================================
+     */
     struct TMsgRespErrorCode
     {
         0 require   short         nErrorCode; 			 // 错误码

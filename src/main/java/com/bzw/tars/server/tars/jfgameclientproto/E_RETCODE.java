@@ -16,6 +16,7 @@ public enum E_RETCODE {
 	E_TABLE_IS_FULL(105),
 	E_CHAIR_IS_FULL(106),
 	E_SEAT_IS_TAKEN(107),
+	E_PLAYER_NOT_SIT(108),
 	E_TABLE_ENTER_ERROR(149);
 
 	private final int value;

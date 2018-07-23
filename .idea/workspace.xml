@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a28255c2-a102-491d-bc81-2882238b0491" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/impl/TarsRoomServantImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/impl/TarsRoomServantImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerMng.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerMng.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableBase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableBase.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/MainRouter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/MainRouter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/TMsgRespEnterTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/TMsgRespEnterTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/E_CLIENT_MSGID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/E_CLIENT_MSGID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/E_RETCODE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/E_RETCODE.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/JFGameClientProto.tars" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/JFGameClientProto.tars" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -19,11 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainRouter.kt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainRouter.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/MainRouter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1083">
-              <caret line="117" column="16" selection-start-line="117" selection-start-column="16" selection-end-line="117" selection-end-column="16" />
+            <state relative-caret-position="152">
+              <caret line="89" column="25" lean-forward="true" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
               <folding>
                 <element signature="e#49#765#0" expanded="true" />
               </folding>
@@ -34,8 +37,8 @@
       <file leaf-file-name="TarsRoomServantImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/impl/TarsRoomServantImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
+            <state relative-caret-position="866">
+              <caret line="63" column="9" selection-start-line="63" selection-start-column="9" selection-end-line="63" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#709#710#0" expanded="true" />
@@ -45,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TableBase.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TableBase.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableBase.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="136" column="28" selection-start-line="136" selection-start-column="28" selection-end-line="136" selection-end-column="28" />
+            <state relative-caret-position="201">
+              <caret line="149" column="9" selection-start-line="149" selection-start-column="9" selection-end-line="149" selection-end-column="9" />
               <folding>
                 <element signature="e#58#312#0" expanded="true" />
               </folding>
@@ -57,11 +60,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="E_RETCODE.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/E_RETCODE.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="PlayerMng.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerMng.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+            <state relative-caret-position="342">
+              <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -78,8 +90,8 @@
       <file leaf-file-name="JFGameClientProto.tars" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/JFGameClientProto.tars">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="153" column="9" selection-start-line="153" selection-start-column="9" selection-end-line="153" selection-end-column="9" />
+            <state relative-caret-position="415">
+              <caret line="101" column="25" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -191,13 +203,13 @@
         <option value="$PROJECT_DIR$/src/test/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/InfoGame.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerMng.kt" />
         <option value="$PROJECT_DIR$/src/test/java/com/bzw/tars/server/jfgame/kotlin/database/player/TablePlayerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/InfoPersonal.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerMng.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/impl/TarsRoomServantImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableBase.kt" />
         <option value="$PROJECT_DIR$/src/main/resources/JFGameClientProto.tars" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/MainRouter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableBase.kt" />
       </list>
     </option>
   </component>
@@ -213,10 +225,10 @@
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="8" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="y" value="70" />
     <option name="width" value="1809" />
-    <option name="height" value="1013" />
+    <option name="height" value="951" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -366,6 +378,18 @@
               <item name="kotlin" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
               <item name="table" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="tars" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="jfgame" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="logic" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
@@ -622,7 +646,7 @@
       <workItem from="1531099022443" duration="93652000" />
       <workItem from="1531366680381" duration="6770000" />
       <workItem from="1531703971198" duration="48093000" />
-      <workItem from="1531889052436" duration="57360000" />
+      <workItem from="1531889052436" duration="69767000" />
     </task>
     <servers />
   </component>
@@ -659,7 +683,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216296000" />
+    <option name="totallyTimeSpent" value="228703000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -671,7 +695,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="8" width="1809" height="1013" extended-state="0" />
+    <frame x="0" y="70" width="1809" height="951" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -686,15 +710,15 @@
       <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39954337" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32882884" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.33722287" />
+      <window_info active="true" anchor="bottom" id="Messages" order="7" visible="true" weight="0.24025157" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" weight="0.32905483" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.18436407" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.30221704" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.25087515" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.69908816" visible="true" weight="0.22241281" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.25031447" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.69908816" weight="0.22241281" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32788798" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -708,33 +732,33 @@
     <layout-to-restore>
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.30221704" />
       <window_info id="Image Layers" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.29504505" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.23536035" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.25031447" />
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="9" weight="0.3277027" />
+      <window_info active="true" anchor="bottom" id="Messages" order="9" visible="true" weight="0.24025157" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32882884" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.04691689" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.69908816" visible="true" weight="0.27010724" />
-      <window_info anchor="bottom" id="Java Enterprise" order="10" />
+      <window_info anchor="bottom" id="Java Enterprise" order="10" weight="0.32905483" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="12" visible="true" weight="0.18463445" />
+      <window_info anchor="bottom" id="Version Control" order="12" weight="0.18436407" />
       <window_info anchor="right" id="Maven Projects" order="5" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32788798" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.69908816" visible="true" weight="0.22241281" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info id="Structure" order="1" sideWeight="0.30091184" side_tool="true" visible="true" weight="0.27010724" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32848486" />
+      <window_info id="Structure" order="1" sideWeight="0.30091184" side_tool="true" weight="0.27010724" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39954337" />
     </layout-to-restore>
   </component>
@@ -750,17 +774,9 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/client/tarsgame/TGameData.java" />
     <entry file="file://$PROJECT_DIR$/target/classes/log/stdout.log.2018-07-16" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/client/tarsgame/TarsGameConst.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/client/tarsgame/TData.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/E_CLIENT_MSGID.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="7" column="26" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/client/jfgameclientproto/E_CLIENT_MSGID.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/room/InfoPrivate.kt">
       <provider selected="true" editor-type-id="text-editor">
@@ -919,17 +935,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/E_RETCODE.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="e#641#642#0" expanded="true" />
-            <element signature="e#685#686#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TablePrivate.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -1020,13 +1025,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerMng.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/JFGame.RoomServer.config.conf">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -1051,17 +1049,59 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerMng.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/TMsgNotifyLeaveTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
+          <folding>
+            <element signature="e#772#773#0" expanded="true" />
+            <element signature="e#803#804#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/E_CLIENT_MSGID.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/tars/jfgameclientproto/E_RETCODE.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableBase.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="149" column="9" selection-start-line="149" selection-start-column="9" selection-end-line="149" selection-end-column="9" />
+          <folding>
+            <element signature="e#58#312#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/JFGameClientProto.tars">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="153" column="9" selection-start-line="153" selection-start-column="9" selection-end-line="153" selection-end-column="9" />
+        <state relative-caret-position="415">
+          <caret line="101" column="25" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/impl/TarsRoomServantImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
+        <state relative-caret-position="866">
+          <caret line="63" column="9" selection-start-line="63" selection-start-column="9" selection-end-line="63" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#709#710#0" expanded="true" />
@@ -1072,20 +1112,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/MainRouter.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1083">
-          <caret line="117" column="16" selection-start-line="117" selection-start-column="16" selection-end-line="117" selection-end-column="16" />
+        <state relative-caret-position="152">
+          <caret line="89" column="25" lean-forward="true" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
           <folding>
             <element signature="e#49#765#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableBase.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="136" column="28" selection-start-line="136" selection-start-column="28" selection-end-line="136" selection-end-column="28" />
-          <folding>
-            <element signature="e#58#312#0" expanded="true" />
           </folding>
         </state>
       </provider>
