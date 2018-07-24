@@ -1,4 +1,4 @@
-package com.bzw.tars.server.jfgame.kotlin.database.game
+package com.bzw.tars.client.kotlin.game
 
 import com.bzw.tars.client.tars.tarsgame.IGameMessagePrx
 import com.qq.tars.client.CommunicatorConfig

@@ -1,7 +1,7 @@
 package com.bzw.tars.server.jfgame.impl;
 
 import com.bzw.tars.comm.TarsUtilsKt;
-import com.bzw.tars.server.jfgame.kotlin.database.game.GameBase;
+import com.bzw.tars.client.kotlin.game.GameBase;
 import com.bzw.tars.server.jfgame.kotlin.database.player.*;
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableBase;
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng;

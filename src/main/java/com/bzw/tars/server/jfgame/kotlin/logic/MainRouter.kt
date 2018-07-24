@@ -3,7 +3,7 @@ package com.bzw.tars.server.jfgame.kotlin.logic
 import com.bzw.tars.client.kotlin.ClientImpl
 import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.comm.TarsUtilsKt
-import com.bzw.tars.server.jfgame.kotlin.database.game.GameMng
+import com.bzw.tars.client.kotlin.game.GameMng
 import com.bzw.tars.server.jfgame.kotlin.database.player.Game
 import com.bzw.tars.server.jfgame.kotlin.database.player.InfoGame
 import com.bzw.tars.server.jfgame.kotlin.database.player.PlayerMng

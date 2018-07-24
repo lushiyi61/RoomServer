@@ -7,4 +7,5 @@ package com.bzw.tars.server.jfgame.kotlin.database.table
  */
 enum class TableState {
     E_TABLE_INIT,
+    E_TABLE_PLAYING,
 }

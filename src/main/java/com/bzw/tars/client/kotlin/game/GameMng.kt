@@ -1,4 +1,4 @@
-package com.bzw.tars.server.jfgame.kotlin.database.game
+package com.bzw.tars.client.kotlin.game
 
 /**
  * @创建者 zoujian

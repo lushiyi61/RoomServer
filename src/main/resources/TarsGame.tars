@@ -2,9 +2,9 @@ module TarsGame
 {
     enum E_GAME_MSGID {
         GAMECREATE      = 10,           // 创建游戏
-        GAMEPREPARE     = 11,           // 玩家准备
-        GAMERECONNECT   = 12,           // 玩家重连
-        GAMESTART       = 13,           // 游戏开始
+        GAMERECONNECT   = 11,           // 玩家重连
+        GAMESTART       = 12,           // 游戏开始
+        GAMETIMEOUT     = 13,           // 游戏超时
         GAMEFINNISH     = 14,           // 游戏结束
         GAMEDISMISS     = 15,           // 游戏解散
         GAMERESULT      = 16,           // 游戏结果
