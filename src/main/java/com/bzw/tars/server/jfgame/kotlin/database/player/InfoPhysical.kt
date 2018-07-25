@@ -1,7 +1,5 @@
 package com.bzw.tars.server.jfgame.kotlin.database.player
 
-import com.bzw.tars.server.jfgame.kotlin.common.Component
-
 /*
  * @description 物理信息
  * =====================================
@@ -16,7 +14,7 @@ data class Physical(var clientIP: String,
                     val loginTime: Long);
 
 
-class InfoPhysical(var physical: Physical) : Component("InfoPhysical") {
+class InfoPhysical(var physical: Physical) : PlayerComponent("InfoPhysical") {
 
     override fun ToString(): String {
         return this.physical.toString();

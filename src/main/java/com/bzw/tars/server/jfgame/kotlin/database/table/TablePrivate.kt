@@ -13,4 +13,8 @@ class TablePrivate(tableNo: String, gameID: Int, roomNO: String) : TableBase(tab
     override fun canStartGame(): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun ToString(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

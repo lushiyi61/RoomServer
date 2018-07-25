@@ -7,9 +7,38 @@ import com.bzw.tars.server.tars.jfgameclientproto.E_RETCODE
 /**
  * @创建者 zoujian
  * @创建时间 2018/7/11
- * @描述 桌子的基类
+ * @描述 桌子类
+ * 采用组件模式，组装table
+ *
  */
-abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) {
+abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : TableComponent("TableBase") {
+    private val tableInfo = mutableMapOf<String, TableComponent>();
+    private val tableType: Byte = 0;  // 类型
+
+    fun addTableBase(c: TableComponent) {
+        this.tableInfo.put(c.name, c);
+    }
+
+    fun getTableBase(name: String): TableComponent? {
+        return this.tableInfo.get(name);
+    }
+
+    override fun ToString(): String {
+        var tmpStr: String = String.format("TableInfo-> type:%d\n", this.tableType);
+        for (v in this.tableInfo.values) {
+            tmpStr += v.ToString();
+            tmpStr += "\n";
+        }
+        return tmpStr;
+    }
+
+
+
+
+
+
+
+
     /////////////////////// 玩家管理 ///////////////////////////////
     // 玩家ID，座位号，座次号，准备状态
     data class TablePlayer(var uid: Long, var chairNo: Byte, var chairIdx: Byte, var state: Boolean) {}
@@ -145,7 +174,7 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
         val tablePlayer = this.playerDict.get(uid);
         tablePlayer ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
 
-        if (tablePlayer.chairNo <= 0){
+        if (tablePlayer.chairNo <= 0) {
             return E_RETCODE.E_PLAYER_NOT_SIT;
         }
 

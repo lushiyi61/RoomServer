@@ -1,7 +1,5 @@
 package com.bzw.tars.server.jfgame.kotlin.database.player
 
-import com.bzw.tars.server.jfgame.kotlin.common.Component
-
 /*
  * @description 个人资料
  * =====================================
@@ -22,7 +20,7 @@ data class Personal(var playID: Long,
 
 
 
-class InfoPersonal(var personal: Personal) : Component("InfoPersonal") {
+class InfoPersonal(var personal: Personal) : PlayerComponent("InfoPersonal") {
 
     override fun ToString(): String {
         return this.personal.toString();

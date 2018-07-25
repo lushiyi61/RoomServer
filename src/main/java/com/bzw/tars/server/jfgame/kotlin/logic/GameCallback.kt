@@ -7,6 +7,7 @@ import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.client.tars.tarsgame.*
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableBase
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng
+import com.bzw.tars.server.jfgame.kotlin.timer.TimerMng
 
 /**
  * @创建者 zoujian
@@ -47,6 +48,12 @@ class GameCallback : IGameMessagePrxCallback {
 
             tRespMessage ?: return;
             doGameMsgNotify(tRespMessage);
+
+            if (tRespMessage.nTimeout > 0) {
+                TimerMng.getInstance().addTimer(this.tableNO, this.gameBase.gameID, tRespMessage.getNTimeout().toInt());
+            } else if (tRespMessage.nTimeout < 0) {
+                TimerMng.getInstance().removeTimer(this.tableNO);
+            }
         } else {
 //            System.err.println("Game Callback error !!!");
         }
@@ -57,10 +64,10 @@ class GameCallback : IGameMessagePrxCallback {
         tablePlayerDict ?: return;
 
         when (tRespMessage.eMsgType) {
-            EGameMsgType.E_RESPONE_DATA.value() -> null;
-            EGameMsgType.E_RESPALL_DATA.value() -> null;
-            EGameMsgType.E_NOTIFY_DATA.value() -> null;
-            EGameMsgType.E_MIXTURE_DATA.value() -> null;
+            EGameMsgType.E_RESPONE_DATA.value() -> this.doRespOne(tRespMessage, tablePlayerDict);
+            EGameMsgType.E_RESPALL_DATA.value() -> this.doRespAll(tRespMessage, tablePlayerDict);
+            EGameMsgType.E_NOTIFY_DATA.value() -> this.doNotify(tRespMessage, tablePlayerDict);
+            EGameMsgType.E_MIXTURE_DATA.value() -> this.doMixture(tRespMessage, tablePlayerDict);
             else -> System.err.println("Game msgType error !!!");
         }
     }
@@ -151,5 +158,7 @@ class GameCallback : IGameMessagePrxCallback {
         tReqMessage.nMsgID = msgID;
         tReqMessage.sTableNo = tableNO;
         gameBase.iGameMsgPrx.async_doRoomMessage(GameCallback(tableNO, gameBase), tReqMessage);
+
+        // 更新游戏状态
     }
 }

@@ -1,7 +1,5 @@
 package com.bzw.tars.server.jfgame.kotlin.database.player
 
-import com.bzw.tars.server.jfgame.kotlin.common.Component
-
 /*
  * @description 玩家信息接口
  * =====================================
@@ -10,19 +8,19 @@ import com.bzw.tars.server.jfgame.kotlin.common.Component
  * @param
  * @return
  */
-open class PlayerBase : Component("PlayerBase") {
-    private val playerInfo = mutableMapOf<String, Component>();
+open class PlayerBase : PlayerComponent("PlayerBase") {
+    private val playerInfo = mutableMapOf<String, PlayerComponent>();
 
-    fun addPlayerBase(c: Component) {
+    fun addPlayerBase(c: PlayerComponent) {
         this.playerInfo.put(c.name, c);
     }
 
-    fun getPlayerBase(name: String): Component? {
+    fun getPlayerBase(name: String): PlayerComponent? {
         return this.playerInfo.get(name);
     }
 
     override fun ToString(): String {
-        var tmpStr: String = "TablePlayer：\n";
+        var tmpStr: String = "PlayerInfo：\n";
         for (v in this.playerInfo.values) {
             tmpStr += v.ToString();
             tmpStr += "\n";

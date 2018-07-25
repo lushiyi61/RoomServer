@@ -50,6 +50,14 @@ class TableMng private constructor(val dataMax: Int = 10000) {
         return this.m_tableDict.get(tableNo);
     }
 
+    /*
+     * @description 获取本桌玩家数据
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/25 16:56
+     * @param
+     * @return
+     */
     fun getTablePlayer(tableNo: String): MutableMap<Long, TableBase.TablePlayer>? {
         val tableBase = this.getTable(tableNo);
         tableBase ?: return null;

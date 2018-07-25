@@ -1,7 +1,5 @@
 package com.bzw.tars.server.jfgame.kotlin.database.player;
 
-import com.bzw.tars.server.jfgame.kotlin.common.Component
-
 /*
  * @description 会员信息
  * =====================================
@@ -14,7 +12,7 @@ data class Vip(var level: Int,
                var varidity: Int);
 
 
-class InfoVip(var vip: Vip) : Component("InfoVip") {
+class InfoVip(var vip: Vip) : PlayerComponent("InfoVip") {
 
     override fun ToString(): String {
         return this.vip.toString();
