@@ -7,10 +7,10 @@ package com.bzw.tars.client.tars.tarsgame;
 
 public enum EGameMsgType {
 
-	ENOTIFYDATA(0),
-	ERESPONEDATA(1),
-	ERESPALLDATA(2),
-	EMIXTUREDATA(3);
+	E_NOTIFY_DATA(0),
+	E_RESPONE_DATA(1),
+	E_RESPALL_DATA(2),
+	E_MIXTURE_DATA(3);
 
 	private final int value;
 

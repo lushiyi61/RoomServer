@@ -14,41 +14,11 @@ import com.qq.tars.protocol.tars.annotation.*;
 public class TRespMessage {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public short nMsgID = (short)0;
-	@TarsStructProperty(order = 1, isRequire = true)
-	public String sTableNo = "";
-	@TarsStructProperty(order = 2, isRequire = true)
-	public short nChairIdx = -1;
-	@TarsStructProperty(order = 3, isRequire = true)
 	public short nTimeout = 0;
-	@TarsStructProperty(order = 4, isRequire = true)
+	@TarsStructProperty(order = 1, isRequire = true)
 	public int eMsgType = 0;
-	@TarsStructProperty(order = 5, isRequire = false)
-	public TGameData stGameData = null;
-
-	public short getNMsgID() {
-		return nMsgID;
-	}
-
-	public void setNMsgID(short nMsgID) {
-		this.nMsgID = nMsgID;
-	}
-
-	public String getSTableNo() {
-		return sTableNo;
-	}
-
-	public void setSTableNo(String sTableNo) {
-		this.sTableNo = sTableNo;
-	}
-
-	public short getNChairIdx() {
-		return nChairIdx;
-	}
-
-	public void setNChairIdx(short nChairIdx) {
-		this.nChairIdx = nChairIdx;
-	}
+	@TarsStructProperty(order = 2, isRequire = true)
+	public TGameData tGameData = null;
 
 	public short getNTimeout() {
 		return nTimeout;
@@ -66,36 +36,30 @@ public class TRespMessage {
 		this.eMsgType = eMsgType;
 	}
 
-	public TGameData getStGameData() {
-		return stGameData;
+	public TGameData getTGameData() {
+		return tGameData;
 	}
 
-	public void setStGameData(TGameData stGameData) {
-		this.stGameData = stGameData;
+	public void setTGameData(TGameData tGameData) {
+		this.tGameData = tGameData;
 	}
 
 	public TRespMessage() {
 	}
 
-	public TRespMessage(short nMsgID, String sTableNo, short nChairIdx, short nTimeout, int eMsgType, TGameData stGameData) {
-		this.nMsgID = nMsgID;
-		this.sTableNo = sTableNo;
-		this.nChairIdx = nChairIdx;
+	public TRespMessage(short nTimeout, int eMsgType, TGameData tGameData) {
 		this.nTimeout = nTimeout;
 		this.eMsgType = eMsgType;
-		this.stGameData = stGameData;
+		this.tGameData = tGameData;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(nMsgID);
-		result = prime * result + TarsUtil.hashCode(sTableNo);
-		result = prime * result + TarsUtil.hashCode(nChairIdx);
 		result = prime * result + TarsUtil.hashCode(nTimeout);
 		result = prime * result + TarsUtil.hashCode(eMsgType);
-		result = prime * result + TarsUtil.hashCode(stGameData);
+		result = prime * result + TarsUtil.hashCode(tGameData);
 		return result;
 	}
 
@@ -112,38 +76,27 @@ public class TRespMessage {
 		}
 		TRespMessage other = (TRespMessage) obj;
 		return (
-			TarsUtil.equals(nMsgID, other.nMsgID) &&
-			TarsUtil.equals(sTableNo, other.sTableNo) &&
-			TarsUtil.equals(nChairIdx, other.nChairIdx) &&
 			TarsUtil.equals(nTimeout, other.nTimeout) &&
 			TarsUtil.equals(eMsgType, other.eMsgType) &&
-			TarsUtil.equals(stGameData, other.stGameData) 
+			TarsUtil.equals(tGameData, other.tGameData) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(nMsgID, 0);
-		_os.write(sTableNo, 1);
-		_os.write(nChairIdx, 2);
-		_os.write(nTimeout, 3);
-		_os.write(eMsgType, 4);
-		if (null != stGameData) {
-			_os.write(stGameData, 5);
-		}
+		_os.write(nTimeout, 0);
+		_os.write(eMsgType, 1);
+		_os.write(tGameData, 2);
 	}
 
-	static TGameData cache_stGameData;
+	static TGameData cache_tGameData;
 	static { 
-		cache_stGameData = new TGameData();
+		cache_tGameData = new TGameData();
 	}
 
 	public void readFrom(TarsInputStream _is) {
-		this.nMsgID = _is.read(nMsgID, 0, true);
-		this.sTableNo = _is.readString(1, true);
-		this.nChairIdx = _is.read(nChairIdx, 2, true);
-		this.nTimeout = _is.read(nTimeout, 3, true);
-		this.eMsgType = _is.read(eMsgType, 4, true);
-		this.stGameData = (TGameData) _is.read(cache_stGameData, 5, false);
+		this.nTimeout = _is.read(nTimeout, 0, true);
+		this.eMsgType = _is.read(eMsgType, 1, true);
+		this.tGameData = (TGameData) _is.read(cache_tGameData, 2, true);
 	}
 
 }

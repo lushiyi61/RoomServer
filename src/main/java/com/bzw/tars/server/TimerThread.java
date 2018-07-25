@@ -6,15 +6,11 @@ package com.bzw.tars.server;
  * @描述
  */
 
-import com.bzw.tars.client.kotlin.ClientImpl;
 import com.bzw.tars.client.kotlin.game.GameBase;
 import com.bzw.tars.client.kotlin.game.GameMng;
-import com.bzw.tars.client.tars.jfgame.TarsRouterPrx;
-import com.bzw.tars.client.tars.jfgameclientproto.E_CLIENT_MSGID;
-import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage;
-import com.bzw.tars.client.tars.tarsgame.IGameMessagePrx;
-import com.bzw.tars.server.jfgame.kotlin.database.table.TableBase;
-import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng;
+import com.bzw.tars.client.tars.tarsgame.E_GAME_MSGID;
+import com.bzw.tars.client.tars.tarsgame.TReqMessage;
+import com.bzw.tars.server.jfgame.kotlin.logic.GameCallback;
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerBase;
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerMng;
 
@@ -52,34 +48,16 @@ class TimerThread extends Thread {
                         // 异步发送超时信号
                         GameBase gameBase = GameMng.Companion.getInstance().getGame(timerBase.getGameID());
                         if (gameBase != null) {
-//                        iGameMessagePrx.async_doGameMessage();
+                            TReqMessage tReqMessage = new TReqMessage();
+                            tReqMessage.nMsgID = (short) E_GAME_MSGID.GAMETIMEOUT.value();
+                            tReqMessage.sTableNo = timerBase.getTableNo();
+                            gameBase.getIGameMsgPrx().async_doRoomMessage(new GameCallback(timerBase.getTableNo(), gameBase, (byte) -1), tReqMessage);
                         }
                     }
                 }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-    }
-
-    /*
-     * @description 处理超时结果，推送给客户端
-     * =====================================
-     * @author zoujian
-     * @date 2018/7/24 19:10
-     */
-    private void doTimeoutNotifyClient() {
-        TarsRouterPrx tarsRouterPrx = ClientImpl.Companion.getInstance().getDoPushPrx();
-        TRespPackage tRespPackage = new TRespPackage(new ArrayList(), new ArrayList());
-        tRespPackage.vecMsgID.add((short) (0 - E_CLIENT_MSGID.E_GAME_ACTION.value()));
-//        tRespPackage.vecMsgData.add(msgData);
-
-        TableBase tableBase = TableMng.Companion.getInstance().getTable("");
-        if (tableBase == null) {
-            return;
-        }
-        for (TableBase.TablePlayer playerInfo : tableBase.getPlayerDict().values()) {
-            tarsRouterPrx.doPush(playerInfo.getUid(), tRespPackage);
         }
     }
 }

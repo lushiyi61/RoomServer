@@ -38,8 +38,22 @@ class TableMng private constructor(val dataMax: Int = 10000) {
         return 0;
     };
 
+    /*
+     * @description 获取游戏桌
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/25 15:35
+     * @param
+     * @return
+     */
     fun getTable(tableNo: String): TableBase? {
         return this.m_tableDict.get(tableNo);
+    }
+
+    fun getTablePlayer(tableNo: String): MutableMap<Long, TableBase.TablePlayer>? {
+        val tableBase = this.getTable(tableNo);
+        tableBase ?: return null;
+        return tableBase.playerDict;
     }
 
     /*
