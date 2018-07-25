@@ -27,6 +27,10 @@ class GameMng private constructor() {
         return this.m_gameDict.get(gameID);
     }
 
+    fun getGameDict(): MutableMap<Int, GameBase> {
+        return m_gameDict;
+    }
+
     private val m_gameDict = mutableMapOf<Int, GameBase>();
 
     fun ToString(): String {

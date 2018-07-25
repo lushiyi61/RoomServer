@@ -14,7 +14,17 @@ import com.qq.tars.protocol.tars.annotation.*;
 public class TData {
 
 	@TarsStructProperty(order = 0, isRequire = true)
+	public short nMsgID = (short)0;
+	@TarsStructProperty(order = 1, isRequire = true)
 	public byte[] vecData = null;
+
+	public short getNMsgID() {
+		return nMsgID;
+	}
+
+	public void setNMsgID(short nMsgID) {
+		this.nMsgID = nMsgID;
+	}
 
 	public byte[] getVecData() {
 		return vecData;
@@ -27,7 +37,8 @@ public class TData {
 	public TData() {
 	}
 
-	public TData(byte[] vecData) {
+	public TData(short nMsgID, byte[] vecData) {
+		this.nMsgID = nMsgID;
 		this.vecData = vecData;
 	}
 
@@ -35,6 +46,7 @@ public class TData {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + TarsUtil.hashCode(nMsgID);
 		result = prime * result + TarsUtil.hashCode(vecData);
 		return result;
 	}
@@ -52,12 +64,14 @@ public class TData {
 		}
 		TData other = (TData) obj;
 		return (
+			TarsUtil.equals(nMsgID, other.nMsgID) &&
 			TarsUtil.equals(vecData, other.vecData) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(vecData, 0);
+		_os.write(nMsgID, 0);
+		_os.write(vecData, 1);
 	}
 
 	static byte[] cache_vecData;
@@ -68,7 +82,8 @@ public class TData {
 	}
 
 	public void readFrom(TarsInputStream _is) {
-		this.vecData = (byte[]) _is.read(cache_vecData, 0, true);
+		this.nMsgID = _is.read(nMsgID, 0, true);
+		this.vecData = (byte[]) _is.read(cache_vecData, 1, true);
 	}
 
 }

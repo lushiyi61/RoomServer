@@ -121,8 +121,8 @@ public class TReqMessage {
 	static byte[] cache_vecData;
 	static { 
 		cache_vecData = new byte[1];
-		byte var_9 = (byte)0;
-		cache_vecData[0] = var_9;
+		byte var_10 = (byte)0;
+		cache_vecData[0] = var_10;
 	}
 
 	public void readFrom(TarsInputStream _is) {

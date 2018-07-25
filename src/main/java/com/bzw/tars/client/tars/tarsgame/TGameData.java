@@ -110,8 +110,8 @@ public class TGameData {
 	static java.util.List<TData> cache_vecRespAllData;
 	static { 
 		cache_vecRespAllData = new java.util.ArrayList<TData>();
-		TData var_10 = new TData();
-		cache_vecRespAllData.add(var_10);
+		TData var_12 = new TData();
+		cache_vecRespAllData.add(var_12);
 	}
 
 	public void readFrom(TarsInputStream _is) {

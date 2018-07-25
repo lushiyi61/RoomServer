@@ -187,8 +187,22 @@ class MainRouter {
      * @param
      * @return Unit
      */
-    private fun onGameMessage(): Unit {
+    private fun onGameMessage(uid: Long, msgId: Short, msgData: ByteArray): E_RETCODE {
+        // 取玩家数据
+        val game = PlayerMng.getInstance().getInfoGame(uid);
+        game ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
 
+        // 取游戏桌数据
+        val tableBase = TableMng.getInstance().getTable(game.tableNo);
+        tableBase ?: return E_RETCODE.E_TABLE_NOT_EXIST;
+
+        // 取游戏数据
+        val gameBase = GameMng.getInstance().getGame(tableBase.gameID);
+        gameBase ?: return E_RETCODE.E_GAME_NOT_EXIST;
+
+        // 异步执行游戏请求
+
+        return E_RETCODE.E_COMMON_SUCCESS;
     }
 
 
