@@ -9,8 +9,8 @@ import com.bzw.tars.server.jfgame.kotlin.database.table.TableComponent
  * @描述
  */
 
-class InfoPlayer : TableComponent {
-    constructor(playerMax: Byte) : super("InfoPlayer") {
+class CTablePlayerMng : TableComponent {
+    constructor(playerMax: Byte) : super("CTablePlayerMng") {
         this.playerMax = playerMax;
     }
 
@@ -36,7 +36,7 @@ class InfoPlayer : TableComponent {
     }
 
     fun removePlayer(uid: Long) {
-        this.removePlayer(uid);
+        this.playerDict.remove(uid);
     }
 
     fun getPlayerDict(): MutableMap<Long, SharePlayerData> {
@@ -44,7 +44,7 @@ class InfoPlayer : TableComponent {
     }
 
     override fun ToString(): String {
-        var tmpStr = "InfoPlayer:\n";
+        var tmpStr = "CTablePlayerMng:\n";
         for (v in this.playerDict.values) {
             tmpStr += v.toString();
             tmpStr += "\n";

@@ -32,12 +32,12 @@ public class TarsRoomServantImpl implements TarsRoomServant {
             if (PlayerMng.Companion.getInstance().getPlayer(lUin) == null) {
                 PlayerBase playerBase = new PlayerBase();
                 // 增加玩家物理信息
-                InfoPhysical infoPhysical = new InfoPhysical(new DataPhysical(stClientParam.sAddr, "", System.currentTimeMillis() / 1000));
+                CPlayerPhysicalInfo CPlayerPhysicalInfo = new CPlayerPhysicalInfo(new PlayerPhysicalInfo(stClientParam.sAddr, "", System.currentTimeMillis() / 1000));
                 // 增加玩家基本信息
-                InfoPersonal infoPersonal = new InfoPersonal(new DataPersonal(lUin, (byte) 0, "SB" + lUin, "0", ""));
+                CPlayerPersonalInfo CPlayerPersonalInfo = new CPlayerPersonalInfo(new PlayerPersonalInfo(lUin, (byte) 0, "SB" + lUin, "0", ""));
 
-                playerBase.addPlayerBase(infoPhysical);
-                playerBase.addPlayerBase(infoPersonal);
+                playerBase.addPlayerBase(CPlayerPhysicalInfo);
+                playerBase.addPlayerBase(CPlayerPersonalInfo);
                 PlayerMng.Companion.getInstance().addPlayer(lUin, playerBase);
             }
             // 处理玩家消息

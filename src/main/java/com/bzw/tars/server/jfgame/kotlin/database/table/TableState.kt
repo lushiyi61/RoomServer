@@ -6,6 +6,6 @@ package com.bzw.tars.server.jfgame.kotlin.database.table
  * @描述
  */
 enum class TableState {
-    E_TABLE_INIT,
+    E_TABLE_INIT,       // 刚开桌
     E_TABLE_PLAYING,
 }

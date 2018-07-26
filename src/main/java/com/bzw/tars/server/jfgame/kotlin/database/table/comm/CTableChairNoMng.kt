@@ -8,13 +8,13 @@ import com.bzw.tars.server.jfgame.kotlin.database.table.TableComponent
  * @创建时间 2018/7/26
  * @描述
  */
-class InfoChair : TableComponent {
-    constructor(chairNum: Byte) : super("InfoChair") {
+class CTableChairNoMng : TableComponent {
+    constructor(chairNum: Byte) : super("CTableChairNoMng") {
         this.chairNum = chairNum;
     }
 
     private val chairNum: Byte;      // 最大玩家数
-    private val chairDict = mutableMapOf<Byte, SharePlayerData>();  // key (座位号)
+    private val chairNoDict = mutableMapOf<Byte, SharePlayerData>();  // key (座位号)
 
     /*
      * @description 获取当前桌所有座位上的玩家
@@ -24,9 +24,9 @@ class InfoChair : TableComponent {
      * @param
      * @return
      */
-    fun getAllPlayer(): MutableMap<Byte, SharePlayerData> {
+    fun getChairNoDict(): MutableMap<Byte, SharePlayerData> {
         // 这里是否应该深拷贝一份
-        return this.chairDict;
+        return this.chairNoDict;
     }
 
     /*
@@ -38,7 +38,7 @@ class InfoChair : TableComponent {
      * @return
      */
     fun addPlayer(sharePlayerData: SharePlayerData) {
-        this.chairDict.put(sharePlayerData.chairNo, sharePlayerData);
+        this.chairNoDict.put(sharePlayerData.chairNo, sharePlayerData);
     }
 
     /*
@@ -50,7 +50,7 @@ class InfoChair : TableComponent {
      * @return
      */
     fun removePlayer(sharePlayerData: SharePlayerData) {
-        this.chairDict.remove(sharePlayerData.chairNo);
+        this.chairNoDict.remove(sharePlayerData.chairNo);
         sharePlayerData.chairNo = -1;
     }
 
@@ -63,7 +63,7 @@ class InfoChair : TableComponent {
      * @return
      */
     fun checkChairNum(): Boolean {
-        if (this.chairDict.size >= this.chairNum) {
+        if (this.chairNoDict.size >= this.chairNum) {
             return true;
         }
         return false;
@@ -79,7 +79,7 @@ class InfoChair : TableComponent {
      */
     fun chooseTheSeat(chairNo: Byte): Byte {
         if ((chairNo > 0) && (chairNo <= this.chairNum)) { // 手动选座
-            if (this.chairDict.containsKey(chairNo)) {
+            if (this.chairNoDict.containsKey(chairNo)) {
                 return -1;
             } else {
                 return chairNo;
@@ -87,7 +87,7 @@ class InfoChair : TableComponent {
         }
 
         for (i in 1..this.chairNum) {
-            this.chairDict.get(i.toByte()) ?: return i.toByte();
+            this.chairNoDict.get(i.toByte()) ?: return i.toByte();
         }
         return -1;
     }

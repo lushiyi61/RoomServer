@@ -11,19 +11,19 @@ public class TablePlayerTest {
     @Test
     public void test() {
         PlayerBase playerBase = new PlayerBase();
-        InfoPhysical infoPhysical = new InfoPhysical(new DataPhysical("192.168.1.1", "深圳", System.currentTimeMillis() / 1000));
-        InfoPersonal infoPersonal = new InfoPersonal(new DataPersonal(1111, (byte)1, "nizou", "http", "1234"));
+        CPlayerPhysicalInfo CPlayerPhysicalInfo = new CPlayerPhysicalInfo(new PlayerPhysicalInfo("192.168.1.1", "深圳", System.currentTimeMillis() / 1000));
+        CPlayerPersonalInfo CPlayerPersonalInfo = new CPlayerPersonalInfo(new PlayerPersonalInfo(1111, (byte)1, "nizou", "http", "1234"));
 
-        playerBase.addPlayerBase(infoPersonal);
-        playerBase.addPlayerBase(infoPhysical);
-        playerBase.addPlayerBase(infoPhysical);
-        infoPhysical = new InfoPhysical(new DataPhysical("192.168.1.1", "湖南", System.currentTimeMillis() / 1000));
-        playerBase.addPlayerBase(infoPhysical);
+        playerBase.addPlayerBase(CPlayerPersonalInfo);
+        playerBase.addPlayerBase(CPlayerPhysicalInfo);
+        playerBase.addPlayerBase(CPlayerPhysicalInfo);
+        CPlayerPhysicalInfo = new CPlayerPhysicalInfo(new PlayerPhysicalInfo("192.168.1.1", "湖南", System.currentTimeMillis() / 1000));
+        playerBase.addPlayerBase(CPlayerPhysicalInfo);
         String str = playerBase.ToString();
         System.out.println(str);
 
 
-        InfoPhysical tmp = (InfoPhysical) playerBase.getPlayerBase("InfoPhysical");
-        System.out.println(tmp.getDataPhysical().getAddress());
+        CPlayerPhysicalInfo tmp = (CPlayerPhysicalInfo) playerBase.getPlayerBase("CPlayerPhysicalInfo");
+        System.out.println(tmp.getPlayerPhysicalInfo().getAddress());
     }
 }

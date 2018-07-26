@@ -1,8 +1,7 @@
 package com.bzw.tars.server.jfgame.kotlin.database.table
 
-import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
-import com.bzw.tars.server.jfgame.kotlin.database.table.comm.InfoChair
-import com.bzw.tars.server.jfgame.kotlin.database.table.comm.InfoPlayer
+import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTableChairNoMng
+import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTablePlayerMng
 
 /**
  * @创建者 zoujian
@@ -88,13 +87,13 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @param
      * @return
      */
-    fun getInfoPlayer(tableNo: String): InfoPlayer? {
+    fun getInfoPlayer(tableNo: String): CTablePlayerMng? {
         val tableBase = this.tableDict.get(tableNo);
         tableBase ?: return null;
-        val infoPlayer = tableBase.getTableBase("InfoPlayer");
+        val infoPlayer = tableBase.getTableBase("CTablePlayerMng");
         infoPlayer ?: return null;
 
-        return infoPlayer as InfoPlayer;
+        return infoPlayer as CTablePlayerMng;
     }
 
     /*
@@ -105,23 +104,23 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @param
      * @return
      */
-    fun getInfoChair(tableNo: String): InfoChair? {
+    fun getInfoChair(tableNo: String): CTableChairNoMng? {
         val tableBase = this.tableDict.get(tableNo);
         tableBase ?: return null;
-        val infoChair = tableBase.getTableBase("InfoChair");
+        val infoChair = tableBase.getTableBase("CTableChairNoMng");
         infoChair ?: return null;
 
-        return infoChair as InfoChair;
+        return infoChair as CTableChairNoMng;
     }
 
 
 //    fun getTablePlayerDict(tableNo: String): MutableMap<Long, SharePlayerData>? {
 //        val tableBase = this.tableDict.get(tableNo);
 //        tableBase ?: return null;
-//        val infoPlayer = tableBase.getTableBase("InfoPlayer");
+//        val infoPlayer = tableBase.getTableBase("CTablePlayerMng");
 //        infoPlayer ?: return null;
 //
-//        return (infoPlayer as InfoPlayer).getPlayerDict();
+//        return (infoPlayer as CTablePlayerMng).getPlayerDict();
 //    }
 
 

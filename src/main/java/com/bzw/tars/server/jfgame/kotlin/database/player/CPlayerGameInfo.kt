@@ -8,7 +8,7 @@ import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
  * @描述
  */
 
-class InfoGame(val dataGame: SharePlayerData) : PlayerComponent("InfoGame") {
+class CPlayerGameInfo(val dataGame: SharePlayerData) : PlayerComponent("CPlayerGameInfo") {
 
     override fun ToString(): String {
         return this.dataGame.toString();

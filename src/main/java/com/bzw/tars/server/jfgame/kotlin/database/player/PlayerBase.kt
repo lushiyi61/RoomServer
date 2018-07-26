@@ -8,7 +8,7 @@ package com.bzw.tars.server.jfgame.kotlin.database.player
  * @param
  * @return
  */
-open class PlayerBase : PlayerComponent("PlayerBase") {
+class PlayerBase : PlayerComponent("PlayerBase") {
     private val playerInfo = mutableMapOf<String, PlayerComponent>();
 
     fun addPlayerBase(c: PlayerComponent) {
@@ -30,13 +30,3 @@ open class PlayerBase : PlayerComponent("PlayerBase") {
 
 }
 
-
-//
-///*
-// * @description 战绩信息
-// * =====================================
-// * @author zoujian
-// * @date 2018/7/9 14:02
-// * @param iGameId：游戏ID
-// */
-//data class RecordInfo(var iGameId: Int);
