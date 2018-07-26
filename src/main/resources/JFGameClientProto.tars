@@ -33,6 +33,7 @@ module JFGameClientProto
 	    E_CHAIR_IS_FULL             = 106,              // 座位已满
 	    E_SEAT_IS_TAKEN             = 107,              // 该座位有人了
 	    E_PLAYER_NOT_SIT            = 108,              // 玩家没有坐下
+	    E_PLAYER_IN_ROOM            = 109,              // 玩家在其他房间中
 
 
 	    E_TABLE_ENTER_ERROR         = 149,              // 加入游戏失败（原因未知）

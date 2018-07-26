@@ -9,15 +9,15 @@ package com.bzw.tars.server.jfgame.kotlin.database.player
  * @param Address：登录地址
  * @return
  */
-data class Physical(var clientIP: String,
-                    var address: String,
-                    val loginTime: Long);
+data class DataPhysical(var clientIP: String,
+                        var address: String,
+                        val loginTime: Long);
 
 
-class InfoPhysical(var physical: Physical) : PlayerComponent("InfoPhysical") {
+class InfoPhysical(var dataPhysical: DataPhysical) : PlayerComponent("InfoPhysical") {
 
     override fun ToString(): String {
-        return this.physical.toString();
+        return this.dataPhysical.toString();
     }
 
 }

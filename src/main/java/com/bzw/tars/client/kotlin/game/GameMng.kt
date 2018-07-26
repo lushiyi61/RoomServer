@@ -34,7 +34,7 @@ class GameMng private constructor() {
     private val m_gameDict = mutableMapOf<Int, GameBase>();
 
     fun ToString(): String {
-        var tmpStr: String = "Game：\n";
+        var tmpStr: String = "DataGame：\n";
         for (v in this.m_gameDict.values) {
             tmpStr += v.ToString();
             tmpStr += "\n";

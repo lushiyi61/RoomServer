@@ -1,10 +1,6 @@
 package com.bzw.tars.server.jfgame.impl;
 
-import com.bzw.tars.comm.TarsUtilsKt;
-import com.bzw.tars.client.kotlin.game.GameBase;
 import com.bzw.tars.server.jfgame.kotlin.database.player.*;
-import com.bzw.tars.server.jfgame.kotlin.database.table.TableBase;
-import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng;
 import com.bzw.tars.server.jfgame.kotlin.logic.MainRouter;
 import com.bzw.tars.server.tars.jfgame.TClientParam;
 import com.bzw.tars.server.tars.jfgame.TUserBaseInfoExt;
@@ -36,15 +32,12 @@ public class TarsRoomServantImpl implements TarsRoomServant {
             if (PlayerMng.Companion.getInstance().getPlayer(lUin) == null) {
                 PlayerBase playerBase = new PlayerBase();
                 // 增加玩家物理信息
-                InfoPhysical infoPhysical = new InfoPhysical(new Physical(stClientParam.sAddr, "", System.currentTimeMillis() / 1000));
+                InfoPhysical infoPhysical = new InfoPhysical(new DataPhysical(stClientParam.sAddr, "", System.currentTimeMillis() / 1000));
                 // 增加玩家基本信息
-                InfoPersonal infoPersonal = new InfoPersonal(new Personal(lUin, (byte) 0, "SB" + lUin, "0", ""));
-                // 增加玩家游戏信息
-                InfoGame infoGame = new InfoGame(new Game("", "", (byte) -1, (byte) -1));
+                InfoPersonal infoPersonal = new InfoPersonal(new DataPersonal(lUin, (byte) 0, "SB" + lUin, "0", ""));
 
                 playerBase.addPlayerBase(infoPhysical);
                 playerBase.addPlayerBase(infoPersonal);
-                playerBase.addPlayerBase(infoGame);
                 PlayerMng.Companion.getInstance().addPlayer(lUin, playerBase);
             }
             // 处理玩家消息

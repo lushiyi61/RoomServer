@@ -8,14 +8,14 @@ package com.bzw.tars.server.jfgame.kotlin.database.player;
  * @param  level：vip等级
  * @param  varidity：有效期
  */
-data class Vip(var level: Int,
-               var varidity: Int);
+data class DataVip(var level: Int,
+                   var varidity: Int);
 
 
-class InfoVip(var vip: Vip) : PlayerComponent("InfoVip") {
+class InfoVip(var dataVip: DataVip) : PlayerComponent("InfoVip") {
 
     override fun ToString(): String {
-        return this.vip.toString();
+        return this.dataVip.toString();
     }
 
 }

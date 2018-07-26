@@ -1,5 +1,6 @@
 package com.bzw.tars.server.jfgame.kotlin.database.player
 
+import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
 import com.bzw.tars.server.tars.jfgameclientproto.TPlayerInfo
 
 /**
@@ -44,31 +45,31 @@ class PlayerMng private constructor(val dataMax: Int = 10000) {
 
     //////////////////////////////////////////////////////////////////////////////////
 
-    fun getInfoGame(uid: Long): Game? {
+    fun getInfoGame(uid: Long): SharePlayerData? {
         val playerBase = this.m_OnlinePlayerDict.get(uid);
         playerBase ?: return null;
-        val infoGame: InfoGame? = playerBase.getPlayerBase("InfoGame") as InfoGame;
+        val infoGame = playerBase.getPlayerBase("InfoGame");
         infoGame ?: return null;
 
-        return infoGame.game;
+        return (infoGame as InfoGame).dataGame;
     }
 
-    fun getInfoPersonal(uid: Long): Personal? {
+    fun getInfoPersonal(uid: Long): DataPersonal? {
         val playerBase = this.m_OnlinePlayerDict.get(uid);
         playerBase ?: return null;
-        val infoPersonal: InfoPersonal? = playerBase.getPlayerBase("InfoPersonal") as InfoPersonal;
+        val infoPersonal = playerBase.getPlayerBase("InfoPersonal");
         infoPersonal ?: return null;
 
-        return infoPersonal.personal;
+        return (infoPersonal as InfoPersonal).dataPersonal;
     }
 
-    fun getInfoPhysical(uid: Long): Physical? {
+    fun getInfoPhysical(uid: Long): DataPhysical? {
         val playerBase = this.m_OnlinePlayerDict.get(uid);
         playerBase ?: return null;
-        val infoPhysical: InfoPhysical? = playerBase.getPlayerBase("InfoPhysical") as InfoPhysical;
+        val infoPhysical = playerBase.getPlayerBase("InfoPhysical");
         infoPhysical ?: return null;
 
-        return infoPhysical.physical;
+        return (infoPhysical as InfoPhysical).dataPhysical;
     }
 
     fun getTarsPlayerInfo(uid: Long): TPlayerInfo? {
@@ -76,11 +77,11 @@ class PlayerMng private constructor(val dataMax: Int = 10000) {
         personal ?: return null;
         val game = this.getInfoGame(uid);
         game ?: return null;
-        val physical: Physical? = this.getInfoPhysical(uid);
-        physical ?: return null;
+        val dataPhysical: DataPhysical? = this.getInfoPhysical(uid);
+        dataPhysical ?: return null;
 
         val tPlayerInfo = TPlayerInfo(uid, game.state, game.chairNo,
-                personal.nickName, personal.portraitNo, personal.portraitPath, personal.sex, physical.clientIP);
+                personal.nickName, personal.portraitNo, personal.portraitPath, personal.sex, dataPhysical.clientIP);
 
         return tPlayerInfo;
     }

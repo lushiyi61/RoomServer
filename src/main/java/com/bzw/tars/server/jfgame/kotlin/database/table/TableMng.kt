@@ -1,5 +1,9 @@
 package com.bzw.tars.server.jfgame.kotlin.database.table
 
+import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
+import com.bzw.tars.server.jfgame.kotlin.database.table.comm.InfoChair
+import com.bzw.tars.server.jfgame.kotlin.database.table.comm.InfoPlayer
+
 /**
  * @创建者 zoujian
  * @创建时间 2018/7/10
@@ -17,7 +21,11 @@ class TableMng private constructor(val dataMax: Int = 10000) {
         val INSTANCE = TableMng();
     }
 
+    // 桌子字典
+    private val tableDict = mutableMapOf<String, TableBase>();
     //////////////////////////////////////////////////////////////////////////
+
+
     /*
      * @description 增加一个新的桌子
      * =====================================
@@ -27,13 +35,13 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @return 0:添加成功
      */
     fun addTable(tableNo: String, tableBase: TableBase): Int {
-        if (this.m_tableDict.size > dataMax) {
+        if (this.tableDict.size > dataMax) {
             return -1;
         }
-        if (this.m_tableDict.containsKey(tableNo)) {
+        if (this.tableDict.containsKey(tableNo)) {
             return -2;
         }
-        this.m_tableDict.put(tableNo, tableBase);
+        this.tableDict.put(tableNo, tableBase);
 
         return 0;
     };
@@ -47,21 +55,7 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @return
      */
     fun getTable(tableNo: String): TableBase? {
-        return this.m_tableDict.get(tableNo);
-    }
-
-    /*
-     * @description 获取本桌玩家数据
-     * =====================================
-     * @author zoujian
-     * @date 2018/7/25 16:56
-     * @param
-     * @return
-     */
-    fun getTablePlayer(tableNo: String): MutableMap<Long, TableBase.TablePlayer>? {
-        val tableBase = this.getTable(tableNo);
-        tableBase ?: return null;
-        return tableBase.playerDict;
+        return this.tableDict.get(tableNo);
     }
 
     /*
@@ -73,7 +67,7 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @return
      */
     fun removeTable(tableNo: String) {
-        this.m_tableDict.remove(tableNo);
+        this.tableDict.remove(tableNo);
     }
 
     /*
@@ -83,9 +77,65 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @date 2018/7/11 15:30
      */
     fun removeTable() {
-//        this.m_tableDict.filterValues {  }
+//        this.tableDict.filterValues {  }
     }
 
-    // 桌子字典
-    private val m_tableDict = mutableMapOf<String, TableBase>();
+    /*
+     * @description 获取指定桌，玩家管理类
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/26 14:49
+     * @param
+     * @return
+     */
+    fun getInfoPlayer(tableNo: String): InfoPlayer? {
+        val tableBase = this.tableDict.get(tableNo);
+        tableBase ?: return null;
+        val infoPlayer = tableBase.getTableBase("InfoPlayer");
+        infoPlayer ?: return null;
+
+        return infoPlayer as InfoPlayer;
+    }
+
+    /*
+     * @description 获取指定桌，座位管理类
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/26 14:49
+     * @param
+     * @return
+     */
+    fun getInfoChair(tableNo: String): InfoChair? {
+        val tableBase = this.tableDict.get(tableNo);
+        tableBase ?: return null;
+        val infoChair = tableBase.getTableBase("InfoChair");
+        infoChair ?: return null;
+
+        return infoChair as InfoChair;
+    }
+
+
+//    fun getTablePlayerDict(tableNo: String): MutableMap<Long, SharePlayerData>? {
+//        val tableBase = this.tableDict.get(tableNo);
+//        tableBase ?: return null;
+//        val infoPlayer = tableBase.getTableBase("InfoPlayer");
+//        infoPlayer ?: return null;
+//
+//        return (infoPlayer as InfoPlayer).getPlayerDict();
+//    }
+
+
+//    /*
+//     * @description 获取本桌玩家数据
+//     * =====================================
+//     * @author zoujian
+//     * @date 2018/7/25 16:56
+//     * @param
+//     * @return
+//     */
+//    fun getTablePlayer(tableNo: String): MutableMap<Long, TableBase.TablePlayer>? {
+//        val tableBase = this.getTable(tableNo);
+//        tableBase ?: return null;
+//        return tableBase.playerDict;
+//    }
 }

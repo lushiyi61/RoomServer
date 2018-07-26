@@ -11,19 +11,19 @@ package com.bzw.tars.server.jfgame.kotlin.database.player
  * @param sPortrait：头像
  * @return
  */
-data class Personal(var playID: Long,
-                    var sex: Byte,
-                    var nickName: String,
-                    var portraitNo: String,
-                    var portraitPath: String
+data class DataPersonal(var playID: Long,
+                        var sex: Byte,
+                        var nickName: String,
+                        var portraitNo: String,
+                        var portraitPath: String
 );
 
 
 
-class InfoPersonal(var personal: Personal) : PlayerComponent("InfoPersonal") {
+class InfoPersonal(var dataPersonal: DataPersonal) : PlayerComponent("InfoPersonal") {
 
     override fun ToString(): String {
-        return this.personal.toString();
+        return this.dataPersonal.toString();
     }
 
 }

@@ -1,6 +1,5 @@
 package com.bzw.tars.server.jfgame.kotlin.database.table
 
-import com.bzw.tars.server.jfgame.kotlin.database.player.Game
 import com.bzw.tars.server.jfgame.kotlin.database.player.PlayerMng
 import com.bzw.tars.server.tars.jfgameclientproto.E_RETCODE
 
@@ -33,10 +32,7 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
     }
 
 
-
-
-
-
+    /////////////////////////对外功能接口////////////////////////////
 
 
     /////////////////////// 玩家管理 ///////////////////////////////
@@ -153,22 +149,22 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
      * @param
      * @return
      */
-    fun doEnterTable(uid: Long, chairNo: Byte): E_RETCODE {
-        if (this.playerDict.size >= this.playerMax) {
-            return E_RETCODE.E_TABLE_IS_FULL;
-        }
-
-        this.playerDict.put(uid, TableBase.TablePlayer(uid, -1, -1, false));
-        val game: Game? = PlayerMng.getInstance().getInfoGame(uid)
-        game ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
-        game.roomNO = this.roomNO;
-
-        if (!this.canLook || chairNo > 0) {
-            return this.doSitDownTable(uid, chairNo);
-        }
-
-        return E_RETCODE.E_COMMON_SUCCESS;
-    }
+//    fun doEnterTable(uid: Long, chairNo: Byte): E_RETCODE {
+//        if (this.playerDict.size >= this.playerMax) {
+//            return E_RETCODE.E_TABLE_IS_FULL;
+//        }
+//
+//        this.playerDict.put(uid, TableBase.TablePlayer(uid, -1, -1, false));
+//        val dataGame: DataGame? = PlayerMng.getInstance().getInfoGame(uid)
+//        dataGame ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
+//        dataGame.roomNO = this.roomNO;
+//
+//        if (!this.canLook || chairNo > 0) {
+//            return this.doSitDownTable(uid, chairNo);
+//        }
+//
+//        return E_RETCODE.E_COMMON_SUCCESS;
+//    }
 
     fun doPrepare(uid: Long): E_RETCODE {
         val tablePlayer = this.playerDict.get(uid);
@@ -198,30 +194,30 @@ abstract class TableBase(val tableNo: String, val gameID: Int, var roomNO: Strin
     }
 
 
-    fun doSitDownTable(uid: Long, chairNo: Byte): E_RETCODE {
-        val tablePlayer = this.playerDict.get(uid);
-        tablePlayer ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
-
-        val game: Game? = PlayerMng.getInstance().getInfoGame(uid)
-        game ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
-
-        if (this.chairDict.size >= this.chairNun) {
-            return E_RETCODE.E_CHAIR_IS_FULL
-        };
-
-        var tmpChairNo = chairNo;
-        if (tmpChairNo > 0) {  // 选桌
-            this.chairDict.get(tmpChairNo) ?: return E_RETCODE.E_SEAT_IS_TAKEN;
-        } else {            // 自动坐桌
-            tmpChairNo = this.doAutoSit();
-        }
-
-        this.chairDict.put(tmpChairNo, uid);
-        tablePlayer.chairNo = tmpChairNo;
-        game.chairNo = tmpChairNo;
-
-        return E_RETCODE.E_COMMON_SUCCESS;
-    }
+//    fun doSitDownTable(uid: Long, chairNo: Byte): E_RETCODE {
+//        val tablePlayer = this.playerDict.get(uid);
+//        tablePlayer ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
+//
+//        val dataGame: DataGame? = PlayerMng.getInstance().getInfoGame(uid)
+//        dataGame ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
+//
+//        if (this.chairDict.size >= this.chairNun) {
+//            return E_RETCODE.E_CHAIR_IS_FULL
+//        };
+//
+//        var tmpChairNo = chairNo;
+//        if (tmpChairNo > 0) {  // 选桌
+//            this.chairDict.get(tmpChairNo) ?: return E_RETCODE.E_SEAT_IS_TAKEN;
+//        } else {            // 自动坐桌
+//            tmpChairNo = this.doAutoSit();
+//        }
+//
+//        this.chairDict.put(tmpChairNo, uid);
+//        tablePlayer.chairNo = tmpChairNo;
+//        dataGame.chairNo = tmpChairNo;
+//
+//        return E_RETCODE.E_COMMON_SUCCESS;
+//    }
 
     fun doGameStart() {
 
