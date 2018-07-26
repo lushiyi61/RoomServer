@@ -56,7 +56,7 @@ class GameCallback : IGameMessagePrxCallback {
                 TimerMng.getInstance().removeTimer(this.tableNO);
             }
         } else {
-//            System.err.println("DataGame Callback error !!!");
+//            System.err.println("TableGameInfo Callback error !!!");
         }
     }
 
@@ -69,7 +69,7 @@ class GameCallback : IGameMessagePrxCallback {
             EGameMsgType.E_RESPALL_DATA.value() -> this.doRespAll(tRespMessage, infoPlayer.getPlayerDict());
             EGameMsgType.E_NOTIFY_DATA.value() -> this.doNotify(tRespMessage, infoPlayer.getPlayerDict());
             EGameMsgType.E_MIXTURE_DATA.value() -> this.doMixture(tRespMessage, infoPlayer.getPlayerDict());
-            else -> System.err.println("DataGame msgType error !!!");
+            else -> System.err.println("TableGameInfo msgType error !!!");
         }
     }
 

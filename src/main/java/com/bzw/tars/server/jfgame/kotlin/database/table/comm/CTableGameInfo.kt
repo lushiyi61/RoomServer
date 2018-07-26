@@ -8,9 +8,9 @@ import com.bzw.tars.server.jfgame.kotlin.database.table.TableComponent
  * @描述
  */
 
-data class DataGame(var state: Byte);
+data class TableGameInfo(var state: Byte);
 
-class CTableGameInfo(dataGame: DataGame) : TableComponent("CTableGameInfo") {
+class CTableGameInfo(tableGameInfo: TableGameInfo) : TableComponent("CTableGameInfo") {
 
     override fun ToString(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

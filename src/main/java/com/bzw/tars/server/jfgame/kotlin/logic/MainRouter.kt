@@ -10,7 +10,7 @@ import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableBase
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableState
-import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTableChairNoMng
+import com.bzw.tars.server.jfgame.kotlin.database.table.comm.*
 import com.bzw.tars.server.tars.jfgameclientproto.*
 
 /**
@@ -73,12 +73,16 @@ class MainRouter {
     fun onOffLine(uid: Long): Boolean {
         var res: Boolean = true;
         // 查找玩家信息
-        val infoGame = PlayerMng.getInstance().getInfoGame(uid);
-        infoGame ?: return res;
+        val sharePlayerData = PlayerMng.getInstance().getInfoGame(uid);
+        sharePlayerData ?: return res;
 
         // 查找玩家table信息
-        val tableBase = TableMng.getInstance().getTable(infoGame.tableNo);
+        val tableBase = TableMng.getInstance().getTable(sharePlayerData.tableNo);
         tableBase ?: return res;
+
+        // 取游戏桌玩家数据(准备广播)
+        val cTablePlayerMng = TableMng.getInstance().getInfoPlayer(sharePlayerData.tableNo);
+        cTablePlayerMng ?: return res;
 
         // 查找游戏开始信息
         // 游戏未开始（广播玩家离开，清除玩家数据，清除游戏桌数据）
@@ -86,26 +90,30 @@ class MainRouter {
         var msgData: ByteArray;
         var msgID: Short;
         if (tableBase.state == TableState.E_TABLE_INIT ||
-                infoGame.chairNo <= 0) {
+                sharePlayerData.chairNo <= 0) {
             msgID = (0 - E_CLIENT_MSGID.E_TABLE_LEAVE.value()).toShort();
-            msgData = TarsUtilsKt.toByteArray(TMsgNotifyLeaveTable(infoGame.chairNo))!!;
+            msgData = TarsUtilsKt.toByteArray(TMsgNotifyLeaveTable(sharePlayerData.chairNo))!!;
 
-            tableBase.doLeaveTable(uid);
+            cTablePlayerMng.removePlayer(uid);
+            // 清理座位
+            if (sharePlayerData.chairNo > 0) {
+                val cTableChairNoMng = TableMng.getInstance().getInfoChair(sharePlayerData.tableNo);
+                if (cTableChairNoMng != null) {
+                    cTableChairNoMng.removePlayer(sharePlayerData);
+                }
+            }
         } else {
             msgID = (0 - E_CLIENT_MSGID.E_PLAYER_DISCONNECT.value()).toShort();
-            msgData = TarsUtilsKt.toByteArray(TMsgNotifyDisconnect(infoGame.chairNo))!!;
+            msgData = TarsUtilsKt.toByteArray(TMsgNotifyDisconnect(sharePlayerData.chairNo))!!;
             res = false;
         }
 
-        // 取游戏桌玩家数据(准备广播)
-        val infoPlayer = TableMng.getInstance().getInfoPlayer(infoGame.tableNo);
-        infoPlayer ?: return true;
 
         val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
         val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
         tRespPackage.vecMsgID.add(msgID);
         tRespPackage.vecMsgData.add(msgData);
-        for (v in infoPlayer.getPlayerDict().values) {
+        for (v in cTablePlayerMng.getPlayerDict().values) {
             if (v.uid != uid) { // 非本人
                 tarsRouterPrx.doPush(v.uid, tRespPackage);
             }
@@ -138,7 +146,7 @@ class MainRouter {
 
         // 检查玩家信息
         val infoGame = PlayerMng.getInstance().getInfoGame(uid);
-        if (infoGame != null && infoGame.flag) {
+        if (infoGame != null) {
             return E_RETCODE.E_PLAYER_IN_ROOM;
         }
 
@@ -276,9 +284,15 @@ class MainRouter {
         // 创建游戏桌
         var tableBase: TableBase = TableBase(tMsgReqEnterTable.getSTableNo(), 111111, "111111");
 
-        var infoChair = CTableChairNoMng(6);
-//        var in
+        val cTableChairNoMng = CTableChairNoMng(6);
+        val cTableChairIdxMng = CTableChairIdxMng();
+        val cTableGameInfo = CTableGameInfo(TableGameInfo(1));
+        val cTablePlayerMng = CTablePlayerMng(6);
 
+        tableBase.addTableBase(cTableChairNoMng);
+        tableBase.addTableBase(cTableChairIdxMng);
+        tableBase.addTableBase(cTableGameInfo);
+        tableBase.addTableBase(cTablePlayerMng);
         when (tMsgReqEnterTable.nRoomType) {
             E_ROOM_TYPE.E_ROOM_CARD.value().toByte() -> {
 //                tableBase = TablePrivate(tMsgReqEnterTable.getSTableNo(), 111111, "111111");
