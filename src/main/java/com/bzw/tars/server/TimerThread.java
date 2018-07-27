@@ -29,7 +29,7 @@ class TimerThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println(String.format("================游戏超时线程->GameID:%s================"));
+        System.out.println(String.format("================游戏超时线程==================="));
         try {
             while (true) {
                 sleep(sleepTime);

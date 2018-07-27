@@ -88,7 +88,7 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @return
      */
     fun getInfoPlayer(tableNo: String): CTablePlayerMng? {
-        val tableBase = this.tableDict.get(tableNo);
+        val tableBase = this.getTable(tableNo);
         tableBase ?: return null;
         val infoPlayer = tableBase.getTableBase("CTablePlayerMng");
         infoPlayer ?: return null;
@@ -105,7 +105,7 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @return
      */
     fun getInfoChair(tableNo: String): CTableChairNoMng? {
-        val tableBase = this.tableDict.get(tableNo);
+        val tableBase = this.getTable(tableNo);
         tableBase ?: return null;
         val infoChair = tableBase.getTableBase("CTableChairNoMng");
         infoChair ?: return null;

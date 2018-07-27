@@ -1,7 +1,6 @@
 package com.bzw.tars.server.jfgame.kotlin.database.table
 
-import com.bzw.tars.server.jfgame.kotlin.database.player.PlayerMng
-import com.bzw.tars.server.tars.jfgameclientproto.E_RETCODE
+import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTableChairNoMng
 
 /**
  * @创建者 zoujian
@@ -11,19 +10,19 @@ import com.bzw.tars.server.tars.jfgameclientproto.E_RETCODE
  *
  */
 class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : TableComponent("TableBase") {
-    private val tableInfo = mutableMapOf<String, TableComponent>();
+    private val tableDict = mutableMapOf<String, TableComponent>();
 
     fun addTableBase(c: TableComponent) {
-        this.tableInfo.put(c.name, c);
+        this.tableDict.put(c.name, c);
     }
 
     fun getTableBase(name: String): TableComponent? {
-        return this.tableInfo.get(name);
+        return this.tableDict.get(name);
     }
 
     override fun ToString(): String {
         var tmpStr: String = String.format("TableInfo-> type:%d\n", this.tableType);
-        for (v in this.tableInfo.values) {
+        for (v in this.tableDict.values) {
             tmpStr += v.ToString();
             tmpStr += "\n";
         }
@@ -34,6 +33,39 @@ class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : Tabl
     var state: TableState = TableState.E_TABLE_INIT;           // 本桌状态
     /////////////////////////对外功能接口////////////////////////////
 
+    /*
+     * @description 是否可以开桌
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/27 10:43
+     * @return
+     */
+    fun canStartGame(): Boolean {
+        // 开始条件
+
+        // 准备人数
+        val tableComponent = this.getTableBase("CTableChairNoMng");
+        tableComponent ?: return false;
+        val cTableChairNoMng = tableComponent as CTableChairNoMng;
+
+        if (cTableChairNoMng.getPrepareNum() < 2) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+     * @description 开始游戏
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/27 10:44
+     * @param
+     * @return
+     */
+    fun doStartGame() {
+
+
+    }
 
     /////////////////////// 玩家管理 ///////////////////////////////
     // 玩家ID，座位号，座次号，准备状态
@@ -58,7 +90,6 @@ class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : Tabl
     var gameMsgID: Short = 0;                                   // 当前游戏动作指令（游戏开始后赋值）
     var ipLimitation: Byte = 0;                                 // 0：不限制，1：限制第一位，2：限制前两位，3：限制前三位，4，限制全四位
     val createTime: Long = System.currentTimeMillis() / 1000;   // 创建时间
-
 
 
     fun doLeaveTable(uid: Long) {

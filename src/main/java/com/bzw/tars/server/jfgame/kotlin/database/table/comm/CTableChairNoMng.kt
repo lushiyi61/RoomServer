@@ -2,6 +2,7 @@ package com.bzw.tars.server.jfgame.kotlin.database.table.comm
 
 import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableComponent
+import com.bzw.tars.server.tars.jfgameclientproto.E_PLAYER_STATE
 
 /**
  * @创建者 zoujian
@@ -90,6 +91,24 @@ class CTableChairNoMng : TableComponent {
             this.chairNoDict.get(i.toByte()) ?: return i.toByte();
         }
         return -1;
+    }
+
+    /*
+     * @description 返回已准备的人数
+     * =====================================
+     * @author zoujian
+     * @date 2018/7/27 10:10
+     * @param
+     * @return
+     */
+    fun getPrepareNum(): Byte {
+        var num: Byte = 0;
+        for (c in this.chairNoDict.values) {
+            if (c.state == E_PLAYER_STATE.E_PLAYER_PREPARE.value().toByte()) {
+                num++;
+            }
+        }
+        return num;
     }
 
     override fun ToString(): String {

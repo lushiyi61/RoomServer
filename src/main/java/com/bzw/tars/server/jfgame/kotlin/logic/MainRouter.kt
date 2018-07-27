@@ -4,6 +4,8 @@ import com.bzw.tars.client.kotlin.ClientImpl
 import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.comm.TarsUtilsKt
 import com.bzw.tars.client.kotlin.game.GameMng
+import com.bzw.tars.client.tars.tarsgame.E_GAME_MSGID
+import com.bzw.tars.client.tars.tarsgame.TReqMessage
 import com.bzw.tars.server.jfgame.kotlin.database.player.CPlayerGameInfo
 import com.bzw.tars.server.jfgame.kotlin.database.player.PlayerMng
 import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
@@ -37,7 +39,7 @@ class MainRouter {
         when (msgId) {
             E_CLIENT_MSGID.E_TABLE_ENTER.value().toShort() -> res = this.onEnterTable(uid, msgId, msgData);
             E_CLIENT_MSGID.E_TABLE_LEAVE.value().toShort() -> null;
-            E_CLIENT_MSGID.E_TABLE_SIT_DOWN.value().toShort() -> null;
+            E_CLIENT_MSGID.E_TABLE_SIT_DOWN.value().toShort() -> res = this.onSitDown(uid, msgId, msgData);
             E_CLIENT_MSGID.E_TABLE_STAND_UP.value().toShort() -> null;
 
             E_CLIENT_MSGID.E_TABLE_RECONNECT.value().toShort() -> null;
@@ -145,35 +147,46 @@ class MainRouter {
         playerBase ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
 
         // 检查玩家信息
-        val infoGame = PlayerMng.getInstance().getInfoGame(uid);
-        if (infoGame != null) {
+        val playerData = PlayerMng.getInstance().getInfoGame(uid);
+        if (playerData != null) {
             return E_RETCODE.E_PLAYER_IN_ROOM;
         }
 
         // 游戏桌不存在？同步请求服务端桌子信息
         if (TableMng.getInstance().getTable(tMsgReqEnterTable.getSTableNo()) == null) {
-            this.doAddTable(tMsgReqEnterTable);
+            this.doCreateTable(tMsgReqEnterTable);
         }
 
         // 取游戏桌玩家数据
-        val infoPlayer = TableMng.getInstance().getInfoPlayer(tMsgReqEnterTable.getSTableNo());
-        infoPlayer ?: return E_RETCODE.E_TABLE_NOT_EXIST;
+        val cTablePlayerMng = TableMng.getInstance().getInfoPlayer(tMsgReqEnterTable.getSTableNo());
+        cTablePlayerMng ?: return E_RETCODE.E_TABLE_NOT_EXIST;
+        val cTableChairNoMng = TableMng.getInstance().getInfoChair(tMsgReqEnterTable.getSTableNo());
+        cTableChairNoMng ?: return E_RETCODE.E_TABLE_NOT_EXIST;
 
         // 是否可以进入该桌
-        if (infoPlayer.checkPlayerNum()) {
+        if (cTablePlayerMng.checkPlayerNum()) {
             return E_RETCODE.E_TABLE_IS_FULL;
         }
 
         // 新建一块共享内存
         val sharePlayerData = SharePlayerData(uid, tMsgReqEnterTable.getSTableNo());
         playerBase.addPlayerBase(CPlayerGameInfo(sharePlayerData));
-        infoPlayer.addPlayer(sharePlayerData);
+        cTablePlayerMng.addPlayer(sharePlayerData);
 
+        // 是否自动坐下
+        if (!cTableChairNoMng.checkChairNum()) {
+            // 获取座位号
+            val chairNo = cTableChairNoMng.chooseTheSeat(tMsgReqEnterTable.nChairNo);
+            sharePlayerData.chairNo = chairNo;
+            cTableChairNoMng.addPlayer(sharePlayerData);
+        }
+
+        // 准备转发
         val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
 
         val tMsgRespEnterTable = TMsgRespEnterTable(11111, mutableListOf());
         val tMsgNotifyEnterTable = TMsgNotifyEnterTable();
-        for (v in infoPlayer.getPlayerDict().values) {
+        for (v in cTablePlayerMng.getPlayerDict().values) {
             val tPlayerInfo = PlayerMng.getInstance().getTarsPlayerInfo(v.uid);
             tPlayerInfo ?: continue;
             if (v.uid == uid) { // 本人
@@ -182,7 +195,7 @@ class MainRouter {
             tMsgRespEnterTable.vecPlayerInfo.add(tPlayerInfo);
         }
 
-        for (v in infoPlayer.getPlayerDict().values) {
+        for (v in cTablePlayerMng.getPlayerDict().values) {
             val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
             if (v.uid == uid) { // 本人
                 tRespPackage.vecMsgID.add(msgId);
@@ -200,6 +213,12 @@ class MainRouter {
         return E_RETCODE.E_COMMON_SUCCESS;
     }
 
+
+    private fun onSitDown(uid: Long, msgId: Short, msgData: ByteArray): E_RETCODE {
+
+
+        return E_RETCODE.E_COMMON_SUCCESS;
+    }
 
     /*
      * @description 处理游戏消息
@@ -238,18 +257,18 @@ class MainRouter {
      */
     private fun onPlayerPrepare(uid: Long): E_RETCODE {
         // 取当前玩家游戏数据
-        val dataGame: SharePlayerData? = PlayerMng.getInstance().getInfoGame(uid);
-        dataGame ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
+        val sharePlayerData: SharePlayerData? = PlayerMng.getInstance().getInfoGame(uid);
+        sharePlayerData ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
 
-        if (dataGame.chairNo <= 0) {
+        if (sharePlayerData.chairNo <= 0) {
             return E_RETCODE.E_PLAYER_NOT_SIT;
         }
 
         // 玩家准备
-        dataGame.state = 0;
+        sharePlayerData.state = E_PLAYER_STATE.E_PLAYER_PREPARE.value().toByte();
 
         // 取游戏桌玩家数据
-        val infoPlayer = TableMng.getInstance().getInfoPlayer(dataGame.tableNo);
+        val infoPlayer = TableMng.getInstance().getInfoPlayer(sharePlayerData.tableNo);
         infoPlayer ?: return E_RETCODE.E_TABLE_NOT_EXIST;
 
         // 广播玩家准备消息
@@ -262,23 +281,24 @@ class MainRouter {
                 tarsRouterPrx.doPush(v.uid, tRespPackage);
             } else {
                 tRespPackage.vecMsgID.add((0 - E_CLIENT_MSGID.E_TABLE_PREPARE.value()).toShort());
-                tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(TMsgNotifyPrepare(dataGame.chairNo)));
+                tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(TMsgNotifyPrepare(sharePlayerData.chairNo)));
                 tarsRouterPrx.doPush(v.uid, tRespPackage);
             }
         }
-
-
+        
         // 检查是否可以开桌
-//        if (tableBase.canStartGame()) {
-//
-//        }
+        val tableBase = TableMng.getInstance().getTable(sharePlayerData.tableNo);
+        if (tableBase != null && tableBase.canStartGame()) {
+            this.doStartGame(tableBase.tableNo);
+        }
 
         return E_RETCODE.E_COMMON_SUCCESS;
     }
 
 
     /////////////////////////////////////////////内部函数//////////////////////////////////////////////////////
-    private fun doAddTable(tMsgReqEnterTable: TMsgReqEnterTable) {
+
+    private fun doCreateTable(tMsgReqEnterTable: TMsgReqEnterTable) {
         // 同步请求服务端桌子信息
 
         // 创建游戏桌
@@ -303,6 +323,25 @@ class MainRouter {
 
         if (tableBase != null) {
             TableMng.getInstance().addTable(tableBase.tableNo, tableBase);
+        }
+    }
+
+
+    private fun doStartGame(tableNo: String) {
+        val tableBase = TableMng.getInstance().getTable(tableNo);
+        tableBase ?: return;
+
+        // 初始化玩家准备信息
+
+        // 获取准备的玩家列表
+
+        // 请求开始游戏
+        val gameBase = GameMng.getInstance().getGame(tableBase.gameID)
+        if (gameBase != null) {
+            val tReqMessage = TReqMessage()
+            tReqMessage.nMsgID = E_GAME_MSGID.GAMESTART.value().toShort()
+            tReqMessage.sTableNo = tableNo
+            gameBase.iGameMsgPrx.async_doRoomMessage(GameCallback(tableNo, gameBase, (-1).toByte()), tReqMessage)
         }
     }
 }

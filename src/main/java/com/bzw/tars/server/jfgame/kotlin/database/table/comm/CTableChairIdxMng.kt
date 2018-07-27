@@ -2,6 +2,7 @@ package com.bzw.tars.server.jfgame.kotlin.database.table.comm
 
 import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableComponent
+import com.bzw.tars.server.tars.jfgameclientproto.E_PLAYER_STATE
 
 /**
  * @创建者 zoujian
@@ -23,7 +24,7 @@ class CTableChairIdxMng : TableComponent("CTableChairIdxMng") {
         this.chairIdxList.clear();
         for (i in 1..chairNum) {
             val sharePlayerData = chairNoDict.get(i.toByte()) ?: continue;
-            if (sharePlayerData.state.equals(0)){
+            if (sharePlayerData.state.equals(E_PLAYER_STATE.E_PLAYER_PREPARE.value())) {
                 sharePlayerData.chairIdx = this.chairIdxList.size.toByte();
                 this.chairIdxList.add(sharePlayerData.uid);
             }

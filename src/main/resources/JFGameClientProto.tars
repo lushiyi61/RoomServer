@@ -13,6 +13,20 @@ module JFGameClientProto
 		E_ROOM_CARD	        = 1,			// 房卡场
     };
 
+    /*
+     * @description 玩家状态
+     * =====================================
+     */
+    enum E_PLAYER_STATE{
+		//////////////////////游戏前/////////////////////////
+        E_PLAYER_INITIALIZE		    = 0,			// 玩家初始状态
+        E_PLAYER_PREPARE	        = 1,			// 玩家已准备
+		//////////////////////游戏中/////////////////////////
+		E_PLAYER_PLAYING            = 10,           // 玩家正常游戏中
+		E_PLAYER_DISCONNECTED       = 11,           // 玩家掉线了
+		E_PLAYER_TRUSTEESHIP        = 12,           // 玩家托管了
+    };
+
 	/*
 	 * @description 返回码
 	 * =====================================
