@@ -5,15 +5,17 @@
 
 package com.bzw.tars.client.tars.jfgameclientproto;
 
-public enum E_MSGTYPE {
+public enum E_PLAYER_STATE {
 
-	E_REQUEST(0),
-	E_RESPONSE(1),
-	E_NOTIFY(2);
+	E_PLAYER_INITIALIZE(0),
+	E_PLAYER_PREPARE(1),
+	E_PLAYER_PLAYING(10),
+	E_PLAYER_DISCONNECTED(11),
+	E_PLAYER_TRUSTEESHIP(12);
 
 	private final int value;
 
-	private E_MSGTYPE(int value) {
+	private E_PLAYER_STATE(int value) {
 		this.value = value;
 	}
 
@@ -26,8 +28,8 @@ public enum E_MSGTYPE {
 		return this.name() + ":" + this.value;
 	}
 
-	public static E_MSGTYPE convert(int value) {
-		for(E_MSGTYPE v : values()) {
+	public static E_PLAYER_STATE convert(int value) {
+		for(E_PLAYER_STATE v : values()) {
 			if(v.value() == value) {
 				return v;
 			}

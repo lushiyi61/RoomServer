@@ -11,15 +11,27 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 /**
- * 玩家接收到的数据（子包）
+ * Room消息
  */
 @TarsStruct
-public class TData {
+public class TReqRoomMsg {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public short nMsgID = (short)0;
+	public short nVer = 1;
 	@TarsStructProperty(order = 1, isRequire = true)
+	public short nMsgID = (short)0;
+	@TarsStructProperty(order = 2, isRequire = true)
+	public String sTableNo = "";
+	@TarsStructProperty(order = 3, isRequire = false)
 	public byte[] vecData = null;
+
+	public short getNVer() {
+		return nVer;
+	}
+
+	public void setNVer(short nVer) {
+		this.nVer = nVer;
+	}
 
 	public short getNMsgID() {
 		return nMsgID;
@@ -27,6 +39,14 @@ public class TData {
 
 	public void setNMsgID(short nMsgID) {
 		this.nMsgID = nMsgID;
+	}
+
+	public String getSTableNo() {
+		return sTableNo;
+	}
+
+	public void setSTableNo(String sTableNo) {
+		this.sTableNo = sTableNo;
 	}
 
 	public byte[] getVecData() {
@@ -37,11 +57,13 @@ public class TData {
 		this.vecData = vecData;
 	}
 
-	public TData() {
+	public TReqRoomMsg() {
 	}
 
-	public TData(short nMsgID, byte[] vecData) {
+	public TReqRoomMsg(short nVer, short nMsgID, String sTableNo, byte[] vecData) {
+		this.nVer = nVer;
 		this.nMsgID = nMsgID;
+		this.sTableNo = sTableNo;
 		this.vecData = vecData;
 	}
 
@@ -49,7 +71,9 @@ public class TData {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + TarsUtil.hashCode(nVer);
 		result = prime * result + TarsUtil.hashCode(nMsgID);
+		result = prime * result + TarsUtil.hashCode(sTableNo);
 		result = prime * result + TarsUtil.hashCode(vecData);
 		return result;
 	}
@@ -62,31 +86,39 @@ public class TData {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TData)) {
+		if (!(obj instanceof TReqRoomMsg)) {
 			return false;
 		}
-		TData other = (TData) obj;
+		TReqRoomMsg other = (TReqRoomMsg) obj;
 		return (
+			TarsUtil.equals(nVer, other.nVer) &&
 			TarsUtil.equals(nMsgID, other.nMsgID) &&
+			TarsUtil.equals(sTableNo, other.sTableNo) &&
 			TarsUtil.equals(vecData, other.vecData) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(nMsgID, 0);
-		_os.write(vecData, 1);
+		_os.write(nVer, 0);
+		_os.write(nMsgID, 1);
+		_os.write(sTableNo, 2);
+		if (null != vecData) {
+			_os.write(vecData, 3);
+		}
 	}
 
 	static byte[] cache_vecData;
 	static { 
 		cache_vecData = new byte[1];
-		byte var_13 = (byte)0;
-		cache_vecData[0] = var_13;
+		byte var_11 = (byte)0;
+		cache_vecData[0] = var_11;
 	}
 
 	public void readFrom(TarsInputStream _is) {
-		this.nMsgID = _is.read(nMsgID, 0, true);
-		this.vecData = (byte[]) _is.read(cache_vecData, 1, true);
+		this.nVer = _is.read(nVer, 0, true);
+		this.nMsgID = _is.read(nMsgID, 1, true);
+		this.sTableNo = _is.readString(2, true);
+		this.vecData = (byte[]) _is.read(cache_vecData, 3, false);
 	}
 
 }

@@ -11,13 +11,25 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 /**
- * 由于该规则由Room创建，所以必须满足开放性要求，不做具体限制
+ * 创建房间的基础规则在这里增加，
+ * 特殊的规则写成json，放进rules里面
+ * 必须满足开放性要求，不做具体限制
  */
 @TarsStruct
 public class TGameCreate {
 
 	@TarsStructProperty(order = 0, isRequire = true)
+	public byte roomType = (byte)0;
+	@TarsStructProperty(order = 10, isRequire = true)
 	public String rules = "";
+
+	public byte getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(byte roomType) {
+		this.roomType = roomType;
+	}
 
 	public String getRules() {
 		return rules;
@@ -30,7 +42,8 @@ public class TGameCreate {
 	public TGameCreate() {
 	}
 
-	public TGameCreate(String rules) {
+	public TGameCreate(byte roomType, String rules) {
+		this.roomType = roomType;
 		this.rules = rules;
 	}
 
@@ -38,6 +51,7 @@ public class TGameCreate {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + TarsUtil.hashCode(roomType);
 		result = prime * result + TarsUtil.hashCode(rules);
 		return result;
 	}
@@ -55,17 +69,20 @@ public class TGameCreate {
 		}
 		TGameCreate other = (TGameCreate) obj;
 		return (
+			TarsUtil.equals(roomType, other.roomType) &&
 			TarsUtil.equals(rules, other.rules) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(rules, 0);
+		_os.write(roomType, 0);
+		_os.write(rules, 10);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
-		this.rules = _is.readString(0, true);
+		this.roomType = _is.read(roomType, 0, true);
+		this.rules = _is.readString(10, true);
 	}
 
 }

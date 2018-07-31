@@ -155,7 +155,7 @@ class GameCallback : IGameMessagePrxCallback {
      * @return
      */
     private fun doNewGameMsg(msgID: Short) {
-        val tReqMessage = TReqMessage()
+        val tReqMessage = TReqRoomMsg()
         tReqMessage.nMsgID = msgID;
         tReqMessage.sTableNo = tableNO;
         gameBase.iGameMsgPrx.async_doRoomMessage(GameCallback(tableNO, gameBase), tReqMessage);

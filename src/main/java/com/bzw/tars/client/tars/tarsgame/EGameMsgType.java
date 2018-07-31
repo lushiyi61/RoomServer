@@ -5,6 +5,9 @@
 
 package com.bzw.tars.client.tars.tarsgame;
 
+/**
+ * 返回的消息类型，决定了数据结构体中有哪些数据
+ */
 public enum EGameMsgType {
 
 	E_NOTIFY_DATA(0),

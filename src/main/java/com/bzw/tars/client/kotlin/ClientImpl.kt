@@ -33,7 +33,7 @@ class ClientImpl private constructor() {
 
 
         // 游戏初始化
-//        GameMng.getInstance().addGame(111111, GameBase(111111,""))
+        GameMng.getInstance().addGame(111111, GameBase(111111, "TARS.NodeSecondServer.CocklainObj@tcp -h 127.0.0.1 -p 19920 -t 60000"))
     };
 
     fun getDoPushPrx(): TarsRouterPrx {

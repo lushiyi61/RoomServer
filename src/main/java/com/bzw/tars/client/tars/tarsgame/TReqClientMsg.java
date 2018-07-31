@@ -3,20 +3,23 @@
 // TARS version 1.0.1.
 // **********************************************************************
 
-package com.bzw.tars.client.tars.jfgameclientproto;
+package com.bzw.tars.client.tars.tarsgame;
 
 import com.qq.tars.protocol.util.*;
 import com.qq.tars.protocol.annotation.*;
 import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
+/**
+ * 玩家请求游戏动作（子包）
+ */
 @TarsStruct
-public class TMsgHead {
+public class TReqClientMsg {
 
 	@TarsStructProperty(order = 0, isRequire = true)
 	public short nMsgID = (short)0;
-	@TarsStructProperty(order = 1, isRequire = false)
-	public int nMsgType = 0;
+	@TarsStructProperty(order = 1, isRequire = true)
+	public byte[] vecData = null;
 
 	public short getNMsgID() {
 		return nMsgID;
@@ -26,20 +29,20 @@ public class TMsgHead {
 		this.nMsgID = nMsgID;
 	}
 
-	public int getNMsgType() {
-		return nMsgType;
+	public byte[] getVecData() {
+		return vecData;
 	}
 
-	public void setNMsgType(int nMsgType) {
-		this.nMsgType = nMsgType;
+	public void setVecData(byte[] vecData) {
+		this.vecData = vecData;
 	}
 
-	public TMsgHead() {
+	public TReqClientMsg() {
 	}
 
-	public TMsgHead(short nMsgID, int nMsgType) {
+	public TReqClientMsg(short nMsgID, byte[] vecData) {
 		this.nMsgID = nMsgID;
-		this.nMsgType = nMsgType;
+		this.vecData = vecData;
 	}
 
 	@Override
@@ -47,7 +50,7 @@ public class TMsgHead {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + TarsUtil.hashCode(nMsgID);
-		result = prime * result + TarsUtil.hashCode(nMsgType);
+		result = prime * result + TarsUtil.hashCode(vecData);
 		return result;
 	}
 
@@ -59,25 +62,31 @@ public class TMsgHead {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgHead)) {
+		if (!(obj instanceof TReqClientMsg)) {
 			return false;
 		}
-		TMsgHead other = (TMsgHead) obj;
+		TReqClientMsg other = (TReqClientMsg) obj;
 		return (
 			TarsUtil.equals(nMsgID, other.nMsgID) &&
-			TarsUtil.equals(nMsgType, other.nMsgType) 
+			TarsUtil.equals(vecData, other.vecData) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
 		_os.write(nMsgID, 0);
-		_os.write(nMsgType, 1);
+		_os.write(vecData, 1);
 	}
 
+	static byte[] cache_vecData;
+	static { 
+		cache_vecData = new byte[1];
+		byte var_10 = (byte)0;
+		cache_vecData[0] = var_10;
+	}
 
 	public void readFrom(TarsInputStream _is) {
 		this.nMsgID = _is.read(nMsgID, 0, true);
-		this.nMsgType = _is.read(nMsgType, 1, false);
+		this.vecData = (byte[]) _is.read(cache_vecData, 1, true);
 	}
 
 }

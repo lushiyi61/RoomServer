@@ -9,7 +9,7 @@ package com.bzw.tars.server;
 import com.bzw.tars.client.kotlin.game.GameBase;
 import com.bzw.tars.client.kotlin.game.GameMng;
 import com.bzw.tars.client.tars.tarsgame.E_GAME_MSGID;
-import com.bzw.tars.client.tars.tarsgame.TReqMessage;
+import com.bzw.tars.client.tars.tarsgame.TReqRoomMsg;
 import com.bzw.tars.server.jfgame.kotlin.logic.GameCallback;
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerBase;
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerMng;
@@ -48,7 +48,7 @@ class TimerThread extends Thread {
                         // 异步发送超时信号
                         GameBase gameBase = GameMng.Companion.getInstance().getGame(timerBase.getGameID());
                         if (gameBase != null) {
-                            TReqMessage tReqMessage = new TReqMessage();
+                            TReqRoomMsg tReqMessage = new TReqRoomMsg();
                             tReqMessage.nMsgID = (short) E_GAME_MSGID.GAMETIMEOUT.value();
                             tReqMessage.sTableNo = timerBase.getTableNo();
                             gameBase.getIGameMsgPrx().async_doRoomMessage(new GameCallback(timerBase.getTableNo(), gameBase, (byte) -1), tReqMessage);

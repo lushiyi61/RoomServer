@@ -14,29 +14,33 @@ public interface IGameMessagePrx {
 	/**
 	 * 通往游戏的协议（单向）
 	 * @return 0：正常，>0：请求其他指令（该值，消息数据为空）, <0：错误码
+	 * 错误由Game打印日志输出，RoomServer将忽略
 	 */
-	public short doRoomMessage(TReqMessage tReqMessage, @TarsHolder Holder<TRespMessage> tRespMessage);
+	public short doRoomMessage(TReqRoomMsg tReqRoomMsg, @TarsHolder Holder<TRespMessage> tRespMessage);
 	/**
 	 * 通往游戏的协议（单向）
 	 * @return 0：正常，>0：请求其他指令（该值，消息数据为空）, <0：错误码
+	 * 错误由Game打印日志输出，RoomServer将忽略
 	 */
-	public short doRoomMessage(TReqMessage tReqMessage, @TarsHolder Holder<TRespMessage> tRespMessage, @TarsContext java.util.Map<String, String> ctx);
+	public short doRoomMessage(TReqRoomMsg tReqRoomMsg, @TarsHolder Holder<TRespMessage> tRespMessage, @TarsContext java.util.Map<String, String> ctx);
 	/**
 	 * 通往游戏的协议（单向）
 	 * @return 0：正常，>0：请求其他指令（该值，消息数据为空）, <0：错误码
+	 * 错误由Game打印日志输出，RoomServer将忽略
 	 */
-	public void async_doRoomMessage(@TarsCallback IGameMessagePrxCallback callback, TReqMessage tReqMessage);
+	public void async_doRoomMessage(@TarsCallback IGameMessagePrxCallback callback, TReqRoomMsg tReqRoomMsg);
 	/**
 	 * 通往游戏的协议（单向）
 	 * @return 0：正常，>0：请求其他指令（该值，消息数据为空）, <0：错误码
+	 * 错误由Game打印日志输出，RoomServer将忽略
 	 */
-	public void async_doRoomMessage(@TarsCallback IGameMessagePrxCallback callback, TReqMessage tReqMessage, @TarsContext java.util.Map<String, String> ctx);
+	public void async_doRoomMessage(@TarsCallback IGameMessagePrxCallback callback, TReqRoomMsg tReqRoomMsg, @TarsContext java.util.Map<String, String> ctx);
 
-	public short doClientMessage(TReqMessage tReqMessage, @TarsHolder Holder<TRespMessage> tRespMessage);
+	public short doClientMessage(TReqRoomTranspondMsg tReqRoomTranspondMsg, @TarsHolder Holder<TRespMessage> tRespMessage);
 
-	public short doClientMessage(TReqMessage tReqMessage, @TarsHolder Holder<TRespMessage> tRespMessage, @TarsContext java.util.Map<String, String> ctx);
+	public short doClientMessage(TReqRoomTranspondMsg tReqRoomTranspondMsg, @TarsHolder Holder<TRespMessage> tRespMessage, @TarsContext java.util.Map<String, String> ctx);
 
-	public void async_doClientMessage(@TarsCallback IGameMessagePrxCallback callback, TReqMessage tReqMessage);
+	public void async_doClientMessage(@TarsCallback IGameMessagePrxCallback callback, TReqRoomTranspondMsg tReqRoomTranspondMsg);
 
-	public void async_doClientMessage(@TarsCallback IGameMessagePrxCallback callback, TReqMessage tReqMessage, @TarsContext java.util.Map<String, String> ctx);
+	public void async_doClientMessage(@TarsCallback IGameMessagePrxCallback callback, TReqRoomTranspondMsg tReqRoomTranspondMsg, @TarsContext java.util.Map<String, String> ctx);
 }

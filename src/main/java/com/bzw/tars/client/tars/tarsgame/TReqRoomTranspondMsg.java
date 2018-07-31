@@ -10,27 +10,20 @@ import com.qq.tars.protocol.annotation.*;
 import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
+/**
+ * Room 封装后的用户消息
+ */
 @TarsStruct
-public class TReqMessage {
+public class TReqRoomTranspondMsg {
 
-	@TarsStructProperty(order = 0, isRequire = true)
-	public short nVer = 1;
 	@TarsStructProperty(order = 1, isRequire = true)
 	public short nMsgID = (short)0;
 	@TarsStructProperty(order = 2, isRequire = true)
 	public String sTableNo = "";
 	@TarsStructProperty(order = 3, isRequire = true)
-	public short nChairIdx = -1;
+	public short nChairIdx = (short)0;
 	@TarsStructProperty(order = 4, isRequire = false)
 	public byte[] vecData = null;
-
-	public short getNVer() {
-		return nVer;
-	}
-
-	public void setNVer(short nVer) {
-		this.nVer = nVer;
-	}
 
 	public short getNMsgID() {
 		return nMsgID;
@@ -64,11 +57,10 @@ public class TReqMessage {
 		this.vecData = vecData;
 	}
 
-	public TReqMessage() {
+	public TReqRoomTranspondMsg() {
 	}
 
-	public TReqMessage(short nVer, short nMsgID, String sTableNo, short nChairIdx, byte[] vecData) {
-		this.nVer = nVer;
+	public TReqRoomTranspondMsg(short nMsgID, String sTableNo, short nChairIdx, byte[] vecData) {
 		this.nMsgID = nMsgID;
 		this.sTableNo = sTableNo;
 		this.nChairIdx = nChairIdx;
@@ -79,7 +71,6 @@ public class TReqMessage {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(nVer);
 		result = prime * result + TarsUtil.hashCode(nMsgID);
 		result = prime * result + TarsUtil.hashCode(sTableNo);
 		result = prime * result + TarsUtil.hashCode(nChairIdx);
@@ -95,12 +86,11 @@ public class TReqMessage {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TReqMessage)) {
+		if (!(obj instanceof TReqRoomTranspondMsg)) {
 			return false;
 		}
-		TReqMessage other = (TReqMessage) obj;
+		TReqRoomTranspondMsg other = (TReqRoomTranspondMsg) obj;
 		return (
-			TarsUtil.equals(nVer, other.nVer) &&
 			TarsUtil.equals(nMsgID, other.nMsgID) &&
 			TarsUtil.equals(sTableNo, other.sTableNo) &&
 			TarsUtil.equals(nChairIdx, other.nChairIdx) &&
@@ -109,7 +99,6 @@ public class TReqMessage {
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(nVer, 0);
 		_os.write(nMsgID, 1);
 		_os.write(sTableNo, 2);
 		_os.write(nChairIdx, 3);
@@ -121,12 +110,11 @@ public class TReqMessage {
 	static byte[] cache_vecData;
 	static { 
 		cache_vecData = new byte[1];
-		byte var_10 = (byte)0;
-		cache_vecData[0] = var_10;
+		byte var_12 = (byte)0;
+		cache_vecData[0] = var_12;
 	}
 
 	public void readFrom(TarsInputStream _is) {
-		this.nVer = _is.read(nVer, 0, true);
 		this.nMsgID = _is.read(nMsgID, 1, true);
 		this.sTableNo = _is.readString(2, true);
 		this.nChairIdx = _is.read(nChairIdx, 3, true);

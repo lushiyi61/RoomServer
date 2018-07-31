@@ -5,7 +5,7 @@ import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.comm.TarsUtilsKt
 import com.bzw.tars.client.kotlin.game.GameMng
 import com.bzw.tars.client.tars.tarsgame.E_GAME_MSGID
-import com.bzw.tars.client.tars.tarsgame.TReqMessage
+import com.bzw.tars.client.tars.tarsgame.TReqRoomMsg
 import com.bzw.tars.server.jfgame.kotlin.database.player.CPlayerGameInfo
 import com.bzw.tars.server.jfgame.kotlin.database.player.PlayerMng
 import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
@@ -285,7 +285,7 @@ class MainRouter {
                 tarsRouterPrx.doPush(v.uid, tRespPackage);
             }
         }
-        
+
         // 检查是否可以开桌
         val tableBase = TableMng.getInstance().getTable(sharePlayerData.tableNo);
         if (tableBase != null && tableBase.canStartGame()) {
@@ -321,9 +321,9 @@ class MainRouter {
         }
 
 
-        if (tableBase != null) {
-            TableMng.getInstance().addTable(tableBase.tableNo, tableBase);
-        }
+
+        TableMng.getInstance().addTable(tableBase.tableNo, tableBase);
+
     }
 
 
@@ -338,7 +338,7 @@ class MainRouter {
         // 请求开始游戏
         val gameBase = GameMng.getInstance().getGame(tableBase.gameID)
         if (gameBase != null) {
-            val tReqMessage = TReqMessage()
+            val tReqMessage = TReqRoomMsg()
             tReqMessage.nMsgID = E_GAME_MSGID.GAMESTART.value().toShort()
             tReqMessage.sTableNo = tableNo
             gameBase.iGameMsgPrx.async_doRoomMessage(GameCallback(tableNo, gameBase, (-1).toByte()), tReqMessage)

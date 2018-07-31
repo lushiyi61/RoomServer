@@ -10,6 +10,10 @@ import com.qq.tars.protocol.annotation.*;
 import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
+/**
+ * 游戏开始
+ * 当前玩家UID，list下标为座次号
+ */
 @TarsStruct
 public class TGamgStart {
 
