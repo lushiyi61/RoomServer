@@ -5,8 +5,8 @@ import com.bzw.tars.client.kotlin.game.GameBase
 import com.bzw.tars.client.tars.jfgameclientproto.E_CLIENT_MSGID
 import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.client.tars.tarsgame.*
+import com.bzw.tars.comm.TarsUtilsKt
 import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
-import com.bzw.tars.server.jfgame.kotlin.database.table.TableBase
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerMng
 
@@ -69,6 +69,7 @@ class GameCallback : IGameMessagePrxCallback {
             EGameMsgType.E_RESPALL_DATA.value() -> this.doRespAll(tRespMessage, infoPlayer.getPlayerDict());
             EGameMsgType.E_NOTIFY_DATA.value() -> this.doNotify(tRespMessage, infoPlayer.getPlayerDict());
             EGameMsgType.E_MIXTURE_DATA.value() -> this.doMixture(tRespMessage, infoPlayer.getPlayerDict());
+            EGameMsgType.E_NONE_DATA.value() -> null;
             else -> System.err.println("TableGameInfo msgType error !!!");
         }
     }
@@ -88,7 +89,7 @@ class GameCallback : IGameMessagePrxCallback {
                 val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
                 val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
                 tRespPackage.vecMsgID.add(E_CLIENT_MSGID.E_GAME_ACTION.value().toShort());
-                tRespPackage.vecMsgData.add(tRespData.getVecData());
+                tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tRespData));
                 tarsRouterPrx.doPush(player.uid, tRespPackage);
                 break;
             }
@@ -103,7 +104,7 @@ class GameCallback : IGameMessagePrxCallback {
             if (player.chairIdx >= 0 && player.chairIdx < tListData.size) {
                 val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
                 tRespPackage.vecMsgID.add((0 - E_CLIENT_MSGID.E_GAME_ACTION.value()).toShort());
-                tRespPackage.vecMsgData.add(tListData.get(player.chairIdx.toInt()).getVecData());
+                tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tListData.get(player.chairIdx.toInt())));
                 tarsRouterPrx.doPush(player.uid, tRespPackage);
             }
         }
@@ -115,10 +116,15 @@ class GameCallback : IGameMessagePrxCallback {
         val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
         val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
         tRespPackage.vecMsgID.add((0 - E_CLIENT_MSGID.E_GAME_ACTION.value()).toShort());
-        tRespPackage.vecMsgData.add(tNotifyData.getVecData());
+        tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tNotifyData));
         for (player in playerDict.values) {
             tarsRouterPrx.doPush(player.uid, tRespPackage);
         }
+
+        // 测试一下
+        println("==========test========");
+//        TNotifyGameStart
+        println("==========test========");
     }
 
     private fun doMixture(tRespMessage: TRespMessage, playerDict: MutableMap<Long, SharePlayerData>) {
@@ -133,10 +139,10 @@ class GameCallback : IGameMessagePrxCallback {
         val tNotifyPackage = TRespPackage(mutableListOf(), mutableListOf());
 
         tRespPackage.vecMsgID.add(E_CLIENT_MSGID.E_GAME_ACTION.value().toShort());
-        tRespPackage.vecMsgData.add(tRespData.getVecData());
+        tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tRespData));
 
         tNotifyPackage.vecMsgID.add((0 - E_CLIENT_MSGID.E_GAME_ACTION.value()).toShort());
-        tNotifyPackage.vecMsgData.add(tNotifyData.getVecData());
+        tNotifyPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tNotifyData));
         for (player in playerDict.values) {
             if (player.chairIdx == this.chairIdx) {
                 tarsRouterPrx.doPush(player.uid, tRespPackage);
@@ -158,8 +164,21 @@ class GameCallback : IGameMessagePrxCallback {
         val tReqMessage = TReqRoomMsg()
         tReqMessage.nMsgID = msgID;
         tReqMessage.sTableNo = tableNO;
-        gameBase.iGameMsgPrx.async_doRoomMessage(GameCallback(tableNO, gameBase), tReqMessage);
 
-        // 更新游戏状态
+        when (msgID) {
+            E_GAME_MSGID.GAMESTART.value().toShort() -> tReqMessage.vecData = this.handleGameStart();
+        }
+
+        gameBase.iGameMsgPrx.async_doRoomMessage(GameCallback(tableNO, gameBase), tReqMessage);
+    }
+
+
+    private fun handleGameStart(): ByteArray? {
+        TableMng.getInstance().initChairIdx(this.tableNO);
+        val cTableChairIdxMng = TableMng.getInstance().getInfoChairIdxMng(this.tableNO);
+        cTableChairIdxMng ?: return null;
+
+        val tGamgStart = TGamgStart(cTableChairIdxMng.getChairIdxList());
+        return TarsUtilsKt.toByteArray(tGamgStart);
     }
 }

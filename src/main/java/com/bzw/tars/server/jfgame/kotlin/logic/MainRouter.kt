@@ -5,6 +5,7 @@ import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.comm.TarsUtilsKt
 import com.bzw.tars.client.kotlin.game.GameMng
 import com.bzw.tars.client.tars.tarsgame.E_GAME_MSGID
+import com.bzw.tars.client.tars.tarsgame.TGameCreate
 import com.bzw.tars.client.tars.tarsgame.TReqRoomMsg
 import com.bzw.tars.server.jfgame.kotlin.database.player.CPlayerGameInfo
 import com.bzw.tars.server.jfgame.kotlin.database.player.PlayerMng
@@ -99,7 +100,7 @@ class MainRouter {
             cTablePlayerMng.removePlayer(uid);
             // 清理座位
             if (sharePlayerData.chairNo > 0) {
-                val cTableChairNoMng = TableMng.getInstance().getInfoChair(sharePlayerData.tableNo);
+                val cTableChairNoMng = TableMng.getInstance().getInfoChairNoMng(sharePlayerData.tableNo);
                 if (cTableChairNoMng != null) {
                     cTableChairNoMng.removePlayer(sharePlayerData);
                 }
@@ -160,7 +161,7 @@ class MainRouter {
         // 取游戏桌玩家数据
         val cTablePlayerMng = TableMng.getInstance().getInfoPlayer(tMsgReqEnterTable.getSTableNo());
         cTablePlayerMng ?: return E_RETCODE.E_TABLE_NOT_EXIST;
-        val cTableChairNoMng = TableMng.getInstance().getInfoChair(tMsgReqEnterTable.getSTableNo());
+        val cTableChairNoMng = TableMng.getInstance().getInfoChairNoMng(tMsgReqEnterTable.getSTableNo());
         cTableChairNoMng ?: return E_RETCODE.E_TABLE_NOT_EXIST;
 
         // 是否可以进入该桌
@@ -289,7 +290,7 @@ class MainRouter {
         // 检查是否可以开桌
         val tableBase = TableMng.getInstance().getTable(sharePlayerData.tableNo);
         if (tableBase != null && tableBase.canStartGame()) {
-            this.doStartGame(tableBase.tableNo);
+            this.doCreateGame(tableBase);
         }
 
         return E_RETCODE.E_COMMON_SUCCESS;
@@ -327,21 +328,17 @@ class MainRouter {
     }
 
 
-    private fun doStartGame(tableNo: String) {
-        val tableBase = TableMng.getInstance().getTable(tableNo);
-        tableBase ?: return;
-
-        // 初始化玩家准备信息
-
-        // 获取准备的玩家列表
-
-        // 请求开始游戏
+    private fun doCreateGame(tableBase: TableBase) {
+        // 请求创建游戏
         val gameBase = GameMng.getInstance().getGame(tableBase.gameID)
         if (gameBase != null) {
-            val tReqMessage = TReqRoomMsg()
-            tReqMessage.nMsgID = E_GAME_MSGID.GAMESTART.value().toShort()
-            tReqMessage.sTableNo = tableNo
-            gameBase.iGameMsgPrx.async_doRoomMessage(GameCallback(tableNo, gameBase, (-1).toByte()), tReqMessage)
+            val tGameCreate = TGameCreate(1,"");
+
+            val tReqRoomMsg = TReqRoomMsg()
+            tReqRoomMsg.nMsgID = E_GAME_MSGID.GAMECREATE.value().toShort()
+            tReqRoomMsg.sTableNo = tableBase.tableNo;
+            tReqRoomMsg.vecData = TarsUtilsKt.toByteArray(tGameCreate);
+            gameBase.iGameMsgPrx.async_doRoomMessage(GameCallback(tableBase.tableNo, gameBase, (-1).toByte()), tReqRoomMsg)
         }
     }
 }

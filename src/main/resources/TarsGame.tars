@@ -5,9 +5,11 @@ module TarsGame
         GAMECREATE      = 11,           // 创建游戏 TGameCreate
         GAMESTART       = 12,           // 游戏开始 TGamgStart
         GAMETIMEOUT     = 13,           // 游戏超时 无参数
-        GAMEFINNISH     = 14,           // 游戏结束 无参数
-        GAMEDISMISS     = 15,           // 游戏解散 无参数
-        GAMERESULT      = 16,           // 游戏结果 无参数
+        GAMEFINISH      = 14,           // 回合结束 无参数
+        GAMEOVER        = 15,           // 游戏结束 无参数
+        GAMEDISMISS     = 16,           // 游戏解散 无参数
+        GAMERESULT      = 17,           // 游戏结果 无参数
+        GAMEACTION      = 18,           // 游戏动作 无参数
     };
 
     /**
@@ -21,13 +23,21 @@ module TarsGame
         10  require     string  rules;          // 房间规则（json to string）
     };
 
+    /*
+     * 玩家信息
+     */
+    struct TPlayerInfo
+    {
+        0   require     long    userID;         // 玩家ID
+        1   require     short   nChairNo;       // 座位号
+    };
     /**
     * 游戏开始
     * 当前玩家UID，list下标为座次号
     */
     struct TGamgStart
     {
-        0   require     vector<long>    vecUserID;
+        0   require     vector<TPlayerInfo>    player;
     };
 
 
@@ -40,6 +50,8 @@ module TarsGame
         E_RESPONE_DATA    = 1 ,   // stRespOneData ：给指定玩家发送
         E_RESPALL_DATA    = 2 ,   // vecRespAllData ：分别给当前座位上玩家发送
         E_MIXTURE_DATA    = 3 ,   // stNotifyData ：给指定玩家以外其他玩家发送 & stRespOneData ：给指定玩家发送
+
+        E_NONE_DATA      = 10 ,   // 没有数据
     };
 
     /**
@@ -67,10 +79,10 @@ module TarsGame
     */
     struct TReqRoomTranspondMsg
     {
-        1 require short nMsgID;             // 指令 TReqClientMsg.nMsgID
-        2 require string sTableNo;          // 桌子号   (RoomServer提供）
-        3 require short nChairIdx;          // 座位序号 （RoomServer提供）
-        4 optional vector<byte> vecData;    // 消息数据 TReqClientMsg.vecData
+        1 require short nMsgID;                 // 指令 TReqClientMsg.nMsgID
+        2 require string sTableNo;              // 桌子号   (RoomServer提供）
+        3 require short nChairIdx;              // 座位序号 （RoomServer提供）
+        4 optional vector<byte> vecData;        // 消息数据 TReqClientMsg.vecData
     };
 
     /**

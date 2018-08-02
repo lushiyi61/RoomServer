@@ -111,6 +111,10 @@ class CTableChairNoMng : TableComponent {
         return num;
     }
 
+    fun getChairNum(): Byte {
+        return this.chairNum;
+    }
+
     override fun ToString(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

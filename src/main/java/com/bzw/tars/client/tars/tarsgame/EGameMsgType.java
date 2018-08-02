@@ -13,7 +13,8 @@ public enum EGameMsgType {
 	E_NOTIFY_DATA(0),
 	E_RESPONE_DATA(1),
 	E_RESPALL_DATA(2),
-	E_MIXTURE_DATA(3);
+	E_MIXTURE_DATA(3),
+	E_NONE_DATA(10);
 
 	private final int value;
 

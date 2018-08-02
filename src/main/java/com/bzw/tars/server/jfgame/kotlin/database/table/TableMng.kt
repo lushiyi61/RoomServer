@@ -1,5 +1,6 @@
 package com.bzw.tars.server.jfgame.kotlin.database.table
 
+import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTableChairIdxMng
 import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTableChairNoMng
 import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTablePlayerMng
 
@@ -104,7 +105,7 @@ class TableMng private constructor(val dataMax: Int = 10000) {
      * @param
      * @return
      */
-    fun getInfoChair(tableNo: String): CTableChairNoMng? {
+    fun getInfoChairNoMng(tableNo: String): CTableChairNoMng? {
         val tableBase = this.getTable(tableNo);
         tableBase ?: return null;
         val infoChair = tableBase.getTableBase("CTableChairNoMng");
@@ -113,6 +114,32 @@ class TableMng private constructor(val dataMax: Int = 10000) {
         return infoChair as CTableChairNoMng;
     }
 
+    /*
+     * @description 获取指定桌，座次表管理类
+     * =====================================
+     * @author zoujian
+     * @date 2018/8/1 20:51
+     * @param
+     * @return
+     */
+    fun getInfoChairIdxMng(tableNo: String): CTableChairIdxMng? {
+        val tableBase = this.getTable(tableNo);
+        tableBase ?: return null;
+        val infoChair = tableBase.getTableBase("CTableChairIdxMng");
+        infoChair ?: return null;
+
+        return infoChair as CTableChairIdxMng;
+    }
+
+
+    fun initChairIdx(tableNo: String) {
+        val cTableChairIdxMng = this.getInfoChairIdxMng(tableNo);
+        val cTableChairNoMng = this.getInfoChairNoMng(tableNo);
+        cTableChairIdxMng ?: return;
+        cTableChairNoMng ?: return;
+
+        cTableChairIdxMng.initChairIdx(cTableChairNoMng.getChairNum(), cTableChairNoMng.getChairNoDict());
+    }
 
 //    fun getTablePlayerDict(tableNo: String): MutableMap<Long, SharePlayerData>? {
 //        val tableBase = this.tableDict.get(tableNo);
