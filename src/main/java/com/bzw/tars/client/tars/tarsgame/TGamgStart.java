@@ -18,28 +18,28 @@ import com.qq.tars.protocol.tars.annotation.*;
 public class TGamgStart {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public java.util.List<java.lang.Long> vecUserID = null;
+	public java.util.List<TPlayerInfo> player = null;
 
-	public java.util.List<java.lang.Long> getVecUserID() {
-		return vecUserID;
+	public java.util.List<TPlayerInfo> getPlayer() {
+		return player;
 	}
 
-	public void setVecUserID(java.util.List<java.lang.Long> vecUserID) {
-		this.vecUserID = vecUserID;
+	public void setPlayer(java.util.List<TPlayerInfo> player) {
+		this.player = player;
 	}
 
 	public TGamgStart() {
 	}
 
-	public TGamgStart(java.util.List<java.lang.Long> vecUserID) {
-		this.vecUserID = vecUserID;
+	public TGamgStart(java.util.List<TPlayerInfo> player) {
+		this.player = player;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(vecUserID);
+		result = prime * result + TarsUtil.hashCode(player);
 		return result;
 	}
 
@@ -56,23 +56,23 @@ public class TGamgStart {
 		}
 		TGamgStart other = (TGamgStart) obj;
 		return (
-			TarsUtil.equals(vecUserID, other.vecUserID) 
+			TarsUtil.equals(player, other.player) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(vecUserID, 0);
+		_os.write(player, 0);
 	}
 
-	static java.util.List<java.lang.Long> cache_vecUserID;
+	static java.util.List<TPlayerInfo> cache_player;
 	static { 
-		cache_vecUserID = new java.util.ArrayList<java.lang.Long>();
-		long var_9 = 0L;
-		cache_vecUserID.add(var_9);
+		cache_player = new java.util.ArrayList<TPlayerInfo>();
+		TPlayerInfo var_9 = new TPlayerInfo();
+		cache_player.add(var_9);
 	}
 
 	public void readFrom(TarsInputStream _is) {
-		this.vecUserID = (java.util.List<java.lang.Long>) _is.read(cache_vecUserID, 0, true);
+		this.player = (java.util.List<TPlayerInfo>) _is.read(cache_player, 0, true);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.bzw.tars.server.jfgame.kotlin.database.table.comm
 
+import com.bzw.tars.client.tars.tarsgame.TPlayerInfo
 import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableComponent
 import com.bzw.tars.server.tars.jfgameclientproto.E_PLAYER_STATE
@@ -10,7 +11,7 @@ import com.bzw.tars.server.tars.jfgameclientproto.E_PLAYER_STATE
  * @描述
  */
 class CTableChairIdxMng : TableComponent("CTableChairIdxMng") {
-    private val chairIdxList = mutableListOf<Long>();
+    private val chairIdxList = mutableListOf<TPlayerInfo>();
 
     /*
      * @description 游戏开始时调用
@@ -26,7 +27,7 @@ class CTableChairIdxMng : TableComponent("CTableChairIdxMng") {
             val sharePlayerData = chairNoDict.get(i.toByte()) ?: continue;
             if (sharePlayerData.state  == E_PLAYER_STATE.E_PLAYER_PREPARE.value().toByte()) {
                 sharePlayerData.chairIdx = this.chairIdxList.size.toByte();
-                this.chairIdxList.add(sharePlayerData.uid);
+                this.chairIdxList.add(TPlayerInfo(sharePlayerData.uid,sharePlayerData.chairNo.toShort()));
             }
         }
     }
@@ -39,7 +40,7 @@ class CTableChairIdxMng : TableComponent("CTableChairIdxMng") {
      * @param
      * @return
      */
-    fun getChairIdxList(): MutableList<Long> {
+    fun getChairIdxPlayerList(): MutableList<TPlayerInfo> {
         return this.chairIdxList;
     }
 

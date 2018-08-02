@@ -178,7 +178,7 @@ class GameCallback : IGameMessagePrxCallback {
         val cTableChairIdxMng = TableMng.getInstance().getInfoChairIdxMng(this.tableNO);
         cTableChairIdxMng ?: return null;
 
-        val tGamgStart = TGamgStart(cTableChairIdxMng.getChairIdxList());
+        val tGamgStart = TGamgStart(cTableChairIdxMng.getChairIdxPlayerList());
         return TarsUtilsKt.toByteArray(tGamgStart);
     }
 }
