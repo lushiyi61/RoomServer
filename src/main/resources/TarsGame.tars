@@ -37,7 +37,7 @@ module TarsGame
     */
     struct TGamgStart
     {
-        0   require     vector<TPlayerInfo>    player;
+        0   require     vector<TPlayerInfo>    playerInfo;
     };
 
 
