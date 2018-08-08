@@ -31,6 +31,7 @@ class GameCallback : IGameMessagePrxCallback {
     }
 
     override fun callback_exception(ex: Throwable?) {
+        System.err.println("IGameMessagePrxCallback:" + ex.toString());
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -120,11 +121,6 @@ class GameCallback : IGameMessagePrxCallback {
         for (player in playerDict.values) {
             tarsRouterPrx.doPush(player.uid, tRespPackage);
         }
-
-        // 测试一下
-        println("==========test========");
-//        TNotifyGameStart
-        println("==========test========");
     }
 
     private fun doMixture(tRespMessage: TRespMessage, playerDict: MutableMap<Long, SharePlayerData>) {
@@ -166,15 +162,15 @@ class GameCallback : IGameMessagePrxCallback {
         tReqMessage.sTableNo = tableNO;
 
         when (msgID) {
-            E_GAME_MSGID.GAMESTART.value().toShort() -> tReqMessage.vecData = this.handleGameStart();
+            E_GAME_MSGID.GAMESTART.value().toShort() -> tReqMessage.vecData = this.handleGameStart(this.tableNO);
         }
 
-        gameBase.iGameMsgPrx.async_doRoomMessage(GameCallback(tableNO, gameBase), tReqMessage);
+        gameBase.iGameMsgPrx.async_doRoomMessage(this, tReqMessage);
     }
 
 
-    private fun handleGameStart(): ByteArray? {
-        TableMng.getInstance().initChairIdx(this.tableNO);
+    private fun handleGameStart(tableNO: String): ByteArray? {
+        TableMng.getInstance().initChairIdx(tableNO);
         val cTableChairIdxMng = TableMng.getInstance().getInfoChairIdxMng(this.tableNO);
         cTableChairIdxMng ?: return null;
 

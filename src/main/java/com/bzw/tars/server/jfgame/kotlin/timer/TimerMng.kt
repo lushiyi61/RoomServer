@@ -20,13 +20,15 @@ class TimerMng private constructor(val dataMax: Int = 10000) {
      * @author zoujian
      * @date 2018/7/24 11:23
      * @param tableNo:游戏桌号
-     * @param timeout:超时时间（单位秒）
      * @param tableNo:游戏桌号
+     * @param timeout:超时时间（单位秒）
      * @return
      */
-    fun addTimer(tableNo: String, timeout: Int, gameID: Int) {
+    fun addTimer(tableNo: String, gameID: Int, timeout: Int) {
         val timestampOver = System.currentTimeMillis() / 1000 + timeout.toLong();
-
+        println("==========test======== timestampCurrent"+ System.currentTimeMillis() / 1000 );
+        println("==========test======== timestampOver   "+ timestampOver.toString());
+        println("==========test======== timeout         "+ timeout.toString());
         var timerBase = this.m_timerDict.get(tableNo);
         if (timerBase == null) {
             timerBase = TimerBase(timestampOver, 0L, gameID, tableNo, true);

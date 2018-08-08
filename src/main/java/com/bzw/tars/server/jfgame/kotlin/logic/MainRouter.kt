@@ -4,9 +4,7 @@ import com.bzw.tars.client.kotlin.ClientImpl
 import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.comm.TarsUtilsKt
 import com.bzw.tars.client.kotlin.game.GameMng
-import com.bzw.tars.client.tars.tarsgame.E_GAME_MSGID
-import com.bzw.tars.client.tars.tarsgame.TGameCreate
-import com.bzw.tars.client.tars.tarsgame.TReqRoomMsg
+import com.bzw.tars.client.tars.tarsgame.*
 import com.bzw.tars.server.jfgame.kotlin.database.player.CPlayerGameInfo
 import com.bzw.tars.server.jfgame.kotlin.database.player.PlayerMng
 import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
@@ -50,7 +48,7 @@ class MainRouter {
             E_CLIENT_MSGID.E_TABLE_DISMISS.value().toShort() -> null;
             E_CLIENT_MSGID.E_TABLE_VOTE_DISMISS.value().toShort() -> null;
 
-            E_CLIENT_MSGID.E_GAME_ACTION.value().toShort() -> null;
+            E_CLIENT_MSGID.E_GAME_ACTION.value().toShort() -> res = this.onGameMessage(uid, msgId, msgData);
             else -> System.err.println(String.format("MainRouter:onMessage,uid:%s,this error msgId:%s", uid, msgId));
         }
 
@@ -231,18 +229,25 @@ class MainRouter {
      */
     private fun onGameMessage(uid: Long, msgId: Short, msgData: ByteArray): E_RETCODE {
         // 取玩家数据
-        val game = PlayerMng.getInstance().getInfoGame(uid);
-        game ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
+        val sharePlayerData = PlayerMng.getInstance().getInfoGame(uid);
+        sharePlayerData ?: return E_RETCODE.E_PLAYER_NOT_EXIST;
 
         // 取游戏桌数据
-        val tableBase = TableMng.getInstance().getTable(game.tableNo);
+        val tableBase = TableMng.getInstance().getTable(sharePlayerData.tableNo);
         tableBase ?: return E_RETCODE.E_TABLE_NOT_EXIST;
 
         // 取游戏数据
         val gameBase = GameMng.getInstance().getGame(tableBase.gameID);
         gameBase ?: return E_RETCODE.E_GAME_NOT_EXIST;
 
+        // 消息解析
+        val tReqClientMsg = TarsUtilsKt.toObject(msgData, TReqClientMsg::class.java)!!;
+
+        // 消息组装
+
         // 异步执行游戏请求
+        val tReqRoomTranspondMsg = TReqRoomTranspondMsg(tReqClientMsg.nMsgID,sharePlayerData.tableNo,sharePlayerData.chairIdx.toShort(),tReqClientMsg.vecData);
+        gameBase.iGameMsgPrx.async_doClientMessage(GameCallback(sharePlayerData.tableNo,gameBase), tReqRoomTranspondMsg);
 
         return E_RETCODE.E_COMMON_SUCCESS;
     }
@@ -332,7 +337,7 @@ class MainRouter {
         // 请求创建游戏
         val gameBase = GameMng.getInstance().getGame(tableBase.gameID)
         if (gameBase != null) {
-            val tGameCreate = TGameCreate(1,"");
+            val tGameCreate = TGameCreate(1, "");
 
             val tReqRoomMsg = TReqRoomMsg()
             tReqRoomMsg.nMsgID = E_GAME_MSGID.GAMECREATE.value().toShort()

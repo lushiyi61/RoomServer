@@ -32,6 +32,7 @@ class TimerBase(
         if (state == false || timestampSuspend > 0) {
             return false;
         }
+
         if ((timestampCurrent - timestampOver) >= 0L) {
             return true;
         }
