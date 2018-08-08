@@ -106,6 +106,7 @@ module JFGameClientProto
         E_MSGID_ADDICT__NOTIFY		= 95,				// 防沉迷消息通知 [S->C]
 		E_MSGID_LOGIN_REQ			= 99,				// 登录消息请求 [C->S]
 
+        E_MSGID_TIMEOUT         = 99,                   // S->C 该回合超时时间
 		E_MSGID_ERROR           = 100,                  // S->C 返回错误码
 
         // 新协议 请求&返回 为同一个枚举值，通知为枚举值取负值
@@ -290,6 +291,15 @@ module JFGameClientProto
     struct TMsgRespErrorCode
     {
         0 require   short         nErrorCode; 			 // 错误码
+    };
+
+    /*
+     * @description 回合超时（单位：S）
+     * =====================================
+     */
+    struct TMsgNotifyTimeout
+    {
+        0 require   short         nTimeout; 			 // 超时时间
     };
 
     //////////////////////////////////历史遗留问题/////////////////////////////////////////////////
