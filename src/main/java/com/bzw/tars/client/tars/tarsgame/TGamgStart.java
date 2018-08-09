@@ -18,28 +18,28 @@ import com.qq.tars.protocol.tars.annotation.*;
 public class TGamgStart {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public java.util.List<TPlayerInfo> player = null;
+	public java.util.List<TPlayerInfo> playerInfo = null;
 
-	public java.util.List<TPlayerInfo> getPlayer() {
-		return player;
+	public java.util.List<TPlayerInfo> getPlayerInfo() {
+		return playerInfo;
 	}
 
-	public void setPlayer(java.util.List<TPlayerInfo> player) {
-		this.player = player;
+	public void setPlayerInfo(java.util.List<TPlayerInfo> playerInfo) {
+		this.playerInfo = playerInfo;
 	}
 
 	public TGamgStart() {
 	}
 
-	public TGamgStart(java.util.List<TPlayerInfo> player) {
-		this.player = player;
+	public TGamgStart(java.util.List<TPlayerInfo> playerInfo) {
+		this.playerInfo = playerInfo;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(player);
+		result = prime * result + TarsUtil.hashCode(playerInfo);
 		return result;
 	}
 
@@ -56,23 +56,23 @@ public class TGamgStart {
 		}
 		TGamgStart other = (TGamgStart) obj;
 		return (
-			TarsUtil.equals(player, other.player) 
+			TarsUtil.equals(playerInfo, other.playerInfo) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(player, 0);
+		_os.write(playerInfo, 0);
 	}
 
-	static java.util.List<TPlayerInfo> cache_player;
+	static java.util.List<TPlayerInfo> cache_playerInfo;
 	static { 
-		cache_player = new java.util.ArrayList<TPlayerInfo>();
+		cache_playerInfo = new java.util.ArrayList<TPlayerInfo>();
 		TPlayerInfo var_9 = new TPlayerInfo();
-		cache_player.add(var_9);
+		cache_playerInfo.add(var_9);
 	}
 
 	public void readFrom(TarsInputStream _is) {
-		this.player = (java.util.List<TPlayerInfo>) _is.read(cache_player, 0, true);
+		this.playerInfo = (java.util.List<TPlayerInfo>) _is.read(cache_playerInfo, 0, true);
 	}
 
 }

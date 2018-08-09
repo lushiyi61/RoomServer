@@ -65,13 +65,15 @@ class GameCallback : IGameMessagePrxCallback {
         val infoPlayer = TableMng.getInstance().getInfoPlayer(this.tableNO);
         infoPlayer ?: return;
 
-        when (tRespMessage.eMsgType) {
-            EGameMsgType.E_RESPONE_DATA.value() -> this.doRespOne(tRespMessage, infoPlayer.getPlayerDict());
-            EGameMsgType.E_RESPALL_DATA.value() -> this.doRespAll(tRespMessage, infoPlayer.getPlayerDict());
-            EGameMsgType.E_NOTIFY_DATA.value() -> this.doNotify(tRespMessage, infoPlayer.getPlayerDict());
-            EGameMsgType.E_MIXTURE_DATA.value() -> this.doMixture(tRespMessage, infoPlayer.getPlayerDict());
-            EGameMsgType.E_NONE_DATA.value() -> null;
-            else -> System.err.println("TableGameInfo msgType error !!!");
+        for (gameData in tRespMessage.vecGameData){
+            when (gameData.eMsgType) {
+                EGameMsgType.E_RESPONE_DATA.value() -> this.doRespOne(gameData, infoPlayer.getPlayerDict());
+                EGameMsgType.E_RESPALL_DATA.value() -> this.doRespAll(gameData, infoPlayer.getPlayerDict());
+                EGameMsgType.E_NOTIFY_DATA.value() -> this.doNotify(gameData, infoPlayer.getPlayerDict());
+                EGameMsgType.E_MIXTURE_DATA.value() -> this.doMixture(gameData, infoPlayer.getPlayerDict());
+                EGameMsgType.E_NONE_DATA.value() -> null;
+                else -> System.err.println("TableGameInfo msgType error !!!");
+            }
         }
     }
 
@@ -82,8 +84,8 @@ class GameCallback : IGameMessagePrxCallback {
      * @date 2018/7/25 15:33
      */
 
-    private fun doRespOne(tRespMessage: TRespMessage, playerDict: MutableMap<Long, SharePlayerData>) {
-        val tRespData = tRespMessage.getTGameData().tRespOneData;
+    private fun doRespOne(tGameData: TGameData, playerDict: MutableMap<Long, SharePlayerData>) {
+        val tRespData = tGameData.tRespOneData;
         tRespData ?: return;
         for (player in playerDict.values) {
             if (player.chairIdx == this.chairIdx) {
@@ -97,8 +99,8 @@ class GameCallback : IGameMessagePrxCallback {
         }
     }
 
-    private fun doRespAll(tRespMessage: TRespMessage, playerDict: MutableMap<Long, SharePlayerData>) {
-        val tListData = tRespMessage.getTGameData().getVecRespAllData();
+    private fun doRespAll(tGameData: TGameData, playerDict: MutableMap<Long, SharePlayerData>) {
+        val tListData = tGameData.getVecRespAllData();
         tListData ?: return;
         val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
         for (player in playerDict.values) {
@@ -111,8 +113,8 @@ class GameCallback : IGameMessagePrxCallback {
         }
     }
 
-    private fun doNotify(tRespMessage: TRespMessage, playerDict: MutableMap<Long, SharePlayerData>) {
-        val tNotifyData = tRespMessage.getTGameData().getTNotifyData();
+    private fun doNotify(tGameData: TGameData, playerDict: MutableMap<Long, SharePlayerData>) {
+        val tNotifyData = tGameData.getTNotifyData();
         tNotifyData ?: return;
         val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
         val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
@@ -123,10 +125,10 @@ class GameCallback : IGameMessagePrxCallback {
         }
     }
 
-    private fun doMixture(tRespMessage: TRespMessage, playerDict: MutableMap<Long, SharePlayerData>) {
-        val tNotifyData = tRespMessage.getTGameData().getTNotifyData();
+    private fun doMixture(tGameData: TGameData, playerDict: MutableMap<Long, SharePlayerData>) {
+        val tNotifyData = tGameData.getTNotifyData();
         tNotifyData ?: return;
-        val tRespData = tRespMessage.getTGameData().getTRespOneData();
+        val tRespData = tGameData.getTRespOneData();
         tRespData ?: return;
 
         val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();

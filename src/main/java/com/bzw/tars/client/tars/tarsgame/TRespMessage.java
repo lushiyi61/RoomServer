@@ -20,9 +20,7 @@ public class TRespMessage {
 	@TarsStructProperty(order = 0, isRequire = true)
 	public short nTimeout = 0;
 	@TarsStructProperty(order = 1, isRequire = true)
-	public int eMsgType = 0;
-	@TarsStructProperty(order = 2, isRequire = true)
-	public TGameData tGameData = null;
+	public java.util.List<TGameData> vecGameData = null;
 
 	public short getNTimeout() {
 		return nTimeout;
@@ -32,29 +30,20 @@ public class TRespMessage {
 		this.nTimeout = nTimeout;
 	}
 
-	public int getEMsgType() {
-		return eMsgType;
+	public java.util.List<TGameData> getVecGameData() {
+		return vecGameData;
 	}
 
-	public void setEMsgType(int eMsgType) {
-		this.eMsgType = eMsgType;
-	}
-
-	public TGameData getTGameData() {
-		return tGameData;
-	}
-
-	public void setTGameData(TGameData tGameData) {
-		this.tGameData = tGameData;
+	public void setVecGameData(java.util.List<TGameData> vecGameData) {
+		this.vecGameData = vecGameData;
 	}
 
 	public TRespMessage() {
 	}
 
-	public TRespMessage(short nTimeout, int eMsgType, TGameData tGameData) {
+	public TRespMessage(short nTimeout, java.util.List<TGameData> vecGameData) {
 		this.nTimeout = nTimeout;
-		this.eMsgType = eMsgType;
-		this.tGameData = tGameData;
+		this.vecGameData = vecGameData;
 	}
 
 	@Override
@@ -62,8 +51,7 @@ public class TRespMessage {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + TarsUtil.hashCode(nTimeout);
-		result = prime * result + TarsUtil.hashCode(eMsgType);
-		result = prime * result + TarsUtil.hashCode(tGameData);
+		result = prime * result + TarsUtil.hashCode(vecGameData);
 		return result;
 	}
 
@@ -81,26 +69,25 @@ public class TRespMessage {
 		TRespMessage other = (TRespMessage) obj;
 		return (
 			TarsUtil.equals(nTimeout, other.nTimeout) &&
-			TarsUtil.equals(eMsgType, other.eMsgType) &&
-			TarsUtil.equals(tGameData, other.tGameData) 
+			TarsUtil.equals(vecGameData, other.vecGameData) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
 		_os.write(nTimeout, 0);
-		_os.write(eMsgType, 1);
-		_os.write(tGameData, 2);
+		_os.write(vecGameData, 1);
 	}
 
-	static TGameData cache_tGameData;
+	static java.util.List<TGameData> cache_vecGameData;
 	static { 
-		cache_tGameData = new TGameData();
+		cache_vecGameData = new java.util.ArrayList<TGameData>();
+		TGameData var_15 = new TGameData();
+		cache_vecGameData.add(var_15);
 	}
 
 	public void readFrom(TarsInputStream _is) {
 		this.nTimeout = _is.read(nTimeout, 0, true);
-		this.eMsgType = _is.read(eMsgType, 1, true);
-		this.tGameData = (TGameData) _is.read(cache_tGameData, 2, true);
+		this.vecGameData = (java.util.List<TGameData>) _is.read(cache_vecGameData, 1, true);
 	}
 
 }

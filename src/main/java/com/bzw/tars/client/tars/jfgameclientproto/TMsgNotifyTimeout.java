@@ -3,7 +3,7 @@
 // TARS version 1.0.1.
 // **********************************************************************
 
-package com.bzw.tars.server.tars.jfgameclientproto;
+package com.bzw.tars.client.tars.jfgameclientproto;
 
 import com.qq.tars.protocol.util.*;
 import com.qq.tars.protocol.annotation.*;
@@ -11,31 +11,31 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgRespSitDown {
+public class TMsgNotifyTimeout {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public int iResultID = 0;
+	public short nTimeout = (short)0;
 
-	public int getIResultID() {
-		return iResultID;
+	public short getNTimeout() {
+		return nTimeout;
 	}
 
-	public void setIResultID(int iResultID) {
-		this.iResultID = iResultID;
+	public void setNTimeout(short nTimeout) {
+		this.nTimeout = nTimeout;
 	}
 
-	public TMsgRespSitDown() {
+	public TMsgNotifyTimeout() {
 	}
 
-	public TMsgRespSitDown(int iResultID) {
-		this.iResultID = iResultID;
+	public TMsgNotifyTimeout(short nTimeout) {
+		this.nTimeout = nTimeout;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(iResultID);
+		result = prime * result + TarsUtil.hashCode(nTimeout);
 		return result;
 	}
 
@@ -47,22 +47,22 @@ public class TMsgRespSitDown {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgRespSitDown)) {
+		if (!(obj instanceof TMsgNotifyTimeout)) {
 			return false;
 		}
-		TMsgRespSitDown other = (TMsgRespSitDown) obj;
+		TMsgNotifyTimeout other = (TMsgNotifyTimeout) obj;
 		return (
-			TarsUtil.equals(iResultID, other.iResultID) 
+			TarsUtil.equals(nTimeout, other.nTimeout) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(iResultID, 0);
+		_os.write(nTimeout, 0);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
-		this.iResultID = _is.read(iResultID, 0, true);
+		this.nTimeout = _is.read(nTimeout, 0, true);
 	}
 
 }
