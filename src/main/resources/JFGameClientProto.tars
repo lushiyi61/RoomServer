@@ -243,11 +243,6 @@ module JFGameClientProto
      * @description 重新连接（进入/坐下指定桌子）
      * =====================================
      */
-    struct TMsgReqReconnectTable
-    {
-        0 require   string				sTableNo;			// 桌子编号（全局唯一）
-        1 require   string              sSign;              // 签名
-    };
 
     /*
      * @description 重新连接（进入/坐下指定桌子） 应答&广播
