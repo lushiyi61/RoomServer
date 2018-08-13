@@ -1,0 +1,10 @@
+# 其他服务访问配置文件
+
+
+- server: RouterObj
+  locator: JFGame.RouterServer2.PushObj@tcp -h 192.168.0.242 -p 28892 -t 60000 -e 0
+- server: 111111
+  locator: TARS.NodeSecondServer.CocklainObj@tcp -h 127.0.0.1 -p 19920 -t 60000
+- server: 111112
+  locator: TARS.NodeSecondServer.CocklainObj@tcp -h 127.0.0.1 -p 19922 -t 60000
+
