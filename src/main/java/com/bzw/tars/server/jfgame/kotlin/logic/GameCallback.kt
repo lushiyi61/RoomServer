@@ -67,11 +67,11 @@ class GameCallback : IGameMessagePrxCallback {
 
         for (gameData in tRespMessage.vecGameData){
             when (gameData.eMsgType) {
-                EGameMsgType.E_RESPONE_DATA.value() -> this.doRespOne(gameData, infoPlayer.getPlayerDict());
-                EGameMsgType.E_RESPALL_DATA.value() -> this.doRespAll(gameData, infoPlayer.getPlayerDict());
-                EGameMsgType.E_NOTIFY_DATA.value() -> this.doNotify(gameData, infoPlayer.getPlayerDict());
-                EGameMsgType.E_MIXTURE_DATA.value() -> this.doMixture(gameData, infoPlayer.getPlayerDict());
-                EGameMsgType.E_NONE_DATA.value() -> null;
+                EGameMsgType.E_RESPONE_DATA.value().toByte() -> this.doRespOne(gameData, infoPlayer.getPlayerDict());
+                EGameMsgType.E_RESPALL_DATA.value().toByte() -> this.doRespAll(gameData, infoPlayer.getPlayerDict());
+                EGameMsgType.E_NOTIFY_DATA.value().toByte() -> this.doNotify(gameData, infoPlayer.getPlayerDict());
+                EGameMsgType.E_MIXTURE_DATA.value().toByte() -> this.doMixture(gameData, infoPlayer.getPlayerDict());
+                EGameMsgType.E_NONE_DATA.value().toByte() -> null;
                 else -> System.err.println("TableGameInfo msgType error !!!");
             }
         }

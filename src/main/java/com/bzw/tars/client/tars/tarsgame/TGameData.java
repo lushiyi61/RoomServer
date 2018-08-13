@@ -19,30 +19,22 @@ import com.qq.tars.protocol.tars.annotation.*;
 public class TGameData {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public int eMsgType = 0;
+	public byte eMsgType = 0;
 	@TarsStructProperty(order = 1, isRequire = false)
-	public TData tRespOneData = null;
-	@TarsStructProperty(order = 2, isRequire = false)
 	public TData tNotifyData = null;
+	@TarsStructProperty(order = 2, isRequire = false)
+	public TData tRespOneData = null;
 	@TarsStructProperty(order = 3, isRequire = false)
-	public TData tNotifyOnlookerData = null;
-	@TarsStructProperty(order = 4, isRequire = false)
 	public java.util.List<TData> vecRespAllData = null;
+	@TarsStructProperty(order = 4, isRequire = false)
+	public TData tNotifyOnlookerData = null;
 
-	public int getEMsgType() {
+	public byte getEMsgType() {
 		return eMsgType;
 	}
 
-	public void setEMsgType(int eMsgType) {
+	public void setEMsgType(byte eMsgType) {
 		this.eMsgType = eMsgType;
-	}
-
-	public TData getTRespOneData() {
-		return tRespOneData;
-	}
-
-	public void setTRespOneData(TData tRespOneData) {
-		this.tRespOneData = tRespOneData;
 	}
 
 	public TData getTNotifyData() {
@@ -53,12 +45,12 @@ public class TGameData {
 		this.tNotifyData = tNotifyData;
 	}
 
-	public TData getTNotifyOnlookerData() {
-		return tNotifyOnlookerData;
+	public TData getTRespOneData() {
+		return tRespOneData;
 	}
 
-	public void setTNotifyOnlookerData(TData tNotifyOnlookerData) {
-		this.tNotifyOnlookerData = tNotifyOnlookerData;
+	public void setTRespOneData(TData tRespOneData) {
+		this.tRespOneData = tRespOneData;
 	}
 
 	public java.util.List<TData> getVecRespAllData() {
@@ -69,15 +61,23 @@ public class TGameData {
 		this.vecRespAllData = vecRespAllData;
 	}
 
+	public TData getTNotifyOnlookerData() {
+		return tNotifyOnlookerData;
+	}
+
+	public void setTNotifyOnlookerData(TData tNotifyOnlookerData) {
+		this.tNotifyOnlookerData = tNotifyOnlookerData;
+	}
+
 	public TGameData() {
 	}
 
-	public TGameData(int eMsgType, TData tRespOneData, TData tNotifyData, TData tNotifyOnlookerData, java.util.List<TData> vecRespAllData) {
+	public TGameData(byte eMsgType, TData tNotifyData, TData tRespOneData, java.util.List<TData> vecRespAllData, TData tNotifyOnlookerData) {
 		this.eMsgType = eMsgType;
-		this.tRespOneData = tRespOneData;
 		this.tNotifyData = tNotifyData;
-		this.tNotifyOnlookerData = tNotifyOnlookerData;
+		this.tRespOneData = tRespOneData;
 		this.vecRespAllData = vecRespAllData;
+		this.tNotifyOnlookerData = tNotifyOnlookerData;
 	}
 
 	@Override
@@ -85,10 +85,10 @@ public class TGameData {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + TarsUtil.hashCode(eMsgType);
-		result = prime * result + TarsUtil.hashCode(tRespOneData);
 		result = prime * result + TarsUtil.hashCode(tNotifyData);
-		result = prime * result + TarsUtil.hashCode(tNotifyOnlookerData);
+		result = prime * result + TarsUtil.hashCode(tRespOneData);
 		result = prime * result + TarsUtil.hashCode(vecRespAllData);
+		result = prime * result + TarsUtil.hashCode(tNotifyOnlookerData);
 		return result;
 	}
 
@@ -106,40 +106,36 @@ public class TGameData {
 		TGameData other = (TGameData) obj;
 		return (
 			TarsUtil.equals(eMsgType, other.eMsgType) &&
-			TarsUtil.equals(tRespOneData, other.tRespOneData) &&
 			TarsUtil.equals(tNotifyData, other.tNotifyData) &&
-			TarsUtil.equals(tNotifyOnlookerData, other.tNotifyOnlookerData) &&
-			TarsUtil.equals(vecRespAllData, other.vecRespAllData) 
+			TarsUtil.equals(tRespOneData, other.tRespOneData) &&
+			TarsUtil.equals(vecRespAllData, other.vecRespAllData) &&
+			TarsUtil.equals(tNotifyOnlookerData, other.tNotifyOnlookerData) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
 		_os.write(eMsgType, 0);
-		if (null != tRespOneData) {
-			_os.write(tRespOneData, 1);
-		}
 		if (null != tNotifyData) {
-			_os.write(tNotifyData, 2);
+			_os.write(tNotifyData, 1);
 		}
-		if (null != tNotifyOnlookerData) {
-			_os.write(tNotifyOnlookerData, 3);
+		if (null != tRespOneData) {
+			_os.write(tRespOneData, 2);
 		}
 		if (null != vecRespAllData) {
-			_os.write(vecRespAllData, 4);
+			_os.write(vecRespAllData, 3);
+		}
+		if (null != tNotifyOnlookerData) {
+			_os.write(tNotifyOnlookerData, 4);
 		}
 	}
 
-	static TData cache_tRespOneData;
-	static { 
-		cache_tRespOneData = new TData();
-	}
 	static TData cache_tNotifyData;
 	static { 
 		cache_tNotifyData = new TData();
 	}
-	static TData cache_tNotifyOnlookerData;
+	static TData cache_tRespOneData;
 	static { 
-		cache_tNotifyOnlookerData = new TData();
+		cache_tRespOneData = new TData();
 	}
 	static java.util.List<TData> cache_vecRespAllData;
 	static { 
@@ -147,13 +143,17 @@ public class TGameData {
 		TData var_14 = new TData();
 		cache_vecRespAllData.add(var_14);
 	}
+	static TData cache_tNotifyOnlookerData;
+	static { 
+		cache_tNotifyOnlookerData = new TData();
+	}
 
 	public void readFrom(TarsInputStream _is) {
 		this.eMsgType = _is.read(eMsgType, 0, true);
-		this.tRespOneData = (TData) _is.read(cache_tRespOneData, 1, false);
-		this.tNotifyData = (TData) _is.read(cache_tNotifyData, 2, false);
-		this.tNotifyOnlookerData = (TData) _is.read(cache_tNotifyOnlookerData, 3, false);
-		this.vecRespAllData = (java.util.List<TData>) _is.read(cache_vecRespAllData, 4, false);
+		this.tNotifyData = (TData) _is.read(cache_tNotifyData, 1, false);
+		this.tRespOneData = (TData) _is.read(cache_tRespOneData, 2, false);
+		this.vecRespAllData = (java.util.List<TData>) _is.read(cache_vecRespAllData, 3, false);
+		this.tNotifyOnlookerData = (TData) _is.read(cache_tNotifyOnlookerData, 4, false);
 	}
 
 }

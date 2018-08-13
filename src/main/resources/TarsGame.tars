@@ -40,20 +40,6 @@ module TarsGame
         0   require     vector<TPlayerInfo>    playerInfo;
     };
 
-
-    /**
-    * 返回的消息类型，决定了数据结构体中有哪些数据
-    */
-    enum EGameMsgType
-    {
-        E_NOTIFY_DATA     = 0 ,   // stNotifyData ：给当前座位上的所有玩家发送
-        E_RESPONE_DATA    = 1 ,   // stRespOneData ：给指定玩家发送
-        E_RESPALL_DATA    = 2 ,   // vecRespAllData ：分别给当前座位上玩家发送
-        E_MIXTURE_DATA    = 3 ,   // stNotifyData ：给指定玩家以外其他玩家发送 & stRespOneData ：给指定玩家发送
-
-        E_NONE_DATA      = 10 ,   // 没有数据
-    };
-
     /**
     * 玩家请求游戏动作（子包）
     */
@@ -95,17 +81,29 @@ module TarsGame
     };
 
     /**
+    * 返回的消息类型，决定了数据结构体中有哪些数据
+    */
+    enum EGameMsgType
+    {
+        E_NONE_DATA       = 0 ,   // 没有数据
+        E_NOTIFY_DATA     = 1 ,   // stNotifyData ：给当前座位上的所有玩家发送
+        E_RESPONE_DATA    = 2 ,   // stRespOneData ：给指定玩家发送
+        E_RESPALL_DATA    = 3 ,   // vecRespAllData ：分别给当前座位上玩家发送
+        E_MIXTURE_DATA    = 4 ,   // stNotifyData ：给指定玩家以外其他玩家发送 & stRespOneData ：给指定玩家发送
+    };
+
+    /**
     * 游戏返回数据
     * =======================
     * 根据EGameMsgType取下列数据，详细见枚举说明
     */
     struct TGameData
     {
-        0 require EGameMsgType  eMsgType;       // 消息类型
-        1 optional TData tRespOneData;                  // 一份，需推送给请求座位序号
-        2 optional TData tNotifyData;                   // 一份，需广播给座位上的玩家
-        3 optional TData tNotifyOnlookerData;           // 一份，需广播给非座位上的玩家（旁观者）
-        4 optional vector<TData> vecRespAllData;        // N份，需分别发给座位上的玩家
+        0 require byte  eMsgType = 0;       // 消息类型
+        1 optional TData tNotifyData;                   // 一份，需广播给座位上的玩家
+        2 optional TData tRespOneData;                  // 一份，需推送给请求座位序号
+        3 optional vector<TData> vecRespAllData;        // N份，需分别发给座位上的玩家
+        4 optional TData tNotifyOnlookerData;           // 一份，需广播给非座位上的玩家（旁观者）
     };
 
     /**
