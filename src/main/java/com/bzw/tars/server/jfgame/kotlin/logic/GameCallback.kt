@@ -1,7 +1,6 @@
 package com.bzw.tars.server.jfgame.kotlin.logic
 
-import com.bzw.tars.client.kotlin.ClientImpl
-import com.bzw.tars.client.kotlin.game.GameBase
+import com.bzw.tars.client.kotlin.ClientPrxMng
 import com.bzw.tars.client.tars.jfgameclientproto.E_CLIENT_MSGID
 import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.client.tars.tarsgame.*
@@ -16,15 +15,15 @@ import com.bzw.tars.server.jfgame.kotlin.timer.TimerMng
  * @描述
  */
 class GameCallback : IGameMessagePrxCallback {
-    constructor(tableNO: String, gameBase: GameBase, chairIdx: Byte = -1) : super() {
+    constructor(tableNO: String, gameID: Int, chairIdx: Byte = -1) : super() {
         this.tableNO = tableNO;
-        this.gameBase = gameBase;
+        this.gameID = gameID;
         this.chairIdx = chairIdx;
     }
 
-    val gameBase: GameBase;
-    val tableNO: String;
-    val chairIdx: Byte;
+    private val gameID: Int;
+    private val tableNO: String;
+    private val chairIdx: Byte;
 
     override fun callback_expired() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -52,7 +51,7 @@ class GameCallback : IGameMessagePrxCallback {
             doGameMsgNotify(tRespMessage);
 
             if (tRespMessage.nTimeout > 0) {
-                TimerMng.getInstance().addTimer(this.tableNO, this.gameBase.gameID, tRespMessage.getNTimeout().toInt());
+                TimerMng.getInstance().addTimer(this.tableNO, this.gameID, tRespMessage.getNTimeout().toInt());
             } else if (tRespMessage.nTimeout < 0) {
                 TimerMng.getInstance().removeTimer(this.tableNO);
             }
@@ -89,7 +88,7 @@ class GameCallback : IGameMessagePrxCallback {
         tRespData ?: return;
         for (player in playerDict.values) {
             if (player.chairIdx == this.chairIdx) {
-                val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
+                val tarsRouterPrx = ClientPrxMng.getInstance().getRouterPrx();
                 val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
                 tRespPackage.vecMsgID.add(E_CLIENT_MSGID.E_GAME_ACTION.value().toShort());
                 tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tRespData));
@@ -102,7 +101,7 @@ class GameCallback : IGameMessagePrxCallback {
     private fun doRespAll(tGameData: TGameData, playerDict: MutableMap<Long, SharePlayerData>) {
         val tListData = tGameData.getVecRespAllData();
         tListData ?: return;
-        val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
+        val tarsRouterPrx = ClientPrxMng.getInstance().getRouterPrx();
         for (player in playerDict.values) {
             if (player.chairIdx >= 0 && player.chairIdx < tListData.size) {
                 val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
@@ -116,7 +115,7 @@ class GameCallback : IGameMessagePrxCallback {
     private fun doNotify(tGameData: TGameData, playerDict: MutableMap<Long, SharePlayerData>) {
         val tNotifyData = tGameData.getTNotifyData();
         tNotifyData ?: return;
-        val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
+        val tarsRouterPrx = ClientPrxMng.getInstance().getRouterPrx();
         val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
         tRespPackage.vecMsgID.add((0 - E_CLIENT_MSGID.E_GAME_ACTION.value()).toShort());
         tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tNotifyData));
@@ -131,7 +130,7 @@ class GameCallback : IGameMessagePrxCallback {
         val tRespData = tGameData.getTRespOneData();
         tRespData ?: return;
 
-        val tarsRouterPrx = ClientImpl.getInstance().getDoPushPrx();
+        val tarsRouterPrx = ClientPrxMng.getInstance().getRouterPrx();
 
         val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
         val tNotifyPackage = TRespPackage(mutableListOf(), mutableListOf());
@@ -167,7 +166,10 @@ class GameCallback : IGameMessagePrxCallback {
             E_GAME_MSGID.GAMESTART.value().toShort() -> tReqMessage.vecData = this.handleGameStart(this.tableNO);
         }
 
-        gameBase.iGameMsgPrx.async_doRoomMessage(this, tReqMessage);
+        val gamePrx = ClientPrxMng.getInstance().getClientPrx(this.gameID.toString());
+        if (gamePrx is IGameMessagePrx){
+            gamePrx.async_doRoomMessage(this, tReqMessage);
+        }
     }
 
 

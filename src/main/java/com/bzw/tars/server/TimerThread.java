@@ -6,9 +6,9 @@ package com.bzw.tars.server;
  * @描述
  */
 
-import com.bzw.tars.client.kotlin.game.GameBase;
-import com.bzw.tars.client.kotlin.game.GameMng;
+import com.bzw.tars.client.kotlin.ClientPrxMng;
 import com.bzw.tars.client.tars.tarsgame.E_GAME_MSGID;
+import com.bzw.tars.client.tars.tarsgame.IGameMessagePrx;
 import com.bzw.tars.client.tars.tarsgame.TReqRoomMsg;
 import com.bzw.tars.server.jfgame.kotlin.logic.GameCallback;
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerBase;
@@ -46,12 +46,12 @@ class TimerThread extends Thread {
                         // 停用当前定时器
                         timerBase.setState(false);
                         // 异步发送超时信号
-                        GameBase gameBase = GameMng.Companion.getInstance().getGame(timerBase.getGameID());
-                        if (gameBase != null) {
+                        IGameMessagePrx gamePrx = (IGameMessagePrx)ClientPrxMng.Companion.getInstance().getClientPrx(String.valueOf(timerBase.getGameID()));
+                        if (gamePrx != null) {
                             TReqRoomMsg tReqMessage = new TReqRoomMsg();
                             tReqMessage.nMsgID = (short) E_GAME_MSGID.GAMETIMEOUT.value();
                             tReqMessage.sTableNo = timerBase.getTableNo();
-                            gameBase.getIGameMsgPrx().async_doRoomMessage(new GameCallback(timerBase.getTableNo(), gameBase, (byte) -1), tReqMessage);
+                            gamePrx.async_doRoomMessage(new GameCallback(timerBase.getTableNo(), timerBase.getGameID(), (byte) -1), tReqMessage);
                         }
                     }
                 }

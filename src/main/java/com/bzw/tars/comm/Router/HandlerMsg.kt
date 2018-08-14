@@ -1,20 +1,21 @@
-package com.bzw.tars.comm
+package com.bzw.tars.comm.Router
 
 import com.bzw.tars.client.tars.tarsgame.TReqClientMsg
 import com.bzw.tars.server.tars.jfgameclientproto.*
+import kotlin.reflect.KClass
 
 /**
  * @创建者 zoujian
  * @创建时间 2018/8/13
  * @描述 静态类，储存协议解析对象
  */
-class MsgHandler {
+class HandlerMsg {
     companion object {
         fun getInstance() = Holder.INSTANCE
     }
 
     private object Holder {
-        val INSTANCE = MsgHandler();
+        val INSTANCE = HandlerMsg();
     }
 
     private constructor() {
@@ -23,8 +24,8 @@ class MsgHandler {
     }
 
     // Router 协议对应结构体
-    private val msgReqRouterMap: MutableMap<Short, Any> = mutableMapOf();
-    private val msgRespRouterMap: MutableMap<Short, Any> = mutableMapOf();
+    private val msgReqRouterMap: MutableMap<Short, KClass<out Any>> = mutableMapOf();
+    private val msgRespRouterMap: MutableMap<Short, KClass<out Any>> = mutableMapOf();
 
 
     private fun initReqRouterMap() {
@@ -42,6 +43,11 @@ class MsgHandler {
 
     private fun initRespRouterMap() {
 
+    }
+
+
+    public fun getTarsClassReq(msgId: Short): Any? {
+        return this.msgReqRouterMap.get(msgId);
     }
 
 }

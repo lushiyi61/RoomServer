@@ -16,7 +16,7 @@
 
 package com.bzw.tars.server;
 
-import com.bzw.tars.client.kotlin.ClientImpl;
+import com.bzw.tars.client.kotlin.ClientPrxMng;
 import com.qq.tars.server.core.AppContextEvent;
 import com.qq.tars.server.core.AppContextListener;
 import com.qq.tars.server.core.AppServantEvent;
@@ -31,7 +31,7 @@ public class AppStartListener implements AppContextListener {
     public void appServantStarted(AppServantEvent event) {
         System.out.println("==========appServantStarted==========");
         // 初始化客户端相关配置信息
-        ClientImpl.Companion.getInstance().loadConfig();
+        ClientPrxMng.Companion.getInstance().loadConfig();
 
         // 启动定时器线程
         TimerThread timerThread = new TimerThread();
