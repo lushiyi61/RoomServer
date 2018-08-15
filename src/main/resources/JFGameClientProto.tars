@@ -37,6 +37,7 @@ module JFGameClientProto
 	{
 	    E_COMMON_SUCCESS 		 	= 0,				// 返回成功
 
+        E_PROTOCOL_ERROR            = 99,               // 协议错误
         ////////////////////////加入房间错误码/////////////////////////
 	    E_TABLE_ENTER_CUT_IN        = 100,              // 玩家中途加入
 	    E_TABLE_NOT_EXIST           = 101,              // 房间/游戏桌不存在

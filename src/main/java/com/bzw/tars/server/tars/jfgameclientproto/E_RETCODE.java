@@ -8,6 +8,7 @@ package com.bzw.tars.server.tars.jfgameclientproto;
 public enum E_RETCODE {
 
 	E_COMMON_SUCCESS(0),
+	E_PROTOCOL_ERROR(99),
 	E_TABLE_ENTER_CUT_IN(100),
 	E_TABLE_NOT_EXIST(101),
 	E_PLAYER_NOT_EXIST(102),

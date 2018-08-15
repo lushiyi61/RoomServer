@@ -42,6 +42,7 @@ class TimerThread extends Thread {
                 Map<String, TimerBase> timerDict = TimerMng.Companion.getInstance().getTimerDict();
 
                 for (TimerBase timerBase : timerDict.values()) {
+                    // 游戏超时检查
                     if (timerBase.checkTimeout(checkTime + bufferTime)) {
                         // 停用当前定时器
                         timerBase.setState(false);
@@ -54,6 +55,8 @@ class TimerThread extends Thread {
                             gamePrx.async_doRoomMessage(new GameCallback(timerBase.getTableNo(), timerBase.getGameID(), (byte) -1), tReqMessage);
                         }
                     }
+                    // 投票解散检查
+
                 }
             }
         } catch (InterruptedException e) {
