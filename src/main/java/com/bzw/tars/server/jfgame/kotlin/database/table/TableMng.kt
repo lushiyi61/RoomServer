@@ -132,6 +132,14 @@ class TableMng private constructor(val dataMax: Int = 10000) {
     }
 
 
+    /*
+     * @description 初始化座次表
+     * =====================================
+     * @author zoujian
+     * @date 2018/8/15 12:01
+     * @param tableNo: String
+     * @return unit
+     */
     fun initChairIdx(tableNo: String) {
         val cTableChairIdxMng = this.getInfoChairIdxMng(tableNo);
         val cTableChairNoMng = this.getInfoChairNoMng(tableNo);
@@ -141,27 +149,4 @@ class TableMng private constructor(val dataMax: Int = 10000) {
         cTableChairIdxMng.initChairIdx(cTableChairNoMng.getChairNum(), cTableChairNoMng.getChairNoDict());
     }
 
-//    fun getTablePlayerDict(tableNo: String): MutableMap<Long, SharePlayerData>? {
-//        val tableBase = this.tableDict.get(tableNo);
-//        tableBase ?: return null;
-//        val infoPlayer = tableBase.getTableBase("CTablePlayerMng");
-//        infoPlayer ?: return null;
-//
-//        return (infoPlayer as CTablePlayerMng).getPlayerDict();
-//    }
-
-
-//    /*
-//     * @description 获取本桌玩家数据
-//     * =====================================
-//     * @author zoujian
-//     * @date 2018/7/25 16:56
-//     * @param
-//     * @return
-//     */
-//    fun getTablePlayer(tableNo: String): MutableMap<Long, TableBase.TablePlayer>? {
-//        val tableBase = this.getTable(tableNo);
-//        tableBase ?: return null;
-//        return tableBase.playerDict;
-//    }
 }

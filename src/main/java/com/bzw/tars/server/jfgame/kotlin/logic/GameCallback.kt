@@ -4,6 +4,7 @@ import com.bzw.tars.client.kotlin.ClientPrxMng
 import com.bzw.tars.client.tars.jfgameclientproto.E_CLIENT_MSGID
 import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.client.tars.tarsgame.*
+import com.bzw.tars.comm.TarsStructHandler.HandlerRouterResp
 import com.bzw.tars.comm.TarsUtilsKt
 import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng
@@ -20,6 +21,9 @@ class GameCallback : IGameMessagePrxCallback {
         this.gameID = gameID;
         this.chairIdx = chairIdx;
     }
+
+    private val GameNotify = (0 - E_CLIENT_MSGID.E_GAME_ACTION.value()).toShort();
+    private val GameResponse = E_CLIENT_MSGID.E_GAME_ACTION.value().toShort();
 
     private val gameID: Int;
     private val tableNO: String;
@@ -53,7 +57,7 @@ class GameCallback : IGameMessagePrxCallback {
             if (tRespMessage.nTimeout > 0) {
                 TimerMng.getInstance().addTimer(this.tableNO, this.gameID, tRespMessage.getNTimeout().toInt());
             } else if (tRespMessage.nTimeout < 0) {
-                TimerMng.getInstance().removeTimer(this.tableNO);
+                TimerMng.getInstance().hangupTimer(this.tableNO);
             }
         } else {
 //            System.err.println("TableGameInfo Callback error !!!");
@@ -64,7 +68,7 @@ class GameCallback : IGameMessagePrxCallback {
         val infoPlayer = TableMng.getInstance().getInfoPlayer(this.tableNO);
         infoPlayer ?: return;
 
-        for (gameData in tRespMessage.vecGameData){
+        for (gameData in tRespMessage.vecGameData) {
             when (gameData.eMsgType) {
                 EGameMsgType.E_RESPONE_DATA.value().toByte() -> this.doRespOne(gameData, infoPlayer.getPlayerDict());
                 EGameMsgType.E_RESPALL_DATA.value().toByte() -> this.doRespAll(gameData, infoPlayer.getPlayerDict());
@@ -89,9 +93,7 @@ class GameCallback : IGameMessagePrxCallback {
         for (player in playerDict.values) {
             if (player.chairIdx == this.chairIdx) {
                 val tarsRouterPrx = ClientPrxMng.getInstance().getRouterPrx();
-                val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
-                tRespPackage.vecMsgID.add(E_CLIENT_MSGID.E_GAME_ACTION.value().toShort());
-                tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tRespData));
+                val tRespPackage = HandlerRouterResp.handlerResp(GameResponse, tRespData);
                 tarsRouterPrx.doPush(player.uid, tRespPackage);
                 break;
             }
@@ -104,9 +106,7 @@ class GameCallback : IGameMessagePrxCallback {
         val tarsRouterPrx = ClientPrxMng.getInstance().getRouterPrx();
         for (player in playerDict.values) {
             if (player.chairIdx >= 0 && player.chairIdx < tListData.size) {
-                val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
-                tRespPackage.vecMsgID.add((0 - E_CLIENT_MSGID.E_GAME_ACTION.value()).toShort());
-                tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tListData.get(player.chairIdx.toInt())));
+                val tRespPackage = HandlerRouterResp.handlerResp(GameNotify, tListData.get(player.chairIdx.toInt()));
                 tarsRouterPrx.doPush(player.uid, tRespPackage);
             }
         }
@@ -116,9 +116,7 @@ class GameCallback : IGameMessagePrxCallback {
         val tNotifyData = tGameData.getTNotifyData();
         tNotifyData ?: return;
         val tarsRouterPrx = ClientPrxMng.getInstance().getRouterPrx();
-        val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
-        tRespPackage.vecMsgID.add((0 - E_CLIENT_MSGID.E_GAME_ACTION.value()).toShort());
-        tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tNotifyData));
+        val tRespPackage = HandlerRouterResp.handlerResp(GameNotify, tNotifyData);
         for (player in playerDict.values) {
             tarsRouterPrx.doPush(player.uid, tRespPackage);
         }
@@ -131,20 +129,11 @@ class GameCallback : IGameMessagePrxCallback {
         tRespData ?: return;
 
         val tarsRouterPrx = ClientPrxMng.getInstance().getRouterPrx();
-
-        val tRespPackage = TRespPackage(mutableListOf(), mutableListOf());
-        val tNotifyPackage = TRespPackage(mutableListOf(), mutableListOf());
-
-        tRespPackage.vecMsgID.add(E_CLIENT_MSGID.E_GAME_ACTION.value().toShort());
-        tRespPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tRespData));
-
-        tNotifyPackage.vecMsgID.add((0 - E_CLIENT_MSGID.E_GAME_ACTION.value()).toShort());
-        tNotifyPackage.vecMsgData.add(TarsUtilsKt.toByteArray(tNotifyData));
         for (player in playerDict.values) {
             if (player.chairIdx == this.chairIdx) {
-                tarsRouterPrx.doPush(player.uid, tRespPackage);
+                tarsRouterPrx.doPush(player.uid, HandlerRouterResp.handlerResp(GameResponse, tRespData));
             } else {
-                tarsRouterPrx.doPush(player.uid, tNotifyPackage);
+                tarsRouterPrx.doPush(player.uid, HandlerRouterResp.handlerResp(GameNotify, tNotifyData));
             }
         }
     }
@@ -167,7 +156,7 @@ class GameCallback : IGameMessagePrxCallback {
         }
 
         val gamePrx = ClientPrxMng.getInstance().getClientPrx(this.gameID.toString());
-        if (gamePrx is IGameMessagePrx){
+        if (gamePrx is IGameMessagePrx) {
             gamePrx.async_doRoomMessage(this, tReqMessage);
         }
     }

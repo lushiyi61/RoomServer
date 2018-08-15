@@ -14,12 +14,7 @@ import com.bzw.tars.server.jfgame.kotlin.logic.GameCallback;
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerBase;
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerMng;
 
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
-import static java.lang.Thread.*;
 
 class TimerThread extends Thread {
     private int bufferTime = 2; // 释放的检查间隔 单位：秒
@@ -43,7 +38,7 @@ class TimerThread extends Thread {
 
                 for (TimerBase timerBase : timerDict.values()) {
                     // 游戏超时检查
-                    if (timerBase.checkTimeout(checkTime + bufferTime)) {
+                    if (timerBase.checkGameTimeout(checkTime + bufferTime)) {
                         // 停用当前定时器
                         timerBase.setState(false);
                         // 异步发送超时信号
@@ -55,8 +50,12 @@ class TimerThread extends Thread {
                             gamePrx.async_doRoomMessage(new GameCallback(timerBase.getTableNo(), timerBase.getGameID(), (byte) -1), tReqMessage);
                         }
                     }
-                    // 投票解散检查
 
+                    // 投票解散超时检查
+                    if (timerBase.checkRoomTimeout(checkTime)){
+                        // 恢复定时器
+                        timerBase.recoverTimeBase(checkTime);
+                    }
                 }
             }
         } catch (InterruptedException e) {

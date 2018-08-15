@@ -38,8 +38,13 @@ class CTableChairNoMng : TableComponent {
      * @param
      * @return
      */
-    fun addPlayer(sharePlayerData: SharePlayerData) {
-        this.chairNoDict.put(sharePlayerData.chairNo, sharePlayerData);
+    fun addPlayer(chairNo: Byte, sharePlayerData: SharePlayerData): Boolean {
+        if (chairNo > 0 && !this.chairNoDict.containsKey(chairNo)) {
+            sharePlayerData.chairNo = chairNo;
+            this.chairNoDict.put(chairNo, sharePlayerData);
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -103,8 +108,8 @@ class CTableChairNoMng : TableComponent {
      */
     fun getPrepareNum(): Byte {
         var num: Byte = 0;
-        for (c in this.chairNoDict.values) {
-            if (c.state == E_PLAYER_STATE.E_PLAYER_PREPARE.value().toByte()) {
+        for (sharePlayerData in this.chairNoDict.values) {
+            if (sharePlayerData.state == E_PLAYER_STATE.E_PLAYER_PREPARE.value().toByte()) {
                 num++;
             }
         }

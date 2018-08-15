@@ -12,8 +12,8 @@ import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTableChairNoMng
 class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : TableComponent("TableBase") {
     private val tableDict = mutableMapOf<String, TableComponent>();
 
-    fun addTableBase(c: TableComponent) {
-        this.tableDict.put(c.name, c);
+    fun addTableBase(tableComponent: TableComponent) {
+        this.tableDict.put(tableComponent.name, tableComponent);
     }
 
     fun getTableBase(name: String): TableComponent? {
@@ -22,8 +22,8 @@ class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : Tabl
 
     override fun ToString(): String {
         var tmpStr: String = String.format("TableInfo-> type:%d\n", this.tableType);
-        for (v in this.tableDict.values) {
-            tmpStr += v.ToString();
+        for (tableComponent in this.tableDict.values) {
+            tmpStr += tableComponent.ToString();
             tmpStr += "\n";
         }
         return tmpStr;
@@ -63,7 +63,7 @@ class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : Tabl
      * @return
      */
     fun doStartGame() {
-
+        this.state = TableState.E_TABLE_PLAYING;
 
     }
 

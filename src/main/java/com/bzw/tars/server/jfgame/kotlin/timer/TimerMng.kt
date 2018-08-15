@@ -26,19 +26,13 @@ class TimerMng private constructor(val dataMax: Int = 10000) {
      */
     fun addTimer(tableNo: String, gameID: Int, timeout: Int) {
         val timestampOver = System.currentTimeMillis() / 1000 + timeout.toLong();
-        println("==========test======== timestampCurrent"+ System.currentTimeMillis() / 1000 );
-        println("==========test======== timestampOver   "+ timestampOver.toString());
-        println("==========test======== timeout         "+ timeout.toString());
         var timerBase = this.m_timerDict.get(tableNo);
         if (timerBase == null) {
             timerBase = TimerBase(timestampOver, 0L, gameID, tableNo, true);
+            this.m_timerDict.put(timerBase.tableNo, timerBase);
         } else {
-            timerBase.timestampOver = timestampOver;
-            timerBase.timestampSuspend = 0L;
-            timerBase.state = true;
+            timerBase.updateTimeBase(timestampOver);
         }
-
-        this.m_timerDict.put(timerBase.tableNo, timerBase);
     }
 
     /*
@@ -59,29 +53,10 @@ class TimerMng private constructor(val dataMax: Int = 10000) {
      * @param
      * @return
      */
-    fun suspendTimer(tableNo: String) {
-        val timestampSuspend = System.currentTimeMillis() / 1000;
-
+    fun hangupTimer(tableNo: String) {
         val timerBase = this.m_timerDict.get(tableNo);
         timerBase ?: return;
-        timerBase.timestampSuspend = timestampSuspend;
-    }
-
-    /*
-     * @description 恢复该定时器
-     * =====================================
-     * @author zoujian
-     * @date 2018/7/24 11:47
-     * @param
-     * @return
-     */
-    fun recoverTimer(tableNo: String) {
-        val timerBase = this.m_timerDict.get(tableNo);
-        timerBase ?: return;
-
-        val timestampOver = System.currentTimeMillis() / 1000 + (timerBase.timestampOver - timerBase.timestampSuspend);
-        timerBase.timestampOver = timestampOver;
-        timerBase.timestampSuspend = 0L;
+        timerBase.setState(false);
     }
 
     fun getTimerDict(): MutableMap<String, TimerBase> {

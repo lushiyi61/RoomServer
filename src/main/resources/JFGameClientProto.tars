@@ -213,11 +213,15 @@ module JFGameClientProto
         0 require   byte         nChairNo; 			 // 指定座位号 0：自动分配
     };
 
+    struct TMsgRespSitDown
+    {
+        0 require   byte         nChairNo; 			 // 座位号
+    };
+
     /*
      * @description 坐下桌子 应答&广播
      * =====================================
      */
-
     struct TMsgNotifySitDown
     {
         0 require   long            lUid;			 // 玩家ID
