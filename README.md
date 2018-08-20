@@ -23,3 +23,4 @@
     - <servant>true</servant> ：true为服务端，false为客户端
 - 编译指令：mvn tars:tars2java
 - 打包指令：mvn package生成war包，后续可以管理系统进行发布。
+- 架构图：https://www.draw.io/，请用这个软件打开Diagram.xml
