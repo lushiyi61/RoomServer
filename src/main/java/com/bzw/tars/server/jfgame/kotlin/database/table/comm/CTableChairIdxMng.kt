@@ -25,11 +25,15 @@ class CTableChairIdxMng : TableComponent("CTableChairIdxMng") {
         this.chairIdxList.clear();
         for (i in 1..chairNum) {
             val sharePlayerData = chairNoDict.get(i.toByte()) ?: continue;
-            if (sharePlayerData.state  == E_PLAYER_STATE.E_PLAYER_PREPARE.value().toByte()) {
+            if (sharePlayerData.state == E_PLAYER_STATE.E_PLAYER_PREPARE.value().toByte()) {
                 sharePlayerData.chairIdx = this.chairIdxList.size.toByte();
-                this.chairIdxList.add(TPlayerInfo(sharePlayerData.uid,sharePlayerData.chairNo.toShort()));
+                this.chairIdxList.add(TPlayerInfo(sharePlayerData.uid, sharePlayerData.chairNo.toShort()));
             }
         }
+    }
+
+    fun getChairIdxPlayerNum(): Byte {
+        return this.chairIdxList.size.toByte();
     }
 
     /*

@@ -11,31 +11,31 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgCommPlaceholder {
+public class TMsgReqVoteDismiss {
 
-	@TarsStructProperty(order = 0, isRequire = false)
-	public byte placeholder = 0;
+	@TarsStructProperty(order = 0, isRequire = true)
+	public boolean support = false;
 
-	public byte getPlaceholder() {
-		return placeholder;
+	public boolean getSupport() {
+		return support;
 	}
 
-	public void setPlaceholder(byte placeholder) {
-		this.placeholder = placeholder;
+	public void setSupport(boolean support) {
+		this.support = support;
 	}
 
-	public TMsgCommPlaceholder() {
+	public TMsgReqVoteDismiss() {
 	}
 
-	public TMsgCommPlaceholder(byte placeholder) {
-		this.placeholder = placeholder;
+	public TMsgReqVoteDismiss(boolean support) {
+		this.support = support;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(placeholder);
+		result = prime * result + TarsUtil.hashCode(support);
 		return result;
 	}
 
@@ -47,22 +47,22 @@ public class TMsgCommPlaceholder {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgCommPlaceholder)) {
+		if (!(obj instanceof TMsgReqVoteDismiss)) {
 			return false;
 		}
-		TMsgCommPlaceholder other = (TMsgCommPlaceholder) obj;
+		TMsgReqVoteDismiss other = (TMsgReqVoteDismiss) obj;
 		return (
-			TarsUtil.equals(placeholder, other.placeholder) 
+			TarsUtil.equals(support, other.support) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(placeholder, 0);
+		_os.write(support, 0);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
-		this.placeholder = _is.read(placeholder, 0, false);
+		this.support = _is.read(support, 0, true);
 	}
 
 }

@@ -11,43 +11,43 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgNotifySitDown {
+public class TMsgNotifyDismissResult {
 
 	@TarsStructProperty(order = 0, isRequire = true)
-	public long lUid = 0L;
+	public boolean dismiss = false;
 	@TarsStructProperty(order = 1, isRequire = true)
-	public byte nChairNo = (byte)0;
+	public byte reason = (byte)0;
 
-	public long getLUid() {
-		return lUid;
+	public boolean getDismiss() {
+		return dismiss;
 	}
 
-	public void setLUid(long lUid) {
-		this.lUid = lUid;
+	public void setDismiss(boolean dismiss) {
+		this.dismiss = dismiss;
 	}
 
-	public byte getNChairNo() {
-		return nChairNo;
+	public byte getReason() {
+		return reason;
 	}
 
-	public void setNChairNo(byte nChairNo) {
-		this.nChairNo = nChairNo;
+	public void setReason(byte reason) {
+		this.reason = reason;
 	}
 
-	public TMsgNotifySitDown() {
+	public TMsgNotifyDismissResult() {
 	}
 
-	public TMsgNotifySitDown(long lUid, byte nChairNo) {
-		this.lUid = lUid;
-		this.nChairNo = nChairNo;
+	public TMsgNotifyDismissResult(boolean dismiss, byte reason) {
+		this.dismiss = dismiss;
+		this.reason = reason;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + TarsUtil.hashCode(lUid);
-		result = prime * result + TarsUtil.hashCode(nChairNo);
+		result = prime * result + TarsUtil.hashCode(dismiss);
+		result = prime * result + TarsUtil.hashCode(reason);
 		return result;
 	}
 
@@ -59,25 +59,25 @@ public class TMsgNotifySitDown {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgNotifySitDown)) {
+		if (!(obj instanceof TMsgNotifyDismissResult)) {
 			return false;
 		}
-		TMsgNotifySitDown other = (TMsgNotifySitDown) obj;
+		TMsgNotifyDismissResult other = (TMsgNotifyDismissResult) obj;
 		return (
-			TarsUtil.equals(lUid, other.lUid) &&
-			TarsUtil.equals(nChairNo, other.nChairNo) 
+			TarsUtil.equals(dismiss, other.dismiss) &&
+			TarsUtil.equals(reason, other.reason) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(lUid, 0);
-		_os.write(nChairNo, 1);
+		_os.write(dismiss, 0);
+		_os.write(reason, 1);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
-		this.lUid = _is.read(lUid, 0, true);
-		this.nChairNo = _is.read(nChairNo, 1, true);
+		this.dismiss = _is.read(dismiss, 0, true);
+		this.reason = _is.read(reason, 1, true);
 	}
 
 }

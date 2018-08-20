@@ -2,13 +2,15 @@ package com.bzw.tars.server.jfgame.kotlin.logic
 
 import com.bzw.tars.client.kotlin.ClientPrxMng
 import com.bzw.tars.client.tars.jfgameclientproto.E_CLIENT_MSGID
-import com.bzw.tars.client.tars.jfgameclientproto.TRespPackage
 import com.bzw.tars.client.tars.tarsgame.*
 import com.bzw.tars.comm.TarsStructHandler.HandlerRouterResp
-import com.bzw.tars.comm.TarsUtilsKt
 import com.bzw.tars.server.jfgame.kotlin.database.share.SharePlayerData
 import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerMng
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
+
 
 /**
  * @创建者 zoujian
@@ -17,16 +19,16 @@ import com.bzw.tars.server.jfgame.kotlin.timer.TimerMng
  */
 class GameCallback : IGameMessagePrxCallback {
     constructor(tableNO: String, gameID: Int, chairIdx: Byte = -1) : super() {
-        this.tableNO = tableNO;
-        this.gameID = gameID;
+        this.tableNo = tableNO;
+        this.gameId = gameID;
         this.chairIdx = chairIdx;
     }
 
     private val GameNotify = (0 - E_CLIENT_MSGID.E_GAME_ACTION.value()).toShort();
     private val GameResponse = E_CLIENT_MSGID.E_GAME_ACTION.value().toShort();
 
-    private val gameID: Int;
-    private val tableNO: String;
+    private val gameId: Int;
+    private val tableNo: String;
     private val chairIdx: Byte;
 
     override fun callback_expired() {
@@ -49,15 +51,18 @@ class GameCallback : IGameMessagePrxCallback {
 
     private fun doCallback(ret: Int, tRespMessage: TRespMessage?) {
         if (ret >= 0) {
-            this.doNewGameMsg(ret.toShort());
+            launch(CommonPool) {    //创建一个协程
+                delay(2000L)       //协程挂起
+                MainGame.doRoomReqGameMsg(ret.toShort(),tableNo);
+            }
 
             tRespMessage ?: return;
             doGameMsgNotify(tRespMessage);
 
             if (tRespMessage.nTimeout > 0) {
-                TimerMng.getInstance().addTimer(this.tableNO, this.gameID, tRespMessage.getNTimeout().toInt());
+                TimerMng.getInstance().addTimer(this.tableNo, this.gameId, tRespMessage.getNTimeout().toInt());
             } else if (tRespMessage.nTimeout < 0) {
-                TimerMng.getInstance().hangupTimer(this.tableNO);
+                TimerMng.getInstance().hangupTimer(this.tableNo);
             }
         } else {
 //            System.err.println("TableGameInfo Callback error !!!");
@@ -65,7 +70,7 @@ class GameCallback : IGameMessagePrxCallback {
     }
 
     private fun doGameMsgNotify(tRespMessage: TRespMessage) {
-        val infoPlayer = TableMng.getInstance().getInfoPlayer(this.tableNO);
+        val infoPlayer = TableMng.getInstance().getInfoPlayer(this.tableNo);
         infoPlayer ?: return;
 
         for (gameData in tRespMessage.vecGameData) {
@@ -138,36 +143,39 @@ class GameCallback : IGameMessagePrxCallback {
         }
     }
 
-    /*
-     * @description 新的请求
-     * =====================================
-     * @author zoujian
-     * @date 2018/7/25 14:10
-     * @param
-     * @return
-     */
-    private fun doNewGameMsg(msgID: Short) {
-        val tReqMessage = TReqRoomMsg()
-        tReqMessage.nMsgID = msgID;
-        tReqMessage.sTableNo = tableNO;
-
-        when (msgID) {
-            E_GAME_MSGID.GAMESTART.value().toShort() -> tReqMessage.vecData = this.handleGameStart(this.tableNO);
-        }
-
-        val gamePrx = ClientPrxMng.getInstance().getClientPrx(this.gameID.toString());
-        if (gamePrx is IGameMessagePrx) {
-            gamePrx.async_doRoomMessage(this, tReqMessage);
-        }
-    }
-
-
-    private fun handleGameStart(tableNO: String): ByteArray? {
-        TableMng.getInstance().initChairIdx(tableNO);
-        val cTableChairIdxMng = TableMng.getInstance().getInfoChairIdxMng(this.tableNO);
-        cTableChairIdxMng ?: return null;
-
-        val tGamgStart = TGamgStart(cTableChairIdxMng.getChairIdxPlayerList());
-        return TarsUtilsKt.toByteArray(tGamgStart);
-    }
+//    /*
+//     * @description 新的请求
+//     * =====================================
+//     * @author zoujian
+//     * @date 2018/7/25 14:10
+//     * @param
+//     * @return
+//     */
+//    private fun doRoomReqGameMsg(msgID: Short) {
+//        val tReqMessage = TReqRoomMsg()
+//        tReqMessage.nMsgID = msgID;
+//        tReqMessage.sTableNo = tableNo;
+//
+//        when (msgID) {
+//            E_GAME_MSGID.GAMESTART.value().toShort() -> tReqMessage.vecData = this.handleGameStart(this.tableNo);
+//        }
+//
+//        val gamePrx = ClientPrxMng.getInstance().getClientPrx(this.gameId.toString());
+//        if (gamePrx is IGameMessagePrx) {
+//            gamePrx.async_doRoomMessage(this, tReqMessage);
+//        }
+//    }
+//
+//
+//    private fun handleGameStart(tableNo: String): ByteArray? {
+//        val tableBase = TableMng.getInstance().getTable(tableNo);
+//        tableBase ?: return null
+//        tableBase.doStartGame();
+//
+//        val cTableChairIdxMng = TableMng.getInstance().getInfoChairIdxMng(this.tableNo);
+//        cTableChairIdxMng ?: return null;
+//
+//        val tGamgStart = TGamgStart(cTableChairIdxMng.getChairIdxPlayerList());
+//        return TarsUtilsKt.toByteArray(tGamgStart);
+//    }
 }

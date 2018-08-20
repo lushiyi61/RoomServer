@@ -7,5 +7,6 @@ package com.bzw.tars.server.jfgame.kotlin.database.table
  */
 enum class TableState {
     E_TABLE_INIT,       // 初始化
-    E_TABLE_PLAYING,
+    E_TABLE_PLAYING,    // 游戏中
+    E_TABLE_HANGUP,     // 游戏挂起（投票解散中）
 }

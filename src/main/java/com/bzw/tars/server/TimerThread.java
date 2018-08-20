@@ -6,11 +6,10 @@ package com.bzw.tars.server;
  * @描述
  */
 
-import com.bzw.tars.client.kotlin.ClientPrxMng;
 import com.bzw.tars.client.tars.tarsgame.E_GAME_MSGID;
-import com.bzw.tars.client.tars.tarsgame.IGameMessagePrx;
-import com.bzw.tars.client.tars.tarsgame.TReqRoomMsg;
-import com.bzw.tars.server.jfgame.kotlin.logic.GameCallback;
+import com.bzw.tars.server.jfgame.kotlin.database.table.TableMng;
+import com.bzw.tars.server.jfgame.kotlin.database.table.roomOfCard.CTableDismissMng;
+import com.bzw.tars.server.jfgame.kotlin.logic.MainGame;
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerBase;
 import com.bzw.tars.server.jfgame.kotlin.timer.TimerMng;
 
@@ -42,19 +41,17 @@ class TimerThread extends Thread {
                         // 停用当前定时器
                         timerBase.setState(false);
                         // 异步发送超时信号
-                        IGameMessagePrx gamePrx = (IGameMessagePrx)ClientPrxMng.Companion.getInstance().getClientPrx(String.valueOf(timerBase.getGameID()));
-                        if (gamePrx != null) {
-                            TReqRoomMsg tReqMessage = new TReqRoomMsg();
-                            tReqMessage.nMsgID = (short) E_GAME_MSGID.GAMETIMEOUT.value();
-                            tReqMessage.sTableNo = timerBase.getTableNo();
-                            gamePrx.async_doRoomMessage(new GameCallback(timerBase.getTableNo(), timerBase.getGameID(), (byte) -1), tReqMessage);
-                        }
+                        MainGame.INSTANCE.doRoomReqGameMsg((short) E_GAME_MSGID.GAMETIMEOUT.value(), timerBase.getTableNo());
                     }
 
                     // 投票解散超时检查
-                    if (timerBase.checkRoomTimeout(checkTime)){
+                    if (timerBase.checkRoomTimeout(checkTime)) {
                         // 恢复定时器
                         timerBase.recoverTimeBase(checkTime);
+                        CTableDismissMng cTableDismissMng = TableMng.Companion.getInstance().getInfoDismissMng(timerBase.getTableNo());
+                        if (cTableDismissMng != null) {
+                            cTableDismissMng.cancelVote();
+                        }
                     }
                 }
             }

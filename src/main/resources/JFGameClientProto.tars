@@ -8,11 +8,6 @@
  */
 module JFGameClientProto
 {
-    enum E_ROOM_TYPE{
-		E_GOLD_COIN		    = 0,			// 金币场
-		E_ROOM_CARD	        = 1,			// 房卡场
-    };
-
     /*
      * @description 玩家状态
      * =====================================
@@ -50,6 +45,8 @@ module JFGameClientProto
 	    E_PLAYER_NOT_SIT            = 108,              // 玩家没有坐下
 	    E_PLAYER_IN_ROOM            = 109,              // 玩家在其他房间中
 
+        /////////////////////////////申请解散////////////////////////////
+        E_NOT_ALLOW_DISMISS         = 110,              // 不允许解散
 
 	    E_TABLE_ENTER_ERROR         = 149,              // 加入游戏失败（原因未知）
 	    //////////////////////////游戏中的错//////////////////////////
@@ -111,19 +108,22 @@ module JFGameClientProto
 		E_MSGID_ERROR           = 100,                  // S->C 返回错误码
 
         // 新协议 请求&返回 为同一个枚举值，通知为枚举值取负值
-        E_TABLE_ENTER           = 101,         // 进入/坐下指定桌子                     // TMsgReqEnterTable
-        E_TABLE_LEAVE           = 102,         // 离开/站起指定桌子                     // TMsgReqLeaveTable
+        E_TABLE_ENTER           = 101,         // 进入/坐下指定桌子(有位置自动坐下)     // TMsgReqEnterTable
+        E_TABLE_LEAVE           = 102,         // 离开                                  // TMsgReqLeaveTable
         E_TABLE_SIT_DOWN        = 103,         // 坐下指定位置
         E_TABLE_STAND_UP        = 104,         // 站起
-        E_PLAYER_DISCONNECT     = 105,         // 玩家断线
+        E_TABLE_PREPARE         = 105,         // 准备
+
         E_START_BY_MASTER       = 110,         // 房主开桌
-        E_TABLE_RECONNECT       = 113,         // 重新连接（进入/坐下指定桌子）         // TMsgReqReconnectTable
-        E_TABLE_PREPARE         = 114,         // 准备
+
         E_TABLE_DISMISS         = 115,         // 申请解散桌子
         E_TABLE_VOTE_DISMISS    = 116,         // 投票解散桌子
         E_TABLE_CHAT_TEXT       = 117,         // 发送文本&表情（牌桌内）
         E_TABLE_CHAT_AUDIO      = 118,         // 发送语音（牌桌内）
         E_TABLE_KICK_OUT        = 119,         // 将某玩家踢出
+
+        E_PLAYER_DISCONNECT     = 130,         // 玩家断线
+        E_PLAYER_RECONNECT      = 131,         // 重新连接
 
         E_GAME_ACTION           = 222,         // 游戏消息
     };
@@ -180,31 +180,6 @@ module JFGameClientProto
     };
 
     /*
-     * @description 离开/站起指定桌子 请求
-     * =====================================
-     */
-
-    /*
-     * @description 离开/站起指定桌子 应答&广播
-     * =====================================
-     */
-
-    struct TMsgNotifyLeaveTable
-    {
-        0 require   byte         nChairNo; 			 // 所在桌子座位号
-    };
-
-
-    /*
-     * @description 断线通知
-     * =====================================
-     */
-    struct TMsgNotifyDisconnect
-    {
-        0 require   byte         nChairNo; 			 // 所在桌子座位号
-    };
-
-    /*
      * @description 玩家请求坐下
      * =====================================
      */
@@ -228,53 +203,24 @@ module JFGameClientProto
         1 require   byte         nChairNo; 			 // 所在桌子座位号
     };
 
-
-    /*
-     * @description 玩家请求站起
-     * =====================================
-     */
-
-
-    /*
-     * @description 站起 应答&广播
-     * =====================================
-     */
-    struct TMsgNotifyStandUp
+    struct TMsgReqVoteDismiss
     {
-        0 require   byte         nChairNo; 			 // 所在桌子座位号
+        0 require   bool         support; 			 // 支持解散
     };
 
-    /*
-     * @description 重新连接（进入/坐下指定桌子）
-     * =====================================
-     */
-
-    /*
-     * @description 重新连接（进入/坐下指定桌子） 应答&广播
-     * =====================================
-     */
-    struct TMsgRespReconnectTable
+    struct TMsgNotifyVoteDismiss
     {
-        0 require   byte            nChairNo; 			// 所在桌子座位号
-        1 require   byte            nState;             // 游戏状态
-        2 optional  vector<byte>    vecGameInfo;        // 游戏数据
+        0 require   bool         support; 			 // 支持解散
+        1 require   byte         nChairNo; 			 // 所在桌子座位号
     };
 
-    struct TMsgNotifyReconnectTable
+    struct TMsgNotifyDismissResult
     {
-        0 require   byte         nChairNo; 			 // 所在桌子座位号
+        0 require   bool         dismiss; 			 // 是否解散
+        1 require   byte         reason; 			 // 原因
     };
 
-    /*
-     * @description 玩家准备
-     * =====================================
-     */
-    struct TMsgNotifyPrepare
-    {
-        0 require   byte         nChairNo; 			 // 所在桌子座位号
-    };
-
-
+    // ======================通用结构体===================
     /*
      * @description 通用的占位数据结构（适应无参请求&返回）
      * =====================================
@@ -291,6 +237,16 @@ module JFGameClientProto
     struct TMsgRespErrorCode
     {
         0 require   short         nErrorCode; 			 // 错误码
+    };
+
+    
+    /*
+     * @description 通知所有人，谁干了一件事
+     * =====================================
+     */
+    struct TMsgNotifyWho
+    {
+        0 require   byte         nChairNo; 			   // 所在桌子座位号
     };
 
     /*

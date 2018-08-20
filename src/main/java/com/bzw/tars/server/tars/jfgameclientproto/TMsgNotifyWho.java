@@ -11,7 +11,7 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgNotifyLeaveTable {
+public class TMsgNotifyWho {
 
 	@TarsStructProperty(order = 0, isRequire = true)
 	public byte nChairNo = (byte)0;
@@ -24,10 +24,10 @@ public class TMsgNotifyLeaveTable {
 		this.nChairNo = nChairNo;
 	}
 
-	public TMsgNotifyLeaveTable() {
+	public TMsgNotifyWho() {
 	}
 
-	public TMsgNotifyLeaveTable(byte nChairNo) {
+	public TMsgNotifyWho(byte nChairNo) {
 		this.nChairNo = nChairNo;
 	}
 
@@ -47,10 +47,10 @@ public class TMsgNotifyLeaveTable {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgNotifyLeaveTable)) {
+		if (!(obj instanceof TMsgNotifyWho)) {
 			return false;
 		}
-		TMsgNotifyLeaveTable other = (TMsgNotifyLeaveTable) obj;
+		TMsgNotifyWho other = (TMsgNotifyWho) obj;
 		return (
 			TarsUtil.equals(nChairNo, other.nChairNo) 
 		);

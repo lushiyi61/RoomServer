@@ -42,7 +42,7 @@ class TimerBase(
      * @param
      * @return
      */
-    fun suspendTimeBase(timestampSuspend: Long) {
+    fun suspendTimeBase(timestampSuspend: Long = System.currentTimeMillis() / 1000) {
         this.timestampSuspend = timestampSuspend;
     }
 
@@ -54,7 +54,7 @@ class TimerBase(
      * @param
      * @return
      */
-    fun recoverTimeBase(timestampCurr: Long) {
+    fun recoverTimeBase(timestampCurr: Long = System.currentTimeMillis() / 1000) {
         this.timestampOver += timestampCurr - this.timestampSuspend;
         this.timestampSuspend = 0L;
     }

@@ -45,8 +45,8 @@ class CTablePlayerMng : TableComponent {
 
     override fun ToString(): String {
         var tmpStr = "CTablePlayerMng:\n";
-        for (v in this.playerDict.values) {
-            tmpStr += v.toString();
+        for (sharePlayerData in this.playerDict.values) {
+            tmpStr += sharePlayerData.toString();
             tmpStr += "\n";
         }
         return tmpStr;

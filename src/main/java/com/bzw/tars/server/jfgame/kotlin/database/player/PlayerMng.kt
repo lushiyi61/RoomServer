@@ -20,33 +20,33 @@ class PlayerMng private constructor(val dataMax: Int = 10000) {
     }
 
     fun addPlayer(uid: Long, player: PlayerBase): Int {
-        if (this.m_OnlinePlayerDict.size > dataMax) {
+        if (this.playerDict.size > dataMax) {
             return -1;
         }
-        if (this.m_OnlinePlayerDict.containsKey(uid)) {
+        if (this.playerDict.containsKey(uid)) {
             return -2;
         }
-        this.m_OnlinePlayerDict.put(uid, player);
+        this.playerDict.put(uid, player);
 
         return 0;
     };
 
     fun removePlayer(uid: Long) {
-        this.m_OnlinePlayerDict.remove(uid);
+        this.playerDict.remove(uid);
     }
 
     fun getPlayer(uid: Long): PlayerBase? {
-        return this.m_OnlinePlayerDict.get(uid);
+        return this.playerDict.get(uid);
     }
 
-    private val m_OnlinePlayerDict = mutableMapOf<Long, PlayerBase>();      // 在线玩家数据字典
+    private val playerDict = mutableMapOf<Long, PlayerBase>();      // 在线玩家数据字典
 //    private val m_OfflinePlayerDict = mutableMapOf<Long, TablePlayer>();     // 离线玩家数据字典
 
 
     //////////////////////////////////////////////////////////////////////////////////
 
     fun getInfoGame(uid: Long): SharePlayerData? {
-        val playerBase = this.m_OnlinePlayerDict.get(uid);
+        val playerBase = this.playerDict.get(uid);
         playerBase ?: return null;
         val infoGame = playerBase.getPlayerBase("CPlayerGameInfo");
         infoGame ?: return null;
@@ -55,7 +55,7 @@ class PlayerMng private constructor(val dataMax: Int = 10000) {
     }
 
     fun getInfoPersonal(uid: Long): PlayerPersonalInfo? {
-        val playerBase = this.m_OnlinePlayerDict.get(uid);
+        val playerBase = this.playerDict.get(uid);
         playerBase ?: return null;
         val infoPersonal = playerBase.getPlayerBase("CPlayerPersonalInfo");
         infoPersonal ?: return null;
@@ -64,7 +64,7 @@ class PlayerMng private constructor(val dataMax: Int = 10000) {
     }
 
     fun getInfoPhysical(uid: Long): PlayerPhysicalInfo? {
-        val playerBase = this.m_OnlinePlayerDict.get(uid);
+        val playerBase = this.playerDict.get(uid);
         playerBase ?: return null;
         val infoPhysical = playerBase.getPlayerBase("CPlayerPhysicalInfo");
         infoPhysical ?: return null;

@@ -1,6 +1,8 @@
 package com.bzw.tars.server.jfgame.kotlin.database.table
 
+import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTableChairIdxMng
 import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTableChairNoMng
+import com.bzw.tars.server.jfgame.kotlin.database.table.roomOfCard.CTableDismissMng
 
 /**
  * @创建者 zoujian
@@ -29,9 +31,26 @@ class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : Tabl
         return tmpStr;
     }
 
-    private val tableType: Byte = 0;                            // 类型
-    var state: TableState = TableState.E_TABLE_INIT;           // 本桌状态
+    private val tableType: Byte = 0;                                    // 本桌类型
+    private var state: TableState = TableState.E_TABLE_INIT;           // 本桌状态
     /////////////////////////对外功能接口////////////////////////////
+    /*
+     * @description 玩家是否可以离开
+     * =====================================
+     * @author zoujian
+     * @date 2018/8/15 16:56
+     * @param
+     * @return
+     */
+    fun canLeaveTable(): Boolean {
+        //
+
+        if (this.state == TableState.E_TABLE_INIT) {
+            return true;
+        }
+
+        return false
+    }
 
     /*
      * @description 是否可以开桌
@@ -42,16 +61,17 @@ class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : Tabl
      */
     fun canStartGame(): Boolean {
         // 开始条件
+        val playerNum = 2;
 
         // 准备人数
         val tableComponent = this.getTableBase("CTableChairNoMng");
-        tableComponent ?: return false;
-        val cTableChairNoMng = tableComponent as CTableChairNoMng;
-
-        if (cTableChairNoMng.getPrepareNum() < 2) {
-            return false;
+        if (tableComponent is CTableChairNoMng) {
+            if (tableComponent.getPrepareNum() >= playerNum) {
+                return true;
+            }
         }
-        return true;
+
+        return false;
     }
 
     /*
@@ -62,9 +82,24 @@ class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : Tabl
      * @param
      * @return
      */
-    fun doStartGame() {
+    fun doStartGame(): Boolean {
         this.state = TableState.E_TABLE_PLAYING;
 
+        // 初始化玩家
+        val cTableChairIdxMng = this.getTableBase("CTableChairIdxMng");
+        val cTableChairNoMng = this.getTableBase("CTableChairNoMng");
+        if (cTableChairIdxMng !is CTableChairIdxMng || cTableChairNoMng !is CTableChairNoMng) {
+            return false;
+        }
+
+        cTableChairIdxMng.initChairIdx(cTableChairNoMng.getChairNum(), cTableChairNoMng.getChairNoDict());
+
+        // 私人场，刷新投票解散人数
+        val cTableDismissMng = this.getTableBase("CTableDismissMng");
+        if (cTableDismissMng is CTableDismissMng) cTableDismissMng.initDismissMng(cTableChairIdxMng.getChairIdxPlayerNum());
+
+
+        return true
     }
 
     /////////////////////// 玩家管理 ///////////////////////////////

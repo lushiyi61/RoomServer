@@ -30,11 +30,11 @@ class HandlerRouterMsg {
         this.msgReqRouterMap.put(E_CLIENT_MSGID.E_TABLE_LEAVE.value().toShort(), TMsgCommPlaceholder::class.java);
         this.msgReqRouterMap.put(E_CLIENT_MSGID.E_TABLE_SIT_DOWN.value().toShort(), TMsgReqSitDown::class.java);
         this.msgReqRouterMap.put(E_CLIENT_MSGID.E_TABLE_STAND_UP.value().toShort(), TMsgCommPlaceholder::class.java);
-        this.msgReqRouterMap.put(E_CLIENT_MSGID.E_TABLE_RECONNECT.value().toShort(), TMsgCommPlaceholder::class.java);
+        this.msgReqRouterMap.put(E_CLIENT_MSGID.E_PLAYER_RECONNECT.value().toShort(), TMsgCommPlaceholder::class.java);
         this.msgReqRouterMap.put(E_CLIENT_MSGID.E_TABLE_PREPARE.value().toShort(), TMsgCommPlaceholder::class.java);
         this.msgReqRouterMap.put(E_CLIENT_MSGID.E_START_BY_MASTER.value().toShort(), TMsgCommPlaceholder::class.java);
         this.msgReqRouterMap.put(E_CLIENT_MSGID.E_TABLE_DISMISS.value().toShort(), TMsgCommPlaceholder::class.java);
-        this.msgReqRouterMap.put(E_CLIENT_MSGID.E_TABLE_VOTE_DISMISS.value().toShort(), TMsgCommPlaceholder::class.java);
+        this.msgReqRouterMap.put(E_CLIENT_MSGID.E_TABLE_VOTE_DISMISS.value().toShort(), TMsgReqVoteDismiss::class.java);
         this.msgReqRouterMap.put(E_CLIENT_MSGID.E_GAME_ACTION.value().toShort(), TReqClientMsg::class.java);
     }
 

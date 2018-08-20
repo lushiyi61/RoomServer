@@ -3,6 +3,7 @@ package com.bzw.tars.server.jfgame.kotlin.database.table
 import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTableChairIdxMng
 import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTableChairNoMng
 import com.bzw.tars.server.jfgame.kotlin.database.table.comm.CTablePlayerMng
+import com.bzw.tars.server.jfgame.kotlin.database.table.roomOfCard.CTableDismissMng
 
 /**
  * @创建者 zoujian
@@ -131,22 +132,21 @@ class TableMng private constructor(val dataMax: Int = 10000) {
         return infoChair as CTableChairIdxMng;
     }
 
-
     /*
-     * @description 初始化座次表
+     * @description 获取指定桌解散管理类
      * =====================================
      * @author zoujian
-     * @date 2018/8/15 12:01
-     * @param tableNo: String
-     * @return unit
+     * @date 2018/8/1 20:51
+     * @param
+     * @return
      */
-    fun initChairIdx(tableNo: String) {
-        val cTableChairIdxMng = this.getInfoChairIdxMng(tableNo);
-        val cTableChairNoMng = this.getInfoChairNoMng(tableNo);
-        cTableChairIdxMng ?: return;
-        cTableChairNoMng ?: return;
+    fun getInfoDismissMng(tableNo: String): CTableDismissMng? {
+        val tableBase = this.getTable(tableNo);
+        tableBase ?: return null;
+        val infoDismiss = tableBase.getTableBase("CTableDismissMng");
+        infoDismiss ?: return null;
 
-        cTableChairIdxMng.initChairIdx(cTableChairNoMng.getChairNum(), cTableChairNoMng.getChairNoDict());
+        return infoDismiss as CTableDismissMng;
     }
 
 }

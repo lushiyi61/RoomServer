@@ -26,13 +26,17 @@ class TimerMng private constructor(val dataMax: Int = 10000) {
      */
     fun addTimer(tableNo: String, gameID: Int, timeout: Int) {
         val timestampOver = System.currentTimeMillis() / 1000 + timeout.toLong();
-        var timerBase = this.m_timerDict.get(tableNo);
+        var timerBase = this.timerDict.get(tableNo);
         if (timerBase == null) {
             timerBase = TimerBase(timestampOver, 0L, gameID, tableNo, true);
-            this.m_timerDict.put(timerBase.tableNo, timerBase);
+            this.timerDict.put(timerBase.tableNo, timerBase);
         } else {
             timerBase.updateTimeBase(timestampOver);
         }
+    }
+
+    fun getTimer(tableNo: String): TimerBase? {
+        return this.timerDict.get(tableNo);
     }
 
     /*
@@ -42,7 +46,7 @@ class TimerMng private constructor(val dataMax: Int = 10000) {
      * @date 2018/7/24 15:12
      */
     fun removeTimer(tableNo: String) {
-        this.m_timerDict.remove(tableNo);
+        this.timerDict.remove(tableNo);
     }
 
     /*
@@ -54,15 +58,15 @@ class TimerMng private constructor(val dataMax: Int = 10000) {
      * @return
      */
     fun hangupTimer(tableNo: String) {
-        val timerBase = this.m_timerDict.get(tableNo);
+        val timerBase = this.timerDict.get(tableNo);
         timerBase ?: return;
         timerBase.setState(false);
     }
 
     fun getTimerDict(): MutableMap<String, TimerBase> {
-        return this.m_timerDict;
+        return this.timerDict;
     }
 
     // key:TableNo
-    private val m_timerDict = mutableMapOf<String, TimerBase>();
+    private val timerDict = mutableMapOf<String, TimerBase>();
 }

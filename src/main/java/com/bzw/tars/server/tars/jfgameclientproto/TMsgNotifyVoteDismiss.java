@@ -11,10 +11,20 @@ import com.qq.tars.protocol.tars.*;
 import com.qq.tars.protocol.tars.annotation.*;
 
 @TarsStruct
-public class TMsgNotifyStandUp {
+public class TMsgNotifyVoteDismiss {
 
 	@TarsStructProperty(order = 0, isRequire = true)
+	public boolean support = false;
+	@TarsStructProperty(order = 1, isRequire = true)
 	public byte nChairNo = (byte)0;
+
+	public boolean getSupport() {
+		return support;
+	}
+
+	public void setSupport(boolean support) {
+		this.support = support;
+	}
 
 	public byte getNChairNo() {
 		return nChairNo;
@@ -24,10 +34,11 @@ public class TMsgNotifyStandUp {
 		this.nChairNo = nChairNo;
 	}
 
-	public TMsgNotifyStandUp() {
+	public TMsgNotifyVoteDismiss() {
 	}
 
-	public TMsgNotifyStandUp(byte nChairNo) {
+	public TMsgNotifyVoteDismiss(boolean support, byte nChairNo) {
+		this.support = support;
 		this.nChairNo = nChairNo;
 	}
 
@@ -35,6 +46,7 @@ public class TMsgNotifyStandUp {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + TarsUtil.hashCode(support);
 		result = prime * result + TarsUtil.hashCode(nChairNo);
 		return result;
 	}
@@ -47,22 +59,25 @@ public class TMsgNotifyStandUp {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof TMsgNotifyStandUp)) {
+		if (!(obj instanceof TMsgNotifyVoteDismiss)) {
 			return false;
 		}
-		TMsgNotifyStandUp other = (TMsgNotifyStandUp) obj;
+		TMsgNotifyVoteDismiss other = (TMsgNotifyVoteDismiss) obj;
 		return (
+			TarsUtil.equals(support, other.support) &&
 			TarsUtil.equals(nChairNo, other.nChairNo) 
 		);
 	}
 
 	public void writeTo(TarsOutputStream _os) {
-		_os.write(nChairNo, 0);
+		_os.write(support, 0);
+		_os.write(nChairNo, 1);
 	}
 
 
 	public void readFrom(TarsInputStream _is) {
-		this.nChairNo = _is.read(nChairNo, 0, true);
+		this.support = _is.read(support, 0, true);
+		this.nChairNo = _is.read(nChairNo, 1, true);
 	}
 
 }
