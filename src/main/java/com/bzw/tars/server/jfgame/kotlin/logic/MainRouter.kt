@@ -72,7 +72,7 @@ class MainRouter {
         // 出错 返回错误码
         if (E_RETCODE.E_COMMON_SUCCESS != res) {
             val tMsgRespErrorCode = TMsgRespErrorCode(res.value().toShort());
-            val tRespPackage = HandlerRouterResp.handlerResp(res.value().toShort(), tMsgRespErrorCode);
+            val tRespPackage = HandlerRouterResp.handlerResp(E_CLIENT_MSGID.E_MSGID_ERROR.value().toShort(), tMsgRespErrorCode);
             val clientPrx = ClientPrxMng.getInstance().getRouterPrx();
             clientPrx.doPush(uid, tRespPackage);
         }
