@@ -103,7 +103,7 @@ class MainRouter {
         // 查找游戏开始信息
         // 游戏未开始（广播玩家离开，清除玩家数据，清除游戏桌数据）
         // 游戏已经开始（广播玩家离线）
-        var tRespPackage = TRespPackage();
+        var tRespPackage: TRespPackage;
         if (tableBase.canLeaveTable() || sharePlayerData.chairNo <= 0) {
             tRespPackage = HandlerRouterResp.handlerResp((0 - E_CLIENT_MSGID.E_TABLE_LEAVE.value()).toShort(), TMsgNotifyWho(sharePlayerData.chairNo));
 
@@ -197,7 +197,7 @@ class MainRouter {
 
         val clientPrx = ClientPrxMng.getInstance().getRouterPrx();
         for (playerData1 in cTablePlayerMng.getPlayerDict().values) {
-            var tRespPackage = TRespPackage();
+            var tRespPackage: TRespPackage
             if (playerData1.uid == uid) { // 本人
                 tRespPackage = HandlerRouterResp.handlerResp(msgId, tMsgRespEnterTable);
             } else {
@@ -251,7 +251,7 @@ class MainRouter {
 
         val clientPrx = ClientPrxMng.getInstance().getRouterPrx();
         for (playerData1 in cTablePlayerMng.getPlayerDict().values) {
-            var tRespPackage = TRespPackage();
+            var tRespPackage: TRespPackage
             if (playerData1.uid == uid) { // 本人
                 tRespPackage = HandlerRouterResp.handlerResp(msgId, TMsgRespSitDown(sharePlayerData.chairNo));
             } else {
@@ -301,7 +301,7 @@ class MainRouter {
         // 广播玩家准备消息
         val clientPrx = ClientPrxMng.getInstance().getRouterPrx();
         for (playerData in infoPlayer.getPlayerDict().values) {
-            var tRespPackage = TRespPackage();
+            var tRespPackage: TRespPackage
             if (playerData.uid == uid) {  // 本人
                 tRespPackage = HandlerRouterResp.handlerResp(msgId, TMsgCommPlaceholder());
             } else {
@@ -331,7 +331,11 @@ class MainRouter {
         // 检查是否可以开桌
         val tableBase = TableMng.getInstance().getTable(sharePlayerData.tableNo);
         if (tableBase != null && tableBase.canStartGame()) {
-            MainGame.doRoomReqGameMsg(E_GAME_MSGID.GAMECREATE.value().toShort(), tableBase.tableNo)
+            if (tableBase.needCreateGame()) {
+                MainGame.doRoomReqGameMsg(E_GAME_MSGID.GAMECREATE.value().toShort(), tableBase.tableNo)
+            } else {
+                MainGame.doRoomReqGameMsg(E_GAME_MSGID.GAMESTART.value().toShort(), tableBase.tableNo)
+            }
         }
 
         return E_RETCODE.E_COMMON_SUCCESS;
@@ -359,7 +363,7 @@ class MainRouter {
             // 广播玩家准备消息
             val clientPrx = ClientPrxMng.getInstance().getRouterPrx();
             for (playerData in infoPlayer.getPlayerDict().values) {
-                var tRespPackage = TRespPackage();
+                var tRespPackage: TRespPackage
                 if (playerData.uid == uid) {  // 本人
                     tRespPackage = HandlerRouterResp.handlerResp(msgId, TMsgCommPlaceholder());
                 } else {
@@ -388,7 +392,7 @@ class MainRouter {
             // 广播玩家准备消息
             val clientPrx = ClientPrxMng.getInstance().getRouterPrx();
             for (playerData in infoPlayer.getPlayerDict().values) {
-                var tRespPackage = TRespPackage();
+                var tRespPackage: TRespPackage
                 if (playerData.uid == uid) {  // 本人
                     tRespPackage = HandlerRouterResp.handlerResp(msgId, TMsgCommPlaceholder());
                 } else {
@@ -397,16 +401,16 @@ class MainRouter {
                 clientPrx.doPush(playerData.uid, tRespPackage);
             }
 
-            if (cTableDismissMng.checkDismissFinish()){
+            if (cTableDismissMng.checkDismissFinish()) {
                 val dismissResult = cTableDismissMng.getDismissResult()
                 for (playerData in infoPlayer.getPlayerDict().values) {
-                    var tRespPackage = TRespPackage();
+                    var tRespPackage: TRespPackage
                     tRespPackage = HandlerRouterResp.handlerResp((0 - msgId).toShort(), TMsgNotifyDismissResult(dismissResult, 111));
                     clientPrx.doPush(playerData.uid, tRespPackage);
                 }
 
                 val timerBase = TimerMng.getInstance().getTimer(sharePlayerData.tableNo);
-                if (dismissResult && timerBase != null){
+                if (dismissResult && timerBase != null) {
                     timerBase.recoverTimeBase();
                 }
             }

@@ -74,6 +74,10 @@ class TableBase(val tableNo: String, val gameID: Int, var roomNO: String) : Tabl
         return false;
     }
 
+    fun needCreateGame(): Boolean {
+        return if (this.state == TableState.E_TABLE_INIT) true else false
+    }
+
     /*
      * @description 开始游戏
      * =====================================

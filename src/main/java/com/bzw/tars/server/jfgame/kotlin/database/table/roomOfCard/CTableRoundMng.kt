@@ -8,8 +8,13 @@ import com.bzw.tars.server.jfgame.kotlin.database.table.TableComponent
  * @描述 游戏回合管理
  */
 class CTableRoundMng : TableComponent {
-    constructor() : super("CTableRoundMng") {
+    constructor(roundNum: Int) : super("CTableRoundMng") {
+        this.roundNum = roundNum;
     }
+
+    val roundNum: Int;
+    var currentRound: Int = 0;                                  // 当前局数
+
 
     override fun ToString(): String {
         var tmpStr = "CTableRoundMng:\n";
