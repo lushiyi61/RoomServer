@@ -37,7 +37,7 @@ class TimerThread extends Thread {
 
                 for (TimerBase timerBase : timerDict.values()) {
                     // 游戏超时检查
-                    if (timerBase.checkGameTimeout(checkTime + bufferTime)) {
+                    if (timerBase.checkGameTimeout(checkTime - bufferTime)) {
                         // 停用当前定时器
                         timerBase.setState(false);
                         // 异步发送超时信号

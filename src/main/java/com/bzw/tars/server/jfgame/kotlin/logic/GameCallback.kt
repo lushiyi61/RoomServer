@@ -51,9 +51,11 @@ class GameCallback : IGameMessagePrxCallback {
 
     private fun doCallback(ret: Int, tRespMessage: TRespMessage?) {
         if (ret >= 0) {
-            launch(CommonPool) {    //创建一个协程
-                delay(2000L)       //协程挂起
-                MainGame.doRoomReqGameMsg(ret.toShort(),tableNo);
+            if(ret > 0){
+                launch(CommonPool) {    //创建一个协程
+                    delay(2000L)       //协程挂起
+                    MainGame.doRoomReqGameMsg(ret.toShort(),tableNo);
+                }
             }
 
             tRespMessage ?: return;

@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a28255c2-a102-491d-bc81-2882238b0491" name="Default" comment="更新协议，超时由Room给前端发送">
-      <change beforePath="$PROJECT_DIR$/src.zip" beforeDir="false" afterPath="$PROJECT_DIR$/src.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/RoomServer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/RoomServer.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/TimerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/TimerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/GameCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/GameCallback.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -19,8 +20,8 @@
       <file leaf-file-name="GameCallback.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/GameCallback.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="142" column="9" lean-forward="true" selection-start-line="142" selection-start-column="9" selection-end-line="142" selection-end-column="9" />
+            <state relative-caret-position="264">
+              <caret line="53" column="20" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
               <folding>
                 <element signature="n#!!block;n#doGameMsgNotify#0;n#!!block;n#GameCallback#0" />
                 <element signature="n#!!block;n#doRespOne#0;n#!!block;n#GameCallback#0" />
@@ -29,11 +30,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="TimerThread.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/TimerThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="295">
+              <caret line="37" column="64" lean-forward="true" selection-start-line="37" selection-start-column="64" selection-end-line="37" selection-end-column="64" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="TableBase.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableBase.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="149" column="34" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
+            <state relative-caret-position="572">
+              <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
               <folding>
                 <element signature="e#58#298#0" expanded="true" />
                 <element signature="n#!!block;n#ToString#0;n#!!block;n#TableBase#0" />
@@ -46,11 +56,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RoomServer.yaml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/RoomServer.yaml">
+      <file leaf-file-name="HandlerRouterMsg.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/comm/TarsStructHandler/HandlerRouterMsg.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" selection-start-line="10" selection-start-column="1" selection-end-line="11" selection-end-column="80" />
+            <state relative-caret-position="162">
+              <caret line="25" column="84" selection-start-line="25" selection-start-column="84" selection-end-line="25" selection-end-column="84" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TableComponent.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableComponent.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -58,7 +77,7 @@
       <file leaf-file-name="CTableDismissMng.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/roomOfCard/CTableDismissMng.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="601">
+            <state relative-caret-position="2134">
               <caret line="97" selection-start-line="97" selection-end-line="100" selection-end-column="5" />
             </state>
           </provider>
@@ -67,7 +86,7 @@
       <file leaf-file-name="MainRouter.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/MainRouter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
+            <state relative-caret-position="242">
               <caret line="26" column="61" selection-start-line="26" selection-start-column="61" selection-end-line="26" selection-end-column="61" />
               <folding>
                 <element signature="n#!!block;n#MainRouter#0;n#!!block;n#MainRouter#0" />
@@ -194,12 +213,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/player/PlayerMng.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/impl/TarsRoomServantImpl.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/GameCallback.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/timer/TimerMng.kt" />
         <option value="$PROJECT_DIR$/src/main/resources/JFGameClientProto.tars" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/comm/TarsStructHandler/HandlerRouterMsg.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/timer/TimerBase.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/TimerThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/MainGame.kt" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/target/classes/RoomServer.yaml" />
@@ -212,6 +228,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableBase.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/MainRouter.kt" />
         <option value="$PROJECT_DIR$/src/main/resources/RoomServer.yaml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/comm/TarsStructHandler/HandlerRouterMsg.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/GameCallback.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bzw/tars/server/TimerThread.java" />
       </list>
     </option>
   </component>
@@ -229,9 +248,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="18" />
-    <option name="y" value="31" />
-    <option name="width" value="1473" />
-    <option name="height" value="964" />
+    <option name="y" value="75" />
+    <option name="width" value="1824" />
+    <option name="height" value="920" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -281,66 +300,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="tars" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tars" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="jfgame" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tars" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="jfgame" type="462c0819:PsiDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tars" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="jfgame" type="462c0819:PsiDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tars" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="jfgame" type="462c0819:PsiDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="table" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tars" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="jfgame" type="462c0819:PsiDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="table" type="462c0819:PsiDirectoryNode" />
               <item name="comm" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -350,12 +309,27 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="tars" type="462c0819:PsiDirectoryNode" />
+              <item name="comm" type="462c0819:PsiDirectoryNode" />
+              <item name="TarsStructHandler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="tars" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RoomServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="tars" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="jfgame" type="462c0819:PsiDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="table" type="462c0819:PsiDirectoryNode" />
-              <item name="roomOfCard" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
@@ -367,9 +341,6 @@
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="jfgame" type="462c0819:PsiDirectoryNode" />
               <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="table" type="462c0819:PsiDirectoryNode" />
-              <item name="roomOfFree" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
@@ -381,9 +352,7 @@
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="jfgame" type="462c0819:PsiDirectoryNode" />
               <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="table" type="462c0819:PsiDirectoryNode" />
-              <item name="roomOfGold" type="462c0819:PsiDirectoryNode" />
+              <item name="logic" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
@@ -395,9 +364,7 @@
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="jfgame" type="462c0819:PsiDirectoryNode" />
               <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="table" type="462c0819:PsiDirectoryNode" />
-              <item name="roomOfMatch" type="462c0819:PsiDirectoryNode" />
+              <item name="timer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RoomServer" type="b2602c69:ProjectViewProjectNode" />
@@ -427,8 +394,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -664,7 +631,9 @@
       <workItem from="1534133408542" duration="6462000" />
       <workItem from="1534164206376" duration="53788000" />
       <workItem from="1534731547468" duration="15007000" />
-      <workItem from="1534834531046" duration="5310000" />
+      <workItem from="1534834531046" duration="7784000" />
+      <workItem from="1534923991944" duration="2866000" />
+      <workItem from="1535100254211" duration="50000" />
     </task>
     <servers />
   </component>
@@ -701,7 +670,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="435840000" />
+    <option name="totallyTimeSpent" value="441230000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -713,39 +682,39 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="18" y="31" width="1473" height="964" extended-state="0" />
+    <frame x="18" y="75" width="1824" height="920" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info id="Structure" order="1" sideWeight="0.30091184" side_tool="true" weight="0.27010724" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39954337" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32777777" />
-      <window_info anchor="bottom" id="Messages" order="7" visible="true" weight="0.45173267" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" weight="0.32796317" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3211111" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.23111111" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3211111" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.2255466" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.69908816" visible="true" weight="0.3021939" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Designer" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.69908816" visible="true" weight="0.24603175" />
       <window_info id="Web" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.26485148" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info id="Structure" order="1" sideWeight="0.30091184" side_tool="true" weight="0.27010724" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39954337" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Messages" order="7" visible="true" weight="0.26113862" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.04691689" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.26485148" />
     </layout>
     <layout-to-restore>
       <window_info id="Designer" order="2" />
@@ -824,13 +793,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/comm/TarsStructHandler/HandlerRouterResp.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/client/tars/jfgameclientproto/TMsgNotifyDisconnect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
@@ -898,22 +860,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="15" column="14" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="14" />
-          <folding>
-            <element signature="e#58#375#0" expanded="true" />
-            <element signature="n#!!doc;n#addTable#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!block;n#addTable#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!doc;n#getTable#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!block;n#getTable#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!doc;n#removeTable#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!block;n#removeTable#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!doc;n#removeTable#1;n#!!block;n#TableMng#0" />
-            <element signature="n#!!doc;n#getInfoPlayer#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!block;n#getInfoPlayer#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!doc;n#getInfoChairNoMng#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!block;n#getInfoChairNoMng#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!doc;n#getInfoChairIdxMng#0;n#!!block;n#TableMng#0" />
-            <element signature="n#!!block;n#getInfoChairIdxMng#0;n#!!block;n#TableMng#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -921,13 +867,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="638">
           <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableComponent.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -949,9 +888,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="37" selection-start-line="37" selection-end-line="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1000,39 +936,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/comm/TarsStructHandler/HandlerRouterMsg.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="36" column="106" selection-start-line="36" selection-start-column="106" selection-end-line="36" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/comm/TarsStructHandler/HandlerRouterReq.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/timer/TimerBase.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="44" selection-start-line="44" selection-end-line="44" />
-          <folding>
-            <element signature="n#!!doc;n#updateTimeBase#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!block;n#updateTimeBase#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!doc;n#suspendTimeBase#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!doc;n#recoverTimeBase#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!block;n#recoverTimeBase#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!doc;n#checkGameTimeout#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!block;n#checkGameTimeout#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!doc;n#checkRoomTimeout#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!block;n#checkRoomTimeout#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!doc;n#checkCanRemove#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!block;n#checkCanRemove#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!block;n#getState#0;n#!!block;n#TimerBase#0" />
-            <element signature="n#!!block;n#setState#0;n#!!block;n#TimerBase#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1050,16 +957,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/TimerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="43" column="125" selection-start-line="43" selection-start-column="125" selection-end-line="43" selection-end-column="125" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1074,10 +971,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1298">
           <caret line="59" column="12" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="19" />
-          <folding>
-            <element signature="n#!!block;n#hangupTimer#0;n#!!block;n#TimerMng#0" />
-            <element signature="n#!!block;n#getTimerDict#0;n#!!block;n#TimerMng#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1097,7 +990,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/roomOfCard/CTableDismissMng.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
+        <state relative-caret-position="2134">
           <caret line="97" selection-start-line="97" selection-end-line="100" selection-end-column="5" />
         </state>
       </provider>
@@ -1144,20 +1037,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/GameCallback.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="142" column="9" lean-forward="true" selection-start-line="142" selection-start-column="9" selection-end-line="142" selection-end-column="9" />
-          <folding>
-            <element signature="n#!!block;n#doGameMsgNotify#0;n#!!block;n#GameCallback#0" />
-            <element signature="n#!!block;n#doRespOne#0;n#!!block;n#GameCallback#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/MainRouter.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
+        <state relative-caret-position="242">
           <caret line="26" column="61" selection-start-line="26" selection-start-column="61" selection-end-line="26" selection-end-column="61" />
           <folding>
             <element signature="n#!!block;n#MainRouter#0;n#!!block;n#MainRouter#0" />
@@ -1175,18 +1057,40 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/client/tars/jfgameclientproto/TRespPackage.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/RoomServer.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#2532#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="220">
+          <caret line="10" selection-start-line="10" selection-start-column="1" selection-end-line="11" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableComponent.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/comm/TarsStructHandler/HandlerRouterResp.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/comm/TarsStructHandler/HandlerRouterReq.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/database/table/TableBase.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="149" column="34" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
+        <state relative-caret-position="572">
+          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
           <folding>
             <element signature="e#58#298#0" expanded="true" />
             <element signature="n#!!block;n#ToString#0;n#!!block;n#TableBase#0" />
@@ -1198,10 +1102,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/RoomServer.yaml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/comm/TarsStructHandler/HandlerRouterMsg.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" selection-start-line="10" selection-start-column="1" selection-end-line="11" selection-end-column="80" />
+        <state relative-caret-position="162">
+          <caret line="25" column="84" selection-start-line="25" selection-start-column="84" selection-end-line="25" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/jfgame/kotlin/logic/GameCallback.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="53" column="20" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
+          <folding>
+            <element signature="n#!!block;n#doGameMsgNotify#0;n#!!block;n#GameCallback#0" />
+            <element signature="n#!!block;n#doRespOne#0;n#!!block;n#GameCallback#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bzw/tars/server/TimerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="37" column="64" lean-forward="true" selection-start-line="37" selection-start-column="64" selection-end-line="37" selection-end-column="64" />
         </state>
       </provider>
     </entry>
